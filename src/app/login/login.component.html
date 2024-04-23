@@ -1,12 +1,12 @@
 <div style="background-color: rgba(163, 161, 161, 1);" class="card p-4 d-flex flex-column">
     <h1 class="p-2 text-center">Iniciar sesión</h1>
     <!-- Input para recoger los datos de inicio de sesion. -->
-    <input class="rounded-2" type="text" placeholder="Usuario" [(ngModel)]="Username">
+    <input class="rounded-2" type="text" placeholder="Usuario" [(ngModel)]="usuario.userName">
     <br>
-    <input class="rounded-2" type="text" placeholder="Contraseña" [(ngModel)]="password">
+    <input class="rounded-2" type="text" placeholder="Contraseña" [(ngModel)]="usuario.password">
     <!-- Checkbox para recordar la sesion y link para recuperar la contraseña.-->
     <div class="p-2 d-flex flex-row">
-        <input type="checkbox" [(ngModel)]="remenberMe">
+        <input type="checkbox" name="remenber" [(ngModel)]="remenberMe">
         <label for="remenber">
             <span>Recordarme</span>
         </label>
@@ -15,7 +15,7 @@
         </a>
     </div>
     <!-- Boton de inicio de sesion usando metodo. -->
-    <a href="#" style="background-color: rgba(23, 24, 59, 1);" class="btn btn-primary p-2 text-center " (click)="loginUser()">
+    <a href="#" style="background-color: rgba(23, 24, 59, 1);" class="btn btn-primary p-2 text-center " (click)="OnLogin()">
         <span>Iniciar sesión</span>
     </a>
     <br>
