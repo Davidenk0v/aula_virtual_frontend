@@ -1,0 +1,38 @@
+<div style="background-color: rgba(163, 161, 161, 1);" class="card p-4 d-flex flex-column">
+    <h1 class="p-2 text-center">Registro</h1>
+    <!-- Input para recoger los datos de registro. -->
+    <input class="rounded-2" type="text" placeholder="Usuario" [(ngModel)]="userName">
+    <br>
+    <input class="rounded-2" type="text" placeholder="Correo" [(ngModel)]="email">
+    <br>
+    <input class="rounded-2" type="text" placeholder="Contraseña" [(ngModel)]="password">
+    <br>
+    <!-- Boton de registro usando metodo. -->
+    <a href="#" style="background-color: rgba(23, 24, 59, 1);" class="btn btn-primary p-2 text-center "
+        (click)="registerUser()">
+        <span>Inicie sesion</span>
+    </a>
+    <br>
+    <br>
+    <!-- Boton de registro usando Google. -->
+    <a href="#" class="btn btn-primary bg-light text-dark ">
+        <div class="d-inline-flex">
+            <img style="height: 1.1rem;"
+                src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png"
+                class="img-fluid align-self-center" alt="error">
+            <span class="mx-2">Continuar con Google</span>
+        </div>
+    </a>
+    <br>
+    <a href="#" class="btn btn-primary bg-light text-dark ">
+        <div class="d-inline-flex">
+            <img style="height: 1.1rem;"
+                src="https://seeklogo.com/images/T/twitter-x-logo-0339F999CF-seeklogo.com.png?v=638264860180000000"
+                class="img-fluid align-self-center" alt="error">
+            <span class="mx-2">Continuar con X</span>
+        </div>
+    </a>
+    <br>
+    <!-- link para iniciar sesion. -->
+    <p class="text-center">¿Ya eres mienbro?<br><a href="" style="color: rgba(0, 56, 105, 1);">Inicie sesion</a></p>
+</div>
