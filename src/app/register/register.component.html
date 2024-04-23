@@ -1,15 +1,15 @@
 <div style="background-color: rgba(163, 161, 161, 1);" class="card p-4 d-flex flex-column">
     <h1 class="p-2 text-center">Registro</h1>
     <!-- Input para recoger los datos de registro. -->
-    <input class="rounded-2" type="text" placeholder="Usuario" [(ngModel)]="userName">
+    <input class="rounded-2" type="text" placeholder="Usuario" [(ngModel)]="usuario.userName">
     <br>
-    <input class="rounded-2" type="text" placeholder="Correo" [(ngModel)]="email">
+    <input class="rounded-2" type="text" placeholder="Correo" [(ngModel)]="usuario.email">
     <br>
-    <input class="rounded-2" type="text" placeholder="Contraseña" [(ngModel)]="password">
+    <input class="rounded-2" type="text" placeholder="Contraseña" [(ngModel)]="usuario.password">
     <br>
     <!-- Boton de registro usando metodo. -->
     <a href="#" style="background-color: rgba(23, 24, 59, 1);" class="btn btn-primary p-2 text-center "
-        (click)="registerUser()">
+        (click)="onRegister()">
         <span>Inicie sesion</span>
     </a>
     <br>
@@ -34,5 +34,5 @@
     </a>
     <br>
     <!-- link para iniciar sesion. -->
-    <p class="text-center">¿Ya eres mienbro?<br><a href="" style="color: rgba(0, 56, 105, 1);">Inicie sesion</a></p>
+    <p class="text-center">¿Ya eres mienbro?<br><a aria-current="page" routerLink="/login" style="color: rgba(0, 56, 105, 1);">Inicie sesion</a></p>
 </div>
