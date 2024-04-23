@@ -1,22 +1,22 @@
 <div style="background-color: rgba(163, 161, 161, 1);" class="card p-4 d-flex flex-column">
-    <h1 class="p-2 text-center">Login</h1>
+    <h1 class="p-2 text-center">Iniciar sesión</h1>
     <!-- Input para recoger los datos de inicio de sesion. -->
-    <input class="rounded-2" type="text" placeholder="Username" [(ngModel)]="Username">
+    <input class="rounded-2" type="text" placeholder="Usuario" [(ngModel)]="Username">
     <br>
-    <input class="rounded-2" type="text" placeholder="password" [(ngModel)]="password">
+    <input class="rounded-2" type="text" placeholder="Contraseña" [(ngModel)]="password">
     <!-- Checkbox para recordar la sesion y link para recuperar la contraseña.-->
     <div class="p-2 d-flex flex-row">
         <input type="checkbox" [(ngModel)]="remenberMe">
         <label for="remenber">
-            <span>Remenber me</span>
+            <span>Recordarme</span>
         </label>
         <a href="" style="color: rgba(0, 56, 105, 1);" class="ms-auto">
-            <span>Forgot password?</span>
+            <span>¿Se olvido la contraseña?</span>
         </a>
     </div>
     <!-- Boton de inicio de sesion usando metodo. -->
     <a href="#" style="background-color: rgba(23, 24, 59, 1);" class="btn btn-primary p-2 text-center " (click)="loginUser()">
-        <span>Login</span>
+        <span>Iniciar sesión</span>
     </a>
     <br>
     <br>
@@ -26,9 +26,9 @@
             <img style="height: 1.1rem;"
                 src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png"
                 class="img-fluid align-self-center" alt="error">
-            <span class="mx-2">Google</span>
+            <span class="mx-2">Continuar con Google</span>
         </div>
     </a>
     <!-- link para registrarse. -->
-    <p>New here? <a href="" style="color: rgba(0, 56, 105, 1);">Sign-in</a></p>
+    <p class="text-center">¿eres nuevo? <a href="" style="color: rgba(0, 56, 105, 1);">Registrese</a></p>
 </div>
