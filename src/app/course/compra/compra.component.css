@@ -16,6 +16,7 @@ img{
     position: relative; 
     top: 1%; 
     left: 3%;
+    border-radius: 10px;
 } 
 #contImg{
     height: 216px;  
@@ -34,12 +35,12 @@ img{
     justify-content: center; 
     position: relative;
     bottom: 210px;
-    padding:5px;
-
+    padding:5px; 
 }
 
 #btnBuy>input{
     height: 50px;
     width: 190px;
     font-size: x-large;
+    border-radius: 10px;
 }
