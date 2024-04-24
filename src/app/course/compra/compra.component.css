@@ -1,0 +1,44 @@
+*{
+    margin: 0;
+    padding: 0;
+} 
+
+#info_compra{
+    background-color: #BDBDBD; 
+    padding-top: 2%;
+    height: 100%
+} 
+
+img{ 
+    height: 200px;
+    width: 94%;
+    position: relative; 
+    top: 1%; 
+    left: 3%;
+} 
+#contImg{
+    height: 216px;  
+}
+#price{   
+   display: flex;
+   justify-content: center;
+
+    font-size:xx-large; 
+    color: #17183B;
+    padding-top: 10px;
+} 
+
+#btnBuy{
+    display: flex;
+    justify-content: center; 
+    position: relative;
+    bottom: 210px;
+    padding:5px;
+
+}
+
+#btnBuy>input{
+    height: 50px;
+    width: 190px;
+    font-size: x-large;
+}
