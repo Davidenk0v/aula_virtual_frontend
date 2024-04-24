@@ -1,3 +1,5 @@
+@import '../../../node_modules/@fortawesome/fontawesome-free/css/all.css';
+
 .logoTitle {
   color: #ffffff;
   font-size: 26px;
@@ -9,6 +11,22 @@
     background-color: #17183B;
 }
 
-.searchBar {
+.searchContainer {
     margin-left: 3%;
+}
+
+.searchBar {
+  border: #17183B solid 1px;
+  border-radius: 5px;
+  margin-left: -10%;
+  margin-top: 3%;
+}
+
+.magnifyingIcon {
+  margin-left: 2%;
+  color: #ffffff;
+}
+
+.magnifyingIcon:hover {
+  color: #CECECE;
 }
