@@ -1,26 +1,27 @@
-<div style="background-color: rgba(163, 161, 161, 1);" class="card p-4 d-flex flex-column">
+<div class="contenedor-principal card p-4 d-flex flex-column">
     <h1 class="p-2 text-center">Iniciar sesión</h1>
     <!-- Input para recoger los datos de inicio de sesion. -->
-    <input class="rounded-2" type="text" placeholder="Usuario" [(ngModel)]="usuario.userName">
+    <input class="entrada rounded-2" type="text" placeholder="Usuario" [(ngModel)]="usuario.userName">
     <br>
-    <input class="rounded-2" type="text" placeholder="Contraseña" [(ngModel)]="usuario.password">
+    <input class="entrada rounded-2" type="text" placeholder="Contraseña" [(ngModel)]="usuario.password">
     <!-- Checkbox para recordar la sesion y link para recuperar la contraseña.-->
     <div class="p-2 d-flex flex-row">
         <input type="checkbox" name="remenber" [(ngModel)]="remenberMe">
         <label for="remenber">
             <span>Recordarme</span>
         </label>
-        <a href="" style="color: rgba(0, 56, 105, 1);" class="ms-auto">
+        ><!-- ¿Añadir metodo para hacer peticion para recuperar contraseña? -->
+        <a href="" class="enlace ms-auto">
             <span>¿Se olvido la contraseña?</span>
         </a>
     </div>
     <!-- Boton de inicio de sesion usando metodo. -->
-    <a href="#" style="background-color: rgba(23, 24, 59, 1);" class="btn btn-primary p-2 text-center " (click)="OnLogin()">
+    <a href="#" class="boton-login btn btn-primary p-2 text-center " (click)="onLogin()">
         <span>Iniciar sesión</span>
     </a>
     <br>
     <br>
-    <!-- Boton de inicio de sesion usando Google. -->
+    <!-- Boton de inicio de sesion usando Google. 
     <a href="#" class="btn btn-primary bg-light text-dark ">
         <div class="d-inline-flex">
             <img style="height: 1.1rem;"
@@ -28,7 +29,12 @@
                 class="img-fluid align-self-center" alt="error">
             <span class="mx-2">Continuar con Google</span>
         </div>
-    </a>
+    </a> -->
     <!-- link para registrarse. -->
-    <p class="text-center">¿eres nuevo? <a href="" style="color: rgba(0, 56, 105, 1);">Registrese</a></p>
+    <p class="text-center">
+        <span>¿eres nuevo? </span>
+        <a class="enlace" aria-current="page" routerLink="/register">
+            <span>Registrese</span>
+        </a>
+    </p>
 </div>

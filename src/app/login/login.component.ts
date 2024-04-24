@@ -21,6 +21,9 @@ export class LoginComponent {
     this.onInit();
   }
 
+  /**
+   * Metodo que guarda si iniciar sesion automaticamente o no.
+   */
   onInit() {
     if (localStorage.getItem("remenberMe") == null) {
       localStorage.setItem("remenberMe", "false");
@@ -40,11 +43,11 @@ export class LoginComponent {
    * 
    * TODO Implementacion sin testear del GET
    */
-  OnLogin() {
+  onLogin() {
     const headers = new HttpHeaders();
     const body = {userName: this.usuario.userName, password: this.usuario.password}
     this.http.post<any>("https://6627ba09b625bf088c097e87.mockapi.io/api/v1/users/user/", body, { headers }).subscribe((res:any)=>{
-      alert(res)
+      // Falta implementar la respuesta condicional de la API en funcion del estado de la peticion.
       if (res != null) {
         alert("Login Success");
         // Colocar la pagina a la que envia al iniciar sesion.
