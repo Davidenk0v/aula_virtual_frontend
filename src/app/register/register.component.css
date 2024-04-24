@@ -1,0 +1,23 @@
+.contenedor-principal{
+    background-color: rgba(163, 161, 161, 1);
+}
+
+.entrada:focus {
+    background-color: rgb(222, 222, 231);
+}
+
+.boton-register {
+    background-color: rgba(23, 24, 59, 1);
+}
+
+.boton-register:hover {
+    background-color: rgb(34, 37, 102);
+}
+
+.enlace {
+    color: rgba(0, 56, 105, 1);
+}
+
+.enlace:hover {
+    color: rgb(0, 84, 158);
+}

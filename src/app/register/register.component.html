@@ -1,20 +1,25 @@
-<div style="background-color: rgba(163, 161, 161, 1);" class="card p-4 d-flex flex-column">
+<div class="card p-4 d-flex flex-column contenedor-principal">
     <h1 class="p-2 text-center">Registro</h1>
     <!-- Input para recoger los datos de registro. -->
-    <input class="rounded-2" type="text" placeholder="Usuario" [(ngModel)]="usuario.userName">
+    <input class="rounded-2 entrada" type="text" placeholder="Usuario" [(ngModel)]="usuario.userName">
     <br>
-    <input class="rounded-2" type="text" placeholder="Correo" [(ngModel)]="usuario.email">
+    <input class="rounded-2 entrada" type="text" placeholder="Nombre" [(ngModel)]="usuario.firstName">
     <br>
-    <input class="rounded-2" type="text" placeholder="Contraseña" [(ngModel)]="usuario.password">
+    <input class="rounded-2 entrada" type="text" placeholder="Apellido" [(ngModel)]="usuario.lastName">
+    <br>
+    <input class="rounded-2 entrada" type="text" placeholder="Correo" [(ngModel)]="usuario.email">
+    <br>
+    <input class="rounded-2 entrada" type="text" placeholder="Direccion" [(ngModel)]="usuario.address">
+    <br>
+    <input class="rounded-2 entrada" type="text" placeholder="Contraseña" [(ngModel)]="usuario.password">
     <br>
     <!-- Boton de registro usando metodo. -->
-    <a href="#" style="background-color: rgba(23, 24, 59, 1);" class="btn btn-primary p-2 text-center "
-        (click)="onRegister()">
+    <a href="#" class="btn btn-primary p-2 text-center boton-register" (click)="onRegister()">
         <span>Inicie sesion</span>
     </a>
     <br>
     <br>
-    <!-- Boton de registro usando Google. -->
+    <!-- Boton de registro usando Google.  
     <a href="#" class="btn btn-primary bg-light text-dark ">
         <div class="d-inline-flex">
             <img style="height: 1.1rem;"
@@ -32,7 +37,13 @@
             <span class="mx-2">Continuar con X</span>
         </div>
     </a>
-    <br>
+    <br> -->
     <!-- link para iniciar sesion. -->
-    <p class="text-center">¿Ya eres mienbro?<br><a aria-current="page" routerLink="/login" style="color: rgba(0, 56, 105, 1);">Inicie sesion</a></p>
+    <p class="text-center">
+        <span>¿Ya eres mienbro?</span>
+        <br>
+        <a class="enlace" aria-current="page" routerLink="/login">
+            <span>Inicie sesion</span>
+        </a>
+    </p>
 </div>
