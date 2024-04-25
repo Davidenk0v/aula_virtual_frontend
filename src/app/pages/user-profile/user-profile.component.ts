@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Class } from '../interfaces/Class';
-import { User } from '../interfaces/User';
+import { Class } from '../../interfaces/Class';
+import { User } from '../../interfaces/User';
 
 @Component({
   selector: 'app-user-profile',
@@ -11,9 +11,6 @@ import { User } from '../interfaces/User';
   styleUrl: './user-profile.component.css',
 })
 export class UserProfileComponent {
-  ngOnInit(): void {
-
-  }
 
 
 
