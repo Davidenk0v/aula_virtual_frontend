@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg navbar-dark navbarBackground">
+  <div class="container px-4">
+    <!-- En este a deberán de poner la referencia de la pantalla Home -->
+    <a class="navbar-brand" href="home">
+      <span class="logoTitle">Atos V.School </span>
+
+      <!-- Se necesitará modificar el comportamiento de este modulo -->
+    </a>
+    <span class="navbar-brand searchContainer"
+      ><input type="text" class="searchBar" placeholder="Buscar" />
+      <!-- Aqui se deberá de poner la ref de la pantalla de buscar -->
+      <a href="searchScreen"> 
+      <i class="fa-solid fa-magnifying-glass magnifyingIcon"
+      ></i>
+    </a>
+    </span>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" (click)="goToProfile()">Profile</a>
+        </li>
+
+        <!-- Este link deberá mandar a la página de login/ register, la cual estará implementando un compañero -->
+        <li class="nav-item"><a class="nav-link">Iniciar sesión</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
