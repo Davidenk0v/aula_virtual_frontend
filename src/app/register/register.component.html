@@ -1,0 +1,49 @@
+<div class="card p-4 d-flex flex-column contenedor-principal">
+    <h1 class="p-2 text-center">Registro</h1>
+    <!-- Input para recoger los datos de registro. -->
+    <input class="rounded-2 entrada" type="text" placeholder="Usuario" [(ngModel)]="usuario.userName">
+    <br>
+    <input class="rounded-2 entrada" type="text" placeholder="Nombre" [(ngModel)]="usuario.firstName">
+    <br>
+    <input class="rounded-2 entrada" type="text" placeholder="Apellido" [(ngModel)]="usuario.lastName">
+    <br>
+    <input class="rounded-2 entrada" type="text" placeholder="Correo" [(ngModel)]="usuario.email">
+    <br>
+    <input class="rounded-2 entrada" type="text" placeholder="Direccion" [(ngModel)]="usuario.address">
+    <br>
+    <input class="rounded-2 entrada" type="text" placeholder="Contraseña" [(ngModel)]="usuario.password">
+    <br>
+    <!-- Boton de registro usando metodo. -->
+    <a href="#" class="btn btn-primary p-2 text-center boton-register" (click)="onRegister()">
+        <span>Inicie sesion</span>
+    </a>
+    <br>
+    <br>
+    <!-- Boton de registro usando Google.  
+    <a href="#" class="btn btn-primary bg-light text-dark ">
+        <div class="d-inline-flex">
+            <img style="height: 1.1rem;"
+                src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png"
+                class="img-fluid align-self-center" alt="error">
+            <span class="mx-2">Continuar con Google</span>
+        </div>
+    </a>
+    <br>
+    <a href="#" class="btn btn-primary bg-light text-dark ">
+        <div class="d-inline-flex">
+            <img style="height: 1.1rem;"
+                src="https://seeklogo.com/images/T/twitter-x-logo-0339F999CF-seeklogo.com.png?v=638264860180000000"
+                class="img-fluid align-self-center" alt="error">
+            <span class="mx-2">Continuar con X</span>
+        </div>
+    </a>
+    <br> -->
+    <!-- link para iniciar sesion. -->
+    <p class="text-center">
+        <span>¿Ya eres mienbro?</span>
+        <br>
+        <a class="enlace" aria-current="page" routerLink="/login">
+            <span>Inicie sesion</span>
+        </a>
+    </p>
+</div>
