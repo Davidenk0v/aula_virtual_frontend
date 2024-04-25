@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-compra',
+  selector: 'app-payment',
   standalone: true,
   imports: [],
-  templateUrl: './compra.component.html',
-  styleUrl: './compra.component.css'
+  templateUrl: './payment.component.html',
+  styleUrl: './payment.component.css'
 })
-export class CompraComponent {
+export class PaymentComponent {
   url:string = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdPTZvHXqUKrFwXtWTABC_5Lt6DC1u4x2vag&s";
   precio:number = 299.99;
 }
