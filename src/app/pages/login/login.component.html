@@ -1,0 +1,52 @@
+<div class="form-group card p-4 d-flex flex-column">
+    <form [formGroup]="loginForm">
+    <h1 class="p-2 text-center">Iniciar sesión</h1>
+    <!-- Input para recoger los datos de inicio de sesion. -->
+    <input formControlName="username" name="username" id="username" class="form-control" type="text" placeholder="Introduce tu nombre de usuario">
+    <br>
+    <input class="entrada rounded-2" type="text" placeholder="Contraseña" >
+    <!-- Checkbox para recordar la sesion y link para recuperar la contraseña.-->
+    <div class="p-2 d-flex flex-row">
+        <input type="checkbox" name="remenber">
+        <label for="remenber">
+            <span>Recuerdarme</span>
+        </label>
+        <!-- ¿Añadir metodo para hacer peticion para recuperar contraseña? -->
+        <a href="" class="enlace ms-auto">
+            <span>¿Se olvido la contraseña?</span>
+        </a>
+    </div>
+    <!-- Boton de inicio de sesion usando metodo. -->
+    <a href="#" class="boton-login btn btn-primary p-2 text-center " (click)="onLogin()">
+        <span>Iniciar sesión</span>
+    </a>
+    <br>
+    <br>
+    <!-- link para registrarse. -->
+    <p class="text-center">
+        <span>¿eres nuevo? </span>
+        <a class="enlace" aria-current="page" routerLink="/register">
+            <span>Registrese</span>
+        </a>
+    </p>
+</form>
+</div>
+
+<form>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    </div>
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+
