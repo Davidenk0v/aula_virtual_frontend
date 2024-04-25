@@ -1,4 +1,4 @@
-export interface classI {
+export interface Class {
 
     className: string,
     description: string,

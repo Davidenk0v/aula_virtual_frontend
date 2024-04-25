@@ -1,49 +1,54 @@
-<div class="card p-4 d-flex flex-column contenedor-principal">
-    <h1 class="p-2 text-center">Registro</h1>
-    <!-- Input para recoger los datos de registro. -->
-    <input class="rounded-2 entrada" type="text" placeholder="Usuario" [(ngModel)]="usuario.userName">
-    <br>
-    <input class="rounded-2 entrada" type="text" placeholder="Nombre" [(ngModel)]="usuario.firstName">
-    <br>
-    <input class="rounded-2 entrada" type="text" placeholder="Apellido" [(ngModel)]="usuario.lastName">
-    <br>
-    <input class="rounded-2 entrada" type="text" placeholder="Correo" [(ngModel)]="usuario.email">
-    <br>
-    <input class="rounded-2 entrada" type="text" placeholder="Direccion" [(ngModel)]="usuario.address">
-    <br>
-    <input class="rounded-2 entrada" type="text" placeholder="Contraseña" [(ngModel)]="usuario.password">
-    <br>
-    <!-- Boton de registro usando metodo. -->
-    <a href="#" class="btn btn-primary p-2 text-center boton-register" (click)="onRegister()">
-        <span>Inicie sesion</span>
-    </a>
-    <br>
-    <br>
-    <!-- Boton de registro usando Google.  
-    <a href="#" class="btn btn-primary bg-light text-dark ">
-        <div class="d-inline-flex">
-            <img style="height: 1.1rem;"
-                src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png"
-                class="img-fluid align-self-center" alt="error">
-            <span class="mx-2">Continuar con Google</span>
+<div class="form-group container">
+    <div class="row mt-5 rounded-3 col-6 mx-auto bg-light">
+        <form  class="col-8 mx-auto">
+        <h1 class="p-2 text-center">Registrarse</h1>
+
+        <small class="mb-4">Datos personales:</small>
+        <!-- Input para recoger los datos de inicio de sesion. -->
+        <input formControlName="username" name="username" id="username" class="form-control mb-4" type="text" placeholder="Introduce tu nombre de usuario">
+    
+        <input formControlName="password" name="password" id="password" class="form-control mb-4" type="password" placeholder="Introduce tu contraseña">
+
+        <input formControlName="password2" name="password2" id="password2" class="form-control mb-4" type="password" placeholder="Vuelve a introducir tu contraseña">
+    
+        <input formControlName="firstName" name="firstName" id="firstName" class="form-control mb-4" type="text" placeholder="Introduce tu nombre">
+    
+        <input formControlName="lastName" name="lastName" id="lastName" class="form-control mb-4" type="text" placeholder="Introduce tus apellidos">
+    
+        <input formControlName="email" name="email" id="email" class="form-control mb-4" type="email" placeholder="Introduce tu nombre de usuario">
+
+        <small class="mb-4">Dirección:</small>
+    
+        <input formControlName="street" name="street" id="street" class="form-control mb-4" type="text" placeholder="Introduce tu dirección">
+        
+        <input formControlName="number" name="number" id="number" class="form-control mb-4 " type="number" placeholder="Introduce el número de la calle" min="1">
+        
+        <input formControlName="city" name="city" id="city" class="form-control mb-4" type="text" placeholder="Introduce tu ciudad">
+
+        <input formControlName="country" name="country" id="country" class="form-control mb-4" type="text" placeholder="Introduce tu país">
+
+        <input formControlName="street" name="street" id="street" class="form-control mb-4" type="text" placeholder="Introduce tu dirección">
+
+        <input formControlName="postalCode" name="postalCode" id="postalCode" class="form-control mb-4" type="number" placeholder="Introduce tu código postal" min="0">
+        <!-- Checkbox para recordar la sesion y link para recuperar la contraseña.-->
+        <div class="p-2  text-center">
+            <!-- ¿Añadir metodo para hacer peticion para recuperar contraseña? -->
+            <a href="" class="enlace ms-auto mb-2">
+                <span>¿Ya tienes cuenta? Inicia sesión</span>
+            </a>
         </div>
-    </a>
-    <br>
-    <a href="#" class="btn btn-primary bg-light text-dark ">
-        <div class="d-inline-flex">
-            <img style="height: 1.1rem;"
-                src="https://seeklogo.com/images/T/twitter-x-logo-0339F999CF-seeklogo.com.png?v=638264860180000000"
-                class="img-fluid align-self-center" alt="error">
-            <span class="mx-2">Continuar con X</span>
+        <!-- Boton de inicio de sesion usando metodo. -->
+        <div class="text-center">
+            <button class="boton-login btn btn-primary p-2 text-center aling-center mb-2">
+                Registrarse
+            </button>
         </div>
-    </a>
-    <br> -->
-    <!-- link para iniciar sesion. -->
-    <p class="text-center">
-        <span>¿Ya eres mienbro?</span>
-        <br>
-        <a class="enlace" aria-current="page" routerLink="/login">
-            <span>Inicie sesion</span>
-        </a>
-    </p>
-</div>
+        <!-- link para registrarse. -->
+        <p class="text-center">
+            <a class="enlace" aria-current="page" routerLink="/register">
+                <span>Olvidé mi contraseña</span>
+            </a>
+        </p>
+    </form>
+    </div>
+    </div>

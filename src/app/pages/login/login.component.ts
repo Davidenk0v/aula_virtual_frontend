@@ -4,17 +4,20 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { RouterModule , Router } from '@angular/router';
 import { LoginService } from '../../services/auth/login.service';
 import { LoginRequest } from '../../interfaces/LoginRequest';
+import { SuccessMessageComponent } from '../../components/success-message/success-message.component';
+import { ErrorMessageComponent } from '../../components/error-message/error-message.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule , HttpClientModule, RouterModule],
+  imports: [ReactiveFormsModule , HttpClientModule, RouterModule, SuccessMessageComponent, ErrorMessageComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
 
   errorMessage:string = '';
+  successMessage:string = '';
 
   loginForm= this.formBuilder.group({
     username:['',[Validators.required]],
@@ -41,8 +44,10 @@ export class LoginComponent {
       this.loginService.login(this.loginForm.value as LoginRequest).subscribe({
         next: (data) => {
           this.router.navigateByUrl('/home');
+          console.log(this.loginForm.value);
         },
         error: (error) => {
+          this.errorMessage = error;
           console.error(error);
         },
         complete: () => {

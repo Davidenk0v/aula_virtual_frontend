@@ -1,10 +1,12 @@
+import { Address } from "./Address";
+
 export interface User {
 
   userName: string;
   firstName: string;
   lastName: string;
   email: string;
-  address: string;
+  address: Address;
   password: string;
 
 }

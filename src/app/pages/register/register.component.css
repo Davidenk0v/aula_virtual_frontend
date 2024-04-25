@@ -1,4 +1,4 @@
-.contenedor-principal{
+.contenedor-principal {
     background-color: rgba(163, 161, 161, 1);
 }
 
@@ -6,11 +6,11 @@
     background-color: rgb(222, 222, 231);
 }
 
-.boton-register {
+.boton-login {
     background-color: rgba(23, 24, 59, 1);
 }
 
-.boton-register:hover {
+.boton-login:hover {
     background-color: rgb(34, 37, 102);
 }
 

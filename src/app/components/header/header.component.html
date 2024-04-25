@@ -26,14 +26,12 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" (click)="goToProfile()">Profile</a>
-        </li>
-
+      <div class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <a class="nav-link"  >Profile</a>
         <!-- Este link deberá mandar a la página de login/ register, la cual estará implementando un compañero -->
-        <li class="nav-item"><a class="nav-link">Iniciar sesión</a></li>
-      </ul>
+        <a class="nav-link" routerLink="/login">Iniciar sesión</a>
+        <a class="nav-link" routerLink="/register">Registrarse</a>
+      </div>
     </div>
   </div>
 </nav>
