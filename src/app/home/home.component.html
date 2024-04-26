@@ -1,0 +1,133 @@
+<div class="container">
+
+        <img src="../../assets/atos background.png" alt="photos" class="imagePlaceholder">
+
+    <div class="my-2">
+        <h3 class="text-center">Cursos más populares</h3>
+        <div id="carouselPopular" class="carousel slide">
+          <div class="carousel-indicators" style="margin-bottom: -2%">
+            @for (class of classes; track indexCaroucel; let indexCaroucel =
+          $index) {
+            @if (indexCaroucel < totalClassesPopular / indexCaroucel) {
+            <button
+            type="button"
+            data-bs-target="#carouselPopular"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
+            }
+          }
+          </div>
+          <div class="carousel-inner carouselContainer">
+            @for (course of classes; track indexCaroucel; let indexCaroucel =
+            $index) { @if (indexCaroucel < 3) {
+            <div class="carousel-item active">
+              <tr class="classContainer">
+                @for (class of classes; track currentSlidePopular; let indexClasses =
+                $index) { @if (indexClasses < currentSlidePopular + 3 && indexClasses >= currentSlidePopular) {
+                <td class="classes">
+                  <h4>
+                    {{ class.className }}
+                  </h4>
+                  <div class="classDescription">
+                    {{ class.description }}
+                  </div>
+                </td>
+    
+                } }
+              </tr>
+            </div>
+            } }
+          </div>
+    
+          <button
+            class="carousel-control-prev"
+            style="margin-left: -9%"
+            type="button"
+            data-bs-target="#carouselPopular"
+            data-bs-slide="prev"
+            (click)="changeSlideLeftPopular()"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            style="margin-right: -9%"
+            type="button"
+            data-bs-target="#carouselPopular"
+            data-bs-slide="next"
+            (click)="changeSlideRightPopular()"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+      <div class="my-2">
+        <h3 class="text-center">Nuevos cursos</h3>
+        <div id="carouselNew" class="carousel slide">
+          <div class="carousel-indicators" style="margin-bottom: -2%">
+            @for (class of classes; track indexCaroucel; let indexCaroucel =
+          $index) {
+            @if (indexCaroucel < totalClassesNew / indexCaroucel) {
+            <button
+            type="button"
+            data-bs-target="#carouselNew"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
+            }
+          }
+          </div>
+          <div class="carousel-inner carouselContainer">
+            @for (course of classes; track indexCaroucel; let indexCaroucel =
+            $index) { @if (indexCaroucel < 3) {
+            <div class="carousel-item active">
+              <tr class="classContainer">
+                @for (class of classes; track currentSlideNew; let indexClasses =
+                $index) { @if (indexClasses < currentSlideNew + 3 && indexClasses >= currentSlideNew) {
+                <td class="classes">
+                  <h4>
+                    {{ class.className }}
+                  </h4>
+                  <div class="classDescription">
+                    {{ class.description }}
+                  </div>
+                </td>
+    
+                } }
+              </tr>
+            </div>
+            } }
+          </div>
+    
+          <button
+            class="carousel-control-prev"
+            style="margin-left: -9%"
+            type="button"
+            data-bs-target="#carouselNew"
+            data-bs-slide="prev"
+            (click)="changeSlideLeftNew()"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            style="margin-right: -9%"
+            type="button"
+            data-bs-target="#carouselNew"
+            data-bs-slide="next"
+            (click)="changeSlideRightNew()"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+</div>
