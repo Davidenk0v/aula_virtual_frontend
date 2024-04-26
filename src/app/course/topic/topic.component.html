@@ -1,8 +1,9 @@
 <div class="row" id="info_temario"> 
     <h1>{{topic}}</h1> 
     <ul id="listTask">
-        <li *ngFor="let item of items" (click)="showComponent(item)">
-            <span>Lección: {{item}}</span> 
+        <li *ngFor="let lessonItem of lessons" (click)="showComponent(lessonItem)">
+            <span (click)="showListTask = !showComponent">Lección: {{lessonItem}}</span>
+            <app-list-task *ngIf="showListTask" [lesson]="lessonItem" [topicName]="topic" />
         </li>
     </ul> 
 </div>
