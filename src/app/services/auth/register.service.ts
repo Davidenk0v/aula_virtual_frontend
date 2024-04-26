@@ -21,7 +21,7 @@ export class RegisterService {
    }
 
    register(credentials:RegisterRequest):Observable<any>{
-    return this.http.post<any>(`${env_api.urlHost}auth/register`, credentials)
+    return this.http.post<any>(`${env_api.urlApi}/users/`, credentials)
     .pipe(tap((response) => {
       console.log(response);
       sessionStorage.setItem("token", response.token);

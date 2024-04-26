@@ -52,9 +52,9 @@ private prepareRequest():RegisterRequest{
   };
 
   this.userRegister = {
-    firstName: this.registerForm.value.firstName ??'',
-    lastName: this.registerForm.value.lastName ??'',
-    userName: this.registerForm.value.username ??'',
+    firstname: this.registerForm.value.firstName ??'',
+    lastname: this.registerForm.value.lastName ??'',
+    username: this.registerForm.value.username ??'',
     email: this.registerForm.value.email ??'',
     password: this.registerForm.value.password ??'',
     address: this.address

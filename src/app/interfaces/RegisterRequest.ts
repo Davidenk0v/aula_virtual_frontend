@@ -2,9 +2,9 @@ import { Address } from "./Address";
 
 export interface RegisterRequest {
 
-    userName?: string;
-    firstName?: string;
-    lastName?: string;
+    username?: string;
+    firstname?: string;
+    lastname?: string;
     email?: string;
     address?: Address;
     password?: string;
