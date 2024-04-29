@@ -1,0 +1,9 @@
+.titulo-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.titulo{
+    margin-top: 2%;
+    margin-left: 2%;
+}
