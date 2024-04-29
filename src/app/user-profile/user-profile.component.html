@@ -1,4 +1,3 @@
-
 <!-- Popup de actualizar usuario -->
 <div class="popup-overlay">
   @if (popupShown) {
@@ -76,24 +75,31 @@
 <div class="container py-5">
   <div class="infoUser">
     <img src="../../assets/gato.jpg" class="pfp" />
-    <div class="infoText">{{ user.firstName }} {{ user.lastName }} ({{ user.username }})</div>
+    <div class="infoText">
+      {{ user.firstName }} {{ user.lastName }} ({{ user.username }})
+    </div>
     <div class="infoText">Correo: {{ user.email }}</div>
     <div class="infoText">Dirección: {{ user.address }}</div>
     <button class="btn updateBtn" (click)="showPopup()">Update</button>
   </div>
   <div class="my-2">
     <h2>Cursos en progreso</h2>
-    <app-carousel-component [courses]="InProggressClasses" [coursesLength]="InProggressClasses.length"></app-carousel-component>
-
+    <app-carousel-component
+      [courses]="InProggressClasses"
+      [coursesLength]="InProggressClasses.length"
+    ></app-carousel-component>
   </div>
   <div class="my-2 cursos-saved">
     <h2>Cursos guardados</h2>
-    <app-carousel-component [courses]="SavedClasses" [coursesLength]="SavedClasses.length"></app-carousel-component>
-
+    <app-carousel-component
+      [courses]="SavedClasses"
+      [coursesLength]="SavedClasses.length"
+    ></app-carousel-component>
   </div>
   <div class="my-2">
     <h2>Cursos Completados</h2>
-    <app-carousel-component [courses]="FinishedClasses" [coursesLength]="FinishedClasses.length"></app-carousel-component>
-
+    <app-carousel-component
+      [courses]="FinishedClasses"
+      [coursesLength]="FinishedClasses.length"
+    ></app-carousel-component>
   </div>
-</div>

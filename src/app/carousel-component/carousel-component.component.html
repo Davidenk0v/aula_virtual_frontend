@@ -13,18 +13,15 @@
   </div>
   <div class="carousel-inner carouselContainer">
     @for (course of courses; track indexCaroucel; let indexCaroucel = $index) {
-      
-    @if (indexCaroucel <  classesChantity) {
+    @if (indexCaroucel < classesChantity) {
     <div class="carousel-item active">
       <tr class="classContainer">
         @for (class of courses; track currentSlide; let indexClasses = $index) {
         @if (indexClasses < currentSlide + 3 && indexClasses >= currentSlide) {
-          
+
         <td class="classes">
           <app-course-component [class]="class"></app-course-component>
         </td>
-        
-
         } }
       </tr>
     </div>
