@@ -1,3 +1,5 @@
+
+<!-- Popup de actualizar usuario -->
 <div class="popup-overlay">
   @if (popupShown) {
   <div class="popup">
@@ -70,6 +72,7 @@
   }
 </div>
 
+<!-- Perfil del usuario -->
 <div class="container py-5">
   <div class="infoUser">
     <img src="../../assets/gato.jpg" class="pfp" />
@@ -80,195 +83,17 @@
   </div>
   <div class="my-2">
     <h2>Cursos en progreso</h2>
+    <app-carousel-component [courses]="InProggressClasses" [coursesLength]="InProggressClasses.length"></app-carousel-component>
 
-    <div id="carouselProgress" class="carousel slide">
-      <div class="carousel-indicators" style="margin-bottom: -2%">
-      @for (class of classes; track indexCaroucel; let indexCaroucel =
-      $index) {
-        @if (indexCaroucel < totalClassesProgress / indexCaroucel) {
-        <button
-        type="button"
-        data-bs-target="#carouselProgress"
-        data-bs-slide-to="0"
-        class="active"
-        aria-current="true"
-        aria-label="Slide 1"
-      ></button>
-        }
-      }
-      </div>
-      <div class="carousel-inner carouselContainer">
-        @for (course of classes; track indexCaroucel; let indexCaroucel =
-        $index) { @if (indexCaroucel < 3) {
-        <div class="carousel-item active">
-          <tr class="classContainer">
-            @for (class of classes; track currentSlideProgress; let indexClasses =
-            $index) { @if (indexClasses < currentSlideProgress + 3 && indexClasses >= currentSlideProgress) {
-            <td class="classes">
-              <h4>
-                {{ class.className }}
-              </h4>
-              <div class="classDescription">
-                {{ class.description }}
-              </div>
-            </td>
-
-            } }
-          </tr>
-        </div>
-        } }
-      </div>
-
-      <button
-        class="carousel-control-prev"
-        style="margin-left: -9%"
-        type="button"
-        data-bs-target="#carouselProgress"
-        data-bs-slide="prev"
-        (click)="changeSlideLeftProgress()"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button
-        class="carousel-control-next"
-        style="margin-right: -9%"
-        type="button"
-        data-bs-target="#carouselProgress"
-        data-bs-slide="next"
-        (click)="changeSlideRightProgress()"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
   </div>
   <div class="my-2 cursos-saved">
     <h2>Cursos guardados</h2>
-    <div id="carouselSaved" class="carousel slide">
-      <div class="carousel-indicators" style="margin-bottom: -2%">
-        @for (class of classes; track indexCaroucel; let indexCaroucel =
-      $index) {
-        @if (indexCaroucel < totalClassesSaved / indexCaroucel) {
-        <button
-        type="button"
-        data-bs-target="#carouselSaved"
-        data-bs-slide-to="0"
-        class="active"
-        aria-current="true"
-        aria-label="Slide 1"
-      ></button>
-        }
-      }
-      </div>
-      <div class="carousel-inner carouselContainer">
-        @for (course of classes; track indexCaroucel; let indexCaroucel =
-        $index) { @if (indexCaroucel < 3) {
-        <div class="carousel-item active">
-          <tr class="classContainer">
-            @for (class of classes; track currentSlideSaved; let indexClasses =
-            $index) { @if (indexClasses < currentSlideSaved + 3 && indexClasses >= currentSlideSaved) {
-            <td class="classes">
-              <h4>
-                {{ class.className }}
-              </h4>
-              <div class="classDescription">
-                {{ class.description }}
-              </div>
-            </td>
+    <app-carousel-component [courses]="SavedClasses" [coursesLength]="SavedClasses.length"></app-carousel-component>
 
-            } }
-          </tr>
-        </div>
-        } }
-      </div>
-
-      <button
-        class="carousel-control-prev"
-        style="margin-left: -9%"
-        type="button"
-        data-bs-target="#carouselSaved"
-        data-bs-slide="prev"
-        (click)="changeSlideLeftSaved()"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button
-        class="carousel-control-next"
-        style="margin-right: -9%"
-        type="button"
-        data-bs-target="#carouselSaved"
-        data-bs-slide="next"
-        (click)="changeSlideRightSaved()"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
   </div>
   <div class="my-2">
     <h2>Cursos Completados</h2>
-    <div id="carouselComplete" class="carousel slide">
-      <div class="carousel-indicators" style="margin-bottom: -2%">
-        @for (class of classes; track indexCaroucel; let indexCaroucel =
-      $index) {
-        @if (indexCaroucel < totalClassesComplete / indexCaroucel) {
-        <button
-        type="button"
-        data-bs-target="#carouselComplete"
-        data-bs-slide-to="0"
-        class="active"
-        aria-current="true"
-        aria-label="Slide 1"
-      ></button>
-        }
-      }
-      </div>
-      <div class="carousel-inner carouselContainer">
-        @for (course of classes; track indexCaroucel; let indexCaroucel =
-        $index) { @if (indexCaroucel < 3) {
-        <div class="carousel-item active">
-          <tr class="classContainer">
-            @for (class of classes; track currentSlideComplete; let indexClasses =
-            $index) { @if (indexClasses < currentSlideComplete + 3 && indexClasses >= currentSlideComplete) {
-            <td class="classes">
-              <h4>
-                {{ class.className }}
-              </h4>
-              <div class="classDescription">
-                {{ class.description }}
-              </div>
-            </td>
+    <app-carousel-component [courses]="FinishedClasses" [coursesLength]="FinishedClasses.length"></app-carousel-component>
 
-            } }
-          </tr>
-        </div>
-        } }
-      </div>
-
-      <button
-        class="carousel-control-prev"
-        style="margin-left: -9%"
-        type="button"
-        data-bs-target="#carouselComplete"
-        data-bs-slide="prev"
-        (click)="changeSlideLeftComplete()"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button
-        class="carousel-control-next"
-        style="margin-right: -9%"
-        type="button"
-        data-bs-target="#carouselComplete"
-        data-bs-slide="next"
-        (click)="changeSlideRightComplete()"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
   </div>
 </div>

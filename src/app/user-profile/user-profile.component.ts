@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import { userI } from '../modelos/user.interface';
 import { classI } from '../modelos/class.interface';
 import { FormsModule } from '@angular/forms';
+import { CourseComponentComponent } from '../course-component/course-component.component';
+import { CarouselComponentComponent } from '../carousel-component/carousel-component.component';
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CarouselComponentComponent],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css',
 })
@@ -33,11 +35,17 @@ export class UserProfileComponent {
 
   popupShown = false;
 
-  classes: classI[] = [
+  InProggressClasses: classI[] = [
     { className: 'clase 1', description: 'test 1' },
     { className: 'clase 2', description: 'test 1' },
     { className: 'clase 3', description: 'test 2' },
     { className: 'clase 4', description: 'test 1' },
+    { className: 'clase 5', description: 'test 2' },
+    { className: 'clase 6', description: 'test 1' },
+    { className: 'clase 7', description: 'test 2' },
+  ];
+
+  SavedClasses: classI[] = [
     { className: 'clase 5', description: 'test 2' },
     { className: 'clase 6', description: 'test 1' },
     { className: 'clase 7', description: 'test 2' },
@@ -46,93 +54,16 @@ export class UserProfileComponent {
     { className: 'clase 10', description: 'test 2' },
   ];
 
-  classesChantity = 3;
-  currentSlideProgress = 0;
-  totalClassesProgress = this.classes.length;
-
-  changeSlideRightProgress() {
-    if (
-      this.currentSlideProgress <
-        this.totalClassesProgress - this.classesChantity &&
-      this.currentSlideProgress > -1
-    ) {
-      this.currentSlideProgress =
-        this.currentSlideProgress + this.classesChantity;
-    } else {
-      this.currentSlideProgress = this.currentSlideProgress = 0;
-    }
-  }
-
-  changeSlideLeftProgress() {
-    if (
-      this.currentSlideProgress <=
-        this.totalClassesProgress - this.classesChantity &&
-      this.currentSlideProgress > 0
-    ) {
-      this.currentSlideProgress =
-        this.currentSlideProgress - this.classesChantity;
-    } else {
-      this.currentSlideProgress = this.currentSlideProgress = 0;
-    }
-  }
-
-  currentSlideSaved = 0;
-  totalClassesSaved = this.classes.length;
-
-  changeSlideRightSaved() {
-    if (
-      this.currentSlideSaved <
-        this.totalClassesSaved - this.classesChantity &&
-      this.currentSlideSaved > -1
-    ) {
-      this.currentSlideSaved =
-        this.currentSlideSaved + this.classesChantity;
-    } else {
-      this.currentSlideSaved = this.currentSlideSaved = 0;
-    }
-  }
-
-  changeSlideLeftSaved() {
-    if (
-      this.currentSlideSaved <=
-        this.totalClassesSaved - this.classesChantity &&
-      this.currentSlideSaved > 0
-    ) {
-      this.currentSlideSaved =
-        this.currentSlideSaved - this.classesChantity;
-    } else {
-      this.currentSlideSaved = this.currentSlideSaved = 0;
-    }
-  }
-
-  currentSlideComplete = 0;
-  totalClassesComplete = this.classes.length;
-
-  changeSlideRightComplete() {
-    if (
-      this.currentSlideComplete <
-        this.totalClassesComplete - this.classesChantity &&
-      this.currentSlideComplete > -1
-    ) {
-      this.currentSlideComplete =
-        this.currentSlideComplete + this.classesChantity;
-    } else {
-      this.currentSlideComplete = this.currentSlideComplete = 0;
-    }
-  }
-
-  changeSlideLeftComplete() {
-    if (
-      this.currentSlideComplete <=
-        this.totalClassesComplete - this.classesChantity &&
-      this.currentSlideComplete > 0
-    ) {
-      this.currentSlideComplete =
-        this.currentSlideComplete - this.classesChantity;
-    } else {
-      this.currentSlideComplete = this.currentSlideComplete = 0;
-    }
-  }
+  FinishedClasses: classI[] = [
+    { className: 'clase 11', description: 'test 1' },
+    { className: 'clase 12', description: 'test 1' },
+    { className: 'clase 13', description: 'test 2' },
+    { className: 'clase 14', description: 'test 1' },
+    { className: 'clase 15', description: 'test 2' },
+    { className: 'clase 16', description: 'test 1' },
+    { className: 'clase 17', description: 'test 2' },
+    { className: 'clase 18', description: 'test 1' },
+  ];
 
   showPopup(): boolean {
     return (this.popupShown = true);
