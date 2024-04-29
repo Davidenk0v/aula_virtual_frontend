@@ -1,0 +1,26 @@
+.footer-container {
+    position: static;
+    bottom: 0;
+    width: 100%;
+    background-color: #17183B;
+    padding: 10px;
+    text-align: center;
+}
+
+.footer-body{
+    color: #FFFFFF;
+    font-size: 15px;
+    list-style: none;
+    justify-content: center;
+}
+
+.list-styles {
+    list-style: none;
+    
+}
+
+.list-container {
+    display: flex;
+    justify-content: center;
+    margin-right: 4%;
+}
