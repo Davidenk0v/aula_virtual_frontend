@@ -1,11 +1,11 @@
-<body class="container">
+<body class="container my-3">
   <h2 class="text-center">Crear nuevo curso</h2>
-  <div class="containerItems text-center">
-    <div class="itemInput my-2">Nombre del curso: <input type="text" style="width: 40%;" /></div>
-    <div class="itemInput my-2">Descripción: <textarea  style="margin-left: 4.5%; width: 40%; height: 20vh" > </textarea></div>
-    <div class="itemInput my-2">Fecha inicio: <input type="date" style="margin-left: 4.5%; width: 40%;"/></div>
-    <div class="itemInput my-2">Fecha fin: <input type="date" style="margin-left: 6.5%; width: 40%;"/></div>
-    <div class="itemInput my-2">color: <input type="color" style="margin-left: 9%; width: 40%;"/></div>
-    <button class="btn btnSend">Enviar</button>
+  <div class="text-center">
+    <div class="itemInput my-2">Nombre del curso: <input type="text" [(ngModel)]="courseInfo.name" class="courseName" /></div>
+    <div class="itemInput my-2">Descripción: <textarea [(ngModel)]="courseInfo.description"  class="courseDescription" > </textarea></div>
+    <div class="itemInput my-2">Fecha inicio: <input type="date" [(ngModel)]="courseInfo.startDate"  class="courseStartDate"/></div>
+    <div class="itemInput my-2">Fecha fin: <input type="date" [(ngModel)]="courseInfo.finishDate"  class="courseFinishDate" /></div>
+    <div class="itemInput my-2">Precio: <input type="number" [(ngModel)]="courseInfo.pago"  class="coursePrice"/></div>
+    <button class="btn btnSend" (click)="showData()">Enviar</button>
   </div>
 </body>

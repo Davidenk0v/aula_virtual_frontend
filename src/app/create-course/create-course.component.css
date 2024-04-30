@@ -1,26 +1,63 @@
 .container {
-    background-color: #CECECE;
-    height: 63%;
+  background-color: #cecece;
+  height: 63%;
 }
 
-.containerItems {
+.courseName {
+  width: 40%;
+  background-color: #17183b;
+}
 
+.courseDescription {
+  margin-left: 4.5%;
+  width: 40%;
+  height: 20vh;
+  background-color: #17183b;
+}
+
+.courseStartDate {
+  margin-left: 4.5%;
+  width: 40%;
+  background-color: #17183b;
+}
+
+.courseFinishDate {
+  margin-left: 6.5%;
+  width: 40%;
+  background-color: #17183b;
+}
+
+.coursePrice {
+  margin-left: 8.5%;
+  width: 40%;
+  background-color: #17183b;
+}
+
+input {
+  border-color: #17183b;
+  border-radius: 5px;
+  color: #ffffff;
+}
+
+textarea {
+  border-color: #17183b;
+  border-radius: 5px;
+  color: #ffffff;
 }
 
 .itemInput {
-    color: #17183B;
-    font-size: large;
+  color: #17183b;
+  font-size: large;
 }
 
-
 .btnSend {
-    background-color: rgb(0, 158, 0);
-    color: #FFFFFF;
-    width: 35%;
+  background-color: rgb(0, 158, 0);
+  color: #ffffff;
+  width: 35%;
 }
 
 .btnSend:hover {
-    background-color: rgb(0, 124, 0);
+  background-color: rgb(0, 124, 0);
 }
 /* 
 .btnSend {
