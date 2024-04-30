@@ -1,0 +1,30 @@
+.logoTitle {
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.navbarBackground {
+    background-color: #17183B;
+}
+
+.searchContainer {
+    margin-left: 3%;
+}
+
+.searchBar {
+  border: #17183B solid 1px;
+  border-radius: 5px;
+  margin-left: -10%;
+  margin-top: 3%;
+}
+
+.magnifyingIcon {
+  margin-left: 2%;
+  color: #ffffff;
+}
+
+.magnifyingIcon:hover {
+  color: #CECECE;
+}

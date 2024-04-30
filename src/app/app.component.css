@@ -1,0 +1,6 @@
+body {
+    background-color: #CECECE;
+    background-attachment: fixed;
+    height: 100vh; 
+    overflow-y: scroll;
+}
