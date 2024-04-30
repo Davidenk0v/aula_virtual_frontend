@@ -1,8 +1,92 @@
-<div class="dashboard">
-    <h1>User has logged in</h1>
-
-    <p>
-        {{profile}}
-    </p>
-    <button (click)="logout()">Logout</button>
+<!-- Popup de actualizar usuario -->
+<div class="popup-overlay">
+  @if (popupShown) {
+  <div class="popup">
+    <div class="container center-container">
+      <h2 class="text-center">Actualizar</h2>
+      <p>
+        Nombre
+        <input
+          type="text"
+          [(ngModel)]="userTemplate.firstName"
+          name="firstName"
+          id="firstName"
+          placeholder="nombre"
+          style="margin-left: 4%"
+          class="inputPopup"
+        />
+      </p>
+      <p>
+        Apellido
+        <input
+          type="text"
+          [(ngModel)]="userTemplate.lastName"
+          name="lastName"
+          id="lastName"
+          placeholder="Apellido"
+          style="margin-left: 4%"
+          class="inputPopup"
+        />
+      </p>
+      <p>
+        Email
+        <input
+          type="text"
+          [(ngModel)]="userTemplate.email"
+          name="Email"
+          placeholder="email@email.com"
+          style="margin-left: 12%"
+          class="inputPopup"
+        />
+      </p>
+      <p>
+        Username
+        <input
+          type="text"
+          [(ngModel)]="userTemplate.userName"
+          placeholder="N"
+          name="userName"
+          class="inputPopup"
+        />
+      </p>
+      <button class="btn updateConfirmBtn" (click)="updateUser(userTemplate)">
+        Actualizar
+      </button>
+      <button class="btn updateCancelBtn" (click)="closePopup()">
+        Cancelar
+      </button>
+    </div>
+  </div>
+  }
 </div>
+
+<!-- Perfil del usuario -->
+<div class="container py-5">
+  <div class="infoUser">
+    <img src="../../assets/gato.jpg" class="pfp" />
+    <div class="infoText">
+      {{ user.firstName }} {{ user.lastName }} ({{ user.userName }})
+    </div>
+    <div class="infoText">Correo: {{ user.email }}</div>
+  </div>
+  <div class="my-2">
+    <h2>Cursos en progreso</h2>
+    <app-carousel-component
+      [courses]="InProggressClasses"
+      [coursesLength]="InProggressClasses.length"
+    ></app-carousel-component>
+  </div>
+  <div class="my-2 cursos-saved">
+    <h2>Cursos guardados</h2>
+    <app-carousel-component
+      [courses]="SavedClasses"
+      [coursesLength]="SavedClasses.length"
+    ></app-carousel-component>
+  </div>
+  <div class="my-2">
+    <h2>Cursos Completados</h2>
+    <app-carousel-component
+      [courses]="FinishedClasses"
+      [coursesLength]="FinishedClasses.length"
+    ></app-carousel-component>
+  </div>

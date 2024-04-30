@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { classI } from '../modelos/class.interface';
+import { Class } from '../interfaces/Class';
 import { CourseComponentComponent } from '../course-component/course-component.component';
 import { CarouselComponentComponent } from '../carousel-component/carousel-component.component';
 
@@ -13,7 +13,7 @@ import { CarouselComponentComponent } from '../carousel-component/carousel-compo
 export class HomeComponent {
 
   
-  popularCourses: classI[] = [
+  popularCourses: Class[] = [
     { className: 'Mates', description: 'test 1' },
     { className: 'Ciencias', description: 'test 1' },
     { className: 'letras', description: 'test 1' },
@@ -22,7 +22,7 @@ export class HomeComponent {
     { className: 'prueba', description: 'test 1' },
   ];
 
-  newCourses: classI[] = [
+  newCourses: Class[] = [
     { className: 'Angular', description: 'test 2' },
     { className: 'React', description: 'test 2' },
     { className: 'Python', description: 'test 2' },

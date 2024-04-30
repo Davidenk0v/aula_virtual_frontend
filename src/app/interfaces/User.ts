@@ -1,4 +1,3 @@
-import { Address } from "./Address";
 
 export interface User {
   userName: string;

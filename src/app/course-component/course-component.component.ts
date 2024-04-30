@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { classI } from '../modelos/class.interface';
+import { Class } from '../interfaces/Class';
 
 @Component({
   selector: 'app-course-component',
@@ -10,7 +10,7 @@ import { classI } from '../modelos/class.interface';
 })
 export class CourseComponentComponent {
 
-  @Input() class:classI = {  className: '', description: '' };
+  @Input() class:Class = {  className: '', description: '' };
 
 
 }

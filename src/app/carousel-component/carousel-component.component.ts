@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { classI } from '../modelos/class.interface';
+import { Class } from '../interfaces/Class';
 import { CourseComponentComponent } from '../course-component/course-component.component';
 
 @Component({
@@ -10,7 +10,7 @@ import { CourseComponentComponent } from '../course-component/course-component.c
   styleUrl: './carousel-component.component.css',
 })
 export class CarouselComponentComponent {
-  @Input() courses: classI[] = [{ className: '', description: '' }];
+  @Input() courses: Class[] = [{ className: '', description: '' }];
 
   @Input() coursesLength: number = 0;
 
