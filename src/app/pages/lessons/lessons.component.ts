@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component  } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LessonPostService } from '../../services/lessons/lesson-post.service';
 import { lessonPostI } from '../../modelos/class.inteface';
 
@@ -10,6 +10,7 @@ import { lessonPostI } from '../../modelos/class.inteface';
   templateUrl: './lessons.component.html',
   styleUrl: './lessons.component.css'
 })
+
 export class LessonsComponent {
 
   lesson = this.formBuilder.group({
