@@ -18,4 +18,12 @@ export class LessonPostService {
       
     );
   }
+
+
+  putLessons(idLesson: number,cita:lessonPostI): Observable<lessonPostI> {
+    
+    return this.http.put<any>(`${env_api.urlApi}lessons/${idLesson}`,cita).pipe(
+      
+    )
+  }
 }

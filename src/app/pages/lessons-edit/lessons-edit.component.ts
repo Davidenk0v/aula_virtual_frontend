@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LessonPostService } from '../../services/lessons/lesson-post.service';
 import { lessonPostI } from '../../modelos/class.inteface';
 
 @Component({
-  selector: 'app-lessons',
+  selector: 'app-lessons-edit',
   standalone: true,
   imports: [ReactiveFormsModule],
-  templateUrl: './lessons.component.html',
-  styleUrl: './lessons.component.css'
+  templateUrl: './lessons-edit.component.html',
+  styleUrl: './lessons-edit.component.css'
 })
-export class LessonsComponent {
+export class LessonsEditComponent {
 
   lesson = this.formBuilder.group({
     name: ["", Validators.required],
@@ -23,7 +23,7 @@ export class LessonsComponent {
 
 
   post(){
-    this.service.postLessons(5,this.lesson.value as lessonPostI).subscribe({
+    this.service.putLessons(5,this.lesson.value as lessonPostI).subscribe({
       next: (data) => {
         console.info(data);
       },error:(data) => {
