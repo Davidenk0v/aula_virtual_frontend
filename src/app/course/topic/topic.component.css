@@ -1,0 +1,31 @@
+*{
+    margin: 0;
+    padding: 0;
+} 
+#info_temario{
+    background-color: #BDBDBD;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+} 
+
+
+ul{
+    margin-top: 5px;
+}
+li{
+    display: flex;  
+    list-style: none;  
+}
+li>span{
+    display: block;
+    background-color: #21234D;
+    color: white; 
+    height: 50px;
+    width: 95%; 
+    padding-top: 10px;
+    padding-left: 10px;
+    margin-bottom: 10px; 
+    border-radius: 10px;
+}

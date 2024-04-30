@@ -1,0 +1,68 @@
+*{
+    margin: 0;
+    padding: 0;
+} 
+.rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+
+/*Personalizado*/
+
+.container{
+    color: #17183B;
+}
+.spaced{
+    margin-top: 13px;
+}
+#rating{ 
+    color: blue;
+}
+.spacedInicial{
+    margin-left: 5px; 
+} 
+ 
+#icon_world{
+    background-image: url("./../../../assets/img/svg/internet.svg");
+    background-repeat: no-repeat;
+    height: 26px;
+    width: 26px;
+}
+
+#info_course{
+    background-color: #BDBDBD;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+}

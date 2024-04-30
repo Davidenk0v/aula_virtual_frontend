@@ -29,6 +29,7 @@ import { DatePipe } from '@angular/common';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
+
 export class AppComponent {
   title = 'aula-virtual-frontend';
   
