@@ -1,11 +1,12 @@
 import { HttpClientModule, HttpClient} from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule , Router } from '@angular/router';
 import { LoginService } from '../../services/auth/login.service';
 import { LoginRequest } from '../../interfaces/LoginRequest';
 import { SuccessMessageComponent } from '../../components/success-message/success-message.component';
 import { ErrorMessageComponent } from '../../components/error-message/error-message.component';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,8 @@ export class LoginComponent {
 
   errorMessage:string = '';
   successMessage:string = '';
+  isUserLogged: boolean = false
+  username: string = ""
 
   loginForm= this.formBuilder.group({
     username:['',[Validators.required]],
@@ -26,18 +29,39 @@ export class LoginComponent {
 
   private rememberMe: boolean = false;
 
-  constructor(private http: HttpClient, private router: Router, private formBuilder:FormBuilder, private loginService: LoginService) {
+  constructor(private http: HttpClient, 
+    private router: Router, 
+    private formBuilder:FormBuilder, 
+    private loginService: LoginService, 
+    private authService: AuthService) {
   }
 
   /**
    * Metodo que si el recuerdame esta en true recoge los valores del localstorage.
    */
   ngOnInit(): void {
-    if (localStorage.getItem("rememberMe") == "true") {
-      this.loginForm.value.username = localStorage.getItem("username");
-      this.loginForm.value.password = localStorage.getItem("password");
-    }
+      this.authService.isLoggedIn$.subscribe({
+        next: (isLoggedIn) => {
+          if (isLoggedIn) {
+            this.isUserLogged = true;
+            if(this.isUserLogged){
+              this.username = this.authService.getUsername();
+              console.log(this.username);
+            }
+          }
+        }
+      });
   }
+
+  keycloakLogin() {
+    this.authService.login();
+  }
+
+
+
+
+
+
 
   onLogin() {
     if(this.loginForm.valid){

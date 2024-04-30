@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, catchError, map, tap, throwError } from 'rxjs';
-import { env_api } from '../../../environment/env_api';
+import { env_api } from '../../../environments/env_api';
 import { LoginRequest } from '../../interfaces/LoginRequest';
 
 @Injectable({

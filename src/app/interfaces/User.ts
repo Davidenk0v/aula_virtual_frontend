@@ -1,12 +1,11 @@
 import { Address } from "./Address";
 
 export interface User {
-
   userName: string;
   firstName: string;
   lastName: string;
   email: string;
-  address: Address;
-  password: string;
+  emailVerified: boolean;
+
 
 }

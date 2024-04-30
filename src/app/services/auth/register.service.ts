@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, catchError, map, tap, throwError } from 'rxjs';
 import { RegisterRequest } from '../../interfaces/RegisterRequest';
-import { env_api } from '../../../environment/env_api';
+import { env_api } from '../../../environments/env_api';
 
 @Injectable({
   providedIn: 'root'
