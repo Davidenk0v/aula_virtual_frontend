@@ -6,9 +6,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { KeycloakAngularModule } from 'keycloak-angular';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',

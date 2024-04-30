@@ -19,8 +19,8 @@
         @for (class of courses; track currentSlide; let indexClasses = $index) {
         @if (indexClasses < currentSlide + 3 && indexClasses >= currentSlide) {
 
-        <td class="classes">
-          <app-course-component [class]="class"></app-course-component>
+        <td class="classes" >
+          <a routerLink="/course"><app-course-component routerLinkActive="router-link-active"  [class]="class"></app-course-component></a>
         </td>
         } }
       </tr>
@@ -34,7 +34,6 @@
     type="button"
     data-bs-target="#carousel"
     data-bs-slide="prev"
-    (click)="changeSlideLeft()"
   >
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Previous</span>

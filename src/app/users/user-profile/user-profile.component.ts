@@ -9,6 +9,7 @@ import { CarouselComponentComponent } from '../../carousel-component/carousel-co
   standalone: true,
   imports: [FormsModule, CarouselComponentComponent],
   templateUrl: './user-profile.component.html',
+  styleUrl: './user-profile.component.css'
 })
 export class UserProfileComponent {
   ngOnInit(): void {

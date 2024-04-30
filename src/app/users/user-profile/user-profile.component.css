@@ -1,0 +1,126 @@
+.pfp {
+    float: left;
+    height: 18%;
+    width: 18%;
+    border-radius: 50%;
+    margin-right: 10%;
+}
+ 
+.infoUser {
+    overflow: hidden;
+    padding-top: 2%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+    background-color: #e2e2e2;
+    box-shadow: #17183B;
+    border-radius: 30px;
+    margin-bottom: 3%;
+}
+ 
+.infoText {
+    font-size: 25px;
+    color: #17183B;
+}
+ 
+.updateBtn {
+    width: 15%;
+    background-color: rgb(0, 158, 0);
+    color: #e2e2e2;
+    border-radius: 10px;
+    margin-top: 2%;
+    box-shadow: #17183B;
+}
+ 
+.updateBtn:hover {
+    color: #D9D9D9;
+    background-color: rgb(0, 124, 0);
+}
+ 
+.updateConfirmBtn {
+    margin-left: 7%;
+    width: 40%;
+    background-color: rgb(0, 158, 0);
+    border-radius: 10px;
+    color: #e2e2e2;
+    box-shadow: #17183B;
+}
+ 
+.updateConfirmBtn:hover {
+    background-color: rgb(0, 124, 0);
+    color: #D9D9D9;
+}
+ 
+.updateCancelBtn {
+    margin-left: 10%;
+    width: 40%;
+    background-color: #b81313;
+    color: #D9D9D9;
+    border-radius: 10px;
+    box-shadow: #17183B;
+}
+ 
+.updateCancelBtn:hover {
+    background-color: #951616;
+    color: #D9D9D9;
+    box-shadow: #17183B;
+}
+ 
+.carouselContainer {
+    width: 100%;
+    color: #D9D9D9;
+    padding-top: 2%;
+    padding-left: 1%;
+    padding-bottom: 2%;
+    background-color: #e2e2e2;
+    box-shadow: #17183B;
+    border-radius: 20px;
+    margin-bottom: 3%;
+}
+ 
+.classContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+ 
+}
+ 
+.classes {
+    width: 30%;
+    padding: 1%;
+    background-color: #0068C3;
+    box-shadow: #17183B;
+    justify-content: center;
+    border-radius: 10px;
+    margin-right: 1%;
+}
+ 
+.classDescription {
+    width: 100%;
+    padding: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    background-color: #17183B;
+    box-shadow: #17183B;
+    color: #D9D9D9;
+    border-radius: 10px;
+}
+ 
+.popup {
+    display: block;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    justify-content: right;
+    transform: translate(-50%, -50%);
+    background-color: #D9D9D9;
+    border: 1px solid white;
+    box-shadow: #17183B 100px;
+    padding: 20px;
+    z-index: 1000;
+    border-radius: 15px;
+}
+ 
+.inputPopup {
+    border-radius: 5px;
+}
