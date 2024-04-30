@@ -26,4 +26,12 @@ export class LessonPostService {
       
     )
   }
+
+
+  deleteLessons(idLesson: number): Observable<lessonPostI> {
+    
+    return this.http.delete<any>(`${env_api.urlApi}lessons/${idLesson}`).pipe(
+      
+    )
+  }
 }
