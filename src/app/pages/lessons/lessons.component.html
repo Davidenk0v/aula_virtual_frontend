@@ -10,21 +10,21 @@
 <body>
     <div class="container">
         <h1 class="text-center mb-4">Subir Lección</h1>
-        <form>
+        <form [formGroup]="lesson">
             <div class="mb-3">
                 <label for="name" class="form-label">Nombre de la Lección</label>
-                <input type="text" class="form-control" id="name" placeholder="Introduce el nombre de la lección">
+                <input type="text" class="form-control" id="name" placeholder="Introduce el nombre de la lección" formControlName="name">
             </div>
             <div class="mb-3">
                 <label for="contenido" class="form-label">Contenido</label>
-                <textarea class="form-control" id="contenido" rows="5" placeholder="Escribe el contenido de la lección"></textarea>
+                <textarea class="form-control" id="contenido" rows="5" placeholder="Escribe el contenido de la lección" formControlName="contenido"></textarea>
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Descripción</label>
-                <textarea class="form-control" id="description" rows="3" placeholder="Añade una descripción opcional"></textarea>
+                <textarea class="form-control" id="description" rows="3" placeholder="Añade una descripción opcional" formControlName="description"></textarea>
             </div>
             <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary">Enviar</button>
+                <button type="submit" class="btn btn-primary" (click)="post()">Enviar</button>
             </div>
         </form>
     </div>
