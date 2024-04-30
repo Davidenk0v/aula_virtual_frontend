@@ -18,6 +18,10 @@ export class HeaderComponent {
     this.router.navigate(['/userProfile']);
   }
 
+  goToHome() {
+    this.router.navigate(['/homeScreen']);
+  }
+
   // 
   // @Input() username?: string 
 }

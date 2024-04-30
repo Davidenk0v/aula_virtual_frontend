@@ -8,10 +8,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { KeycloakAngularModule } from 'keycloak-angular';
 import { CommonModule } from '@angular/common';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
+  providers: [DatePipe],
   imports: [
     CommonModule, 
     RouterOutlet, 

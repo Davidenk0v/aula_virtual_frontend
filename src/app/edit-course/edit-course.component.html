@@ -1,0 +1,17 @@
+<body class="container my-3">
+    <h2 class="text-center">Editar curso</h2>
+    <div class="text-center">
+      <div class="itemInput my-2">Nombre del curso: <input type="text" [(ngModel)]="updatedData.name" [placeholder]="courseInfo.name" class="courseName" /></div>
+      
+      <div class="itemInput my-2">Descripción: <textarea [(ngModel)]="updatedData.description"  [placeholder]="courseInfo.description" class="courseDescription" > </textarea></div>
+      
+      <div class="itemInput my-2">Fecha inicio: <input type="date" [(ngModel)]="updatedData.startDate" [value]="courseInfo.startDate" class="courseStartDate"/></div>
+      
+      <div class="itemInput my-2">Fecha fin: <input type="date" [(ngModel)]="updatedData.finishDate" [value]="courseInfo.finishDate"  class="courseFinishDate" /></div>
+      
+      <div class="itemInput my-2">Precio: <input type="number"  [value]="courseInfo.pago" [(ngModel)]="updatedData.pago"class="coursePrice"/></div>
+       
+      <button class="btn btnSend" (click)="showData()">Enviar</button>
+    </div>
+  </body>
+  
