@@ -1,0 +1,16 @@
+<div class="container">
+  <img
+    src="../../assets/atos background.png"
+    alt="photos"
+    class="imagePlaceholder"
+  />
+
+  <div class="my-2">
+    <h3 class="text-center">Cursos más populares</h3>
+    <app-carousel-component [courses]="popularCourses" [coursesLength]="popularCourses.length"></app-carousel-component>
+    <div class="my-2">
+      <h3 class="text-center">Nuevos cursos</h3>
+      <app-carousel-component [courses]="newCourses" [coursesLength]="newCourses.length"></app-carousel-component>
+    </div>
+  </div>
+</div>
