@@ -43,6 +43,7 @@ export class LoginComponent {
       this.authService.isLoggedIn$.subscribe({
         next: (isLoggedIn) => {
           if (isLoggedIn) {
+            console.log(isLoggedIn)
             this.isUserLogged = true;
             if(this.isUserLogged){
               this.username = this.authService.getUsername();

@@ -6,7 +6,7 @@ import { CreateCourseComponent } from './pages/create-course/create-course.compo
 import { EditCourseComponent } from './pages/edit-course/edit-course.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { SearchComponent } from './pages/search/search.component';
-import { AllCoursesComponent } from './pages/allCoursesView/all-courses/all-courses.component';
+import { AllCoursesComponent } from './pages/all-courses/all-courses.component';
 import { CourseComponent } from './course/course.component';
 
 export const routes: Routes = [
