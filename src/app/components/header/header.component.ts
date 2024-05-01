@@ -27,6 +27,9 @@ export class HeaderComponent {
     this.router.navigate(['/userProfile']);
   }
 
+  goToHome() {
+    this.router.navigate(['/homeScreen']);
+  }
 
   onEnter(event: KeyboardEvent) {
     // Verifica si la tecla presionada es "Enter" (código 13)
