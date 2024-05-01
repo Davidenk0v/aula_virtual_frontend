@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, catchError, map, tap, throwError } from 'rxjs';
 import { RegisterRequest } from '../../interfaces/RegisterRequest';
-import { env_api } from '../../../environments/env_api';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class RegisterService {
    }
 
    register(credentials:RegisterRequest):Observable<any>{
-    return this.http.post<any>(`${env_api.urlApi}/users/`, credentials)
+    return this.http.post<any>(`${environment.api.urlApi}/users/`, credentials)
     .pipe(tap((response) => {
       console.log(response);
       sessionStorage.setItem("token", response.token);

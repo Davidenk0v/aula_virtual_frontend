@@ -1,8 +1,8 @@
 <div class="row" id="info_course">
-  <h1 id="name">{{name}}</h1>
-  <p id="description">{{description}}</p>
+  <h1 id="name">{{courseInfo?.name}}</h1>
+  <p id="description">{{courseInfo?.description}}</p>
   <span class="d-flex flex-row">
-    <span id="score" class="spaced">{{score}}</span>
+    <span id="score" class="spaced">Puntuación</span>
     <span id="stars" >
       <div class="rate">
         <input type="radio" id="star5" name="rate" value="5" />
@@ -18,14 +18,14 @@
       </div>
     </span>
     <span class="spaced">(
-      <span id="number_ratings">{{number_ratings}}</span>
+      <span id="number_ratings">Rating</span>
       <span class="spacedInicial">calificaciones)</span>
     </span>
     <span class="spaced spacedInicial">Calificaciones de estudiantes</span>
   </span>
-  <span>Creado por <span id="creator">{{creator}}</span></span>
-  <span>Inicio curso <span id="start_date">{{start_date}}</span></span>
-  <span>Fin curso <span id="finish_date">{{finish_date}}</span></span>
+  <span>Creado por <span id="creator">Creador</span></span>
+  <span>Inicio curso <span id="start_date">{{courseInfo?.starDate}}</span></span>
+  <span>Fin curso <span id="finish_date">{{courseInfo?.endDate}}</span></span>
   <span id="container_len" class="d-flex"> 
     <div id="icon_world"></div>
     <span class="d-block">Español</span>

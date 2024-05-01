@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Course } from '../../interfaces/Course';
 
 @Component({
   selector: 'app-payment',
@@ -8,6 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './payment.component.css'
 })
 export class PaymentComponent {
-  url:string = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdPTZvHXqUKrFwXtWTABC_5Lt6DC1u4x2vag&s";
-  precio:number = 299.99;
+  @Input() courseInfo?: Course;
 }

@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, catchError, map, tap, throwError } from 'rxjs';
-import { env_api } from '../../../environments/env_api';
+import { environment } from '../../../environments/environment';
 import { LoginRequest } from '../../interfaces/LoginRequest';
 
 @Injectable({
@@ -21,7 +21,7 @@ export class LoginService {
    }
 
    login(credentials:LoginRequest):Observable<any>{
-    return this.http.post<any>(`${env_api.urlHost}auth/login`,credentials).pipe( //La url de la API se obtiene del archivo env_api.ts
+    return this.http.post<any>(`${environment.api.urlHost}auth/login`,credentials).pipe( //La url de la API se obtiene del archivo env_api.ts
       tap((userData) => {
         //Aqui guardaríamos el token en el sessionStorage o en el localStorage
         this.currentToken.next(userData.body);

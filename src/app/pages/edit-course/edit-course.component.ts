@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { classContentI } from '../interfaces/classContent.interface';
+import { classContentI } from '../../interfaces/classContent.interface';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
