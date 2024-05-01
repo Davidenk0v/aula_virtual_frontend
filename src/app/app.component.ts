@@ -6,7 +6,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { KeycloakAngularModule } from 'keycloak-angular';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, LessonsComponent } from "./pages/lessons/lessons.component";
+import { FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 
 @Component({

@@ -1,0 +1,12 @@
+.titulo-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.titulo{
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+.filtros {
+    margin-top: 25%;
+}
