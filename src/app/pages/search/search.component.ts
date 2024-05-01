@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SearchService } from '../../service/search.service';
 import { course } from '../../modelos/class.inteface';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-search',
@@ -17,11 +17,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 })
 export class SearchComponent implements OnInit {
   courseList?:course[]
+  mensajeBusqueda : string = "";
+  mensaje : string = "";
 
   result?:number
-  constructor(private service: SearchService){}
+  constructor(private service: SearchService,private formBuilder:FormBuilder){}
   ngOnInit(): void {
-    this.service.verDatos("curso").subscribe({
+    this.service.verDatos().subscribe({
       next: (cita) => {
         console.info(cita)
         this.courseList = cita
@@ -35,7 +37,22 @@ export class SearchComponent implements OnInit {
       complete:()=> {
         console.info("Completo")
       }
+
+    
   });
+  this.mensajeBusqueda = this.service.getString();
+  }
+
+  onEnter(event: KeyboardEvent) {
+    // Verifica si la tecla presionada es "Enter" (código 13)
+    if (event.key === "Enter") {
+      // Ejecuta la lógica que deseas cuando se presiona "Enter"
+      this.courseList = undefined
+      this.service.setString(this.mensaje);
+      this.ngOnInit();
+      console.info(this.mensaje)
+      console.info(this.mensajeBusqueda)
+    }
   }
 
 

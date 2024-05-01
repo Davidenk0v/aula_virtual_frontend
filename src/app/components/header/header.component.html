@@ -7,7 +7,7 @@
       <!-- Se necesitará modificar el comportamiento de este modulo -->
     </a>
     <span class="navbar-brand searchContainer"
-      ><input type="text" class="searchBar" placeholder="Buscar" />
+      ><input type="text" class="searchBar" placeholder="Buscar" (keyup)="onEnter($event)"  [(ngModel)]="mensaje"/>
       <!-- Aqui se deberá de poner la ref de la pantalla de buscar -->
       <a href="searchScreen"> 
       <i class="fa-solid fa-magnifying-glass magnifyingIcon"

@@ -9,12 +9,26 @@ import { env_api } from '../../environment/env_api';
 })
 export class SearchService {
 
+  stringSearch: string = ""
   constructor(private http: HttpClient) { }
 
-  verDatos(name: string): Observable<course[]> {
-    return this.http.get<Record<string, course[]>>(`${env_api.urlApi}courses/lista/${name}`).pipe(
+  verDatos(): Observable<course[]> {
+    return this.http.get<Record<string, course[]>>(`${env_api.urlApi}courses/lista/${this.stringSearch}`).pipe(
       map(response => response['Cursos'])
     );
   }
   
+
+  
+  public set search(search : string) {
+    this.stringSearch = search;
+  }
+  setString(value: string) {
+    this.stringSearch = value;
+  }
+
+
+  getString(): string {
+    return this.stringSearch;
+  }
 }
