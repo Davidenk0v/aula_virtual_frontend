@@ -7,11 +7,12 @@ import { ErrorMessageComponent } from '../../components/error-message/error-mess
 import { CourseService } from '../../services/courses/course.service';
 import { EMPTY, Observable, catchError } from 'rxjs';
 import { User } from '../../interfaces/User';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CourseComponentComponent, CarouselComponentComponent, AsyncPipe, ErrorMessageComponent],
+  imports: [CourseComponentComponent, CarouselComponentComponent, AsyncPipe, ErrorMessageComponent, RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

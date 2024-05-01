@@ -1,11 +1,11 @@
 <body class="container my-3">
   <h2 class="text-center">Crear nuevo curso</h2>
-  <div class="text-center">
-    <div class="itemInput my-2">Nombre del curso: <input type="text" [(ngModel)]="courseInfo.name" class="courseName" /></div>
-    <div class="itemInput my-2">Descripción: <textarea [(ngModel)]="courseInfo.description"  class="courseDescription" > </textarea></div>
-    <div class="itemInput my-2">Fecha inicio: <input type="date" [(ngModel)]="courseInfo.startDate"  class="courseStartDate"/></div>
-    <div class="itemInput my-2">Fecha fin: <input type="date" [(ngModel)]="courseInfo.finishDate"  class="courseFinishDate" /></div>
-    <div class="itemInput my-2">Precio: <input type="number" [(ngModel)]="courseInfo.pago"  class="coursePrice"/></div>
-    <button class="btn btnSend" (click)="showData()">Enviar</button>
-  </div>
+  <form [formGroup]="newCourseForm" class="text-center">
+    <div class="itemInput my-2">Nombre del curso: <input type="text" formControlName="name" class="courseName" name="name"/></div>
+    <div class="itemInput my-2">Descripción: <textarea formControlName="description" name="description" class="courseDescription" > </textarea></div>
+    <div class="itemInput my-2">Fecha inicio: <input type="date" formControlName="startDate" name="startDate"  class="courseStartDate"/></div>
+    <div class="itemInput my-2">Fecha fin: <input type="date" formControlName="finishDate" name="finishDate" class="courseFinishDate" /></div>
+    <div class="itemInput my-2">Precio: <input type="number" formControlName="price" name="price" class="coursePrice"/></div>
+    <button class="btn btnSend" (click)="addWorkout()">Enviar</button>
+  </form>
 </body>

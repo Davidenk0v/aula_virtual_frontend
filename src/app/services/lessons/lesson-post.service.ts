@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { lessonPostI } from '../../modelos/class.inteface';
-import { env_api } from '../../../environment/env_api';
+import { Lesson } from '../../interfaces/Lesson';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,26 +11,26 @@ export class LessonPostService {
 
   constructor(private http: HttpClient) { }
 
-  postLessons(idSubject: number,cita:lessonPostI): Observable<lessonPostI> {
+  postLessons(idSubject: number,cita:Lesson): Observable<Lesson> {
     //const headers = new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem(`token`)}`);
     
-    return this.http.post<any>(`${env_api.urlApi}lessons/${idSubject}`,cita).pipe(
+    return this.http.post<any>(`${environment.api.urlApi}lessons/${idSubject}`,cita).pipe(
       
     );
   }
 
 
-  putLessons(idLesson: number,cita:lessonPostI): Observable<lessonPostI> {
+  putLessons(idLesson: number,cita:Lesson): Observable<Lesson> {
     
-    return this.http.put<any>(`${env_api.urlApi}lessons/${idLesson}`,cita).pipe(
+    return this.http.put<any>(`${environment.api.urlApi}lessons/${idLesson}`,cita).pipe(
       
     )
   }
 
 
-  deleteLessons(idLesson: number): Observable<lessonPostI> {
+  deleteLessons(idLesson: number): Observable<Lesson> {
     
-    return this.http.delete<any>(`${env_api.urlApi}lessons/${idLesson}`).pipe(
+    return this.http.delete<any>(`${environment.api.urlApi}lessons/${idLesson}`).pipe(
       
     )
   }

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { course } from '../modelos/class.inteface';
+import { Course } from '../../interfaces/Course';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map, throwError } from 'rxjs';
-import { env_api } from '../../environment/env_api';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +12,8 @@ export class SearchService {
   stringSearch: string = ""
   constructor(private http: HttpClient) { }
 
-  verDatos(): Observable<course[]> {
-    return this.http.get<Record<string, course[]>>(`${env_api.urlApi}courses/lista/${this.stringSearch}`).pipe(
+  verDatos(): Observable<Course[]> {
+    return this.http.get<Record<string, Course[]>>(`${environment.api.urlApi}/courses/lista/${this.stringSearch}`).pipe(
       map(response => response['Cursos'])
     );
   }

@@ -3,7 +3,7 @@ export interface Course {
     idCourse: number;
     name: string;
     description: string;
-    starDate: Date;
-    endDate: Date;
+    startDate: Date;
+    finishDate: Date;
     price: number;
 }

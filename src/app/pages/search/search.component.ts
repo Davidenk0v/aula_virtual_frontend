@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SearchService } from '../../service/search.service';
-import { course } from '../../modelos/class.inteface';
+import { SearchService } from '../../services/search/search.service';
+import { Course } from '../../interfaces/Course';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -16,7 +16,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
   styleUrl: './search.component.css'
 })
 export class SearchComponent implements OnInit {
-  courseList?:course[]
+  courseList?:Course[]
   mensajeBusqueda : string = "";
   mensaje : string = "";
 

@@ -1,38 +1,23 @@
-
-<body>
-    <div class="container-fluid">
+<div class="container-fluid">
         <div class="row">
             <div class="col-md-9">
-                <div class="container ms-4">
-                    <h1 class="titulo">Resultados para la búsqueda <span>"{{mensajeBusqueda}}"</span></h1>
-                    <h5>{{ result }} resultados</h5>
+                <div class="container ms-4 row">
+                    <h1 class="titulo">Todos los cursos</h1>
                     <hr>
-                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-                        @for (item of courseList; track $index) {
+                    @if(courses){
+                        @for (course of courses; track course.idCourse) {
                             <div class="col-md-4">
-                                <div class="card mb-4 shadow-sm">
-                                    <div class="card-body">
-                                        <img src="https://ntfor.com/wp-content/uploads/2023/02/imagen-predeterminada-curso-ntfor.jpg" alt="img" class="w-100 rounded-top">
-                                        <h5 class="card-title">{{ item.name }}</h5>
-                                        <ul class="list-unstyled mt-3 mb-4">
-                                            <li><strong>Inicio:</strong> {{ item.startDate }}</li>
-                                            <li><strong>Fin:</strong> {{ item.finishDate }}</li>
-                                            <li><strong>Pago:</strong> {{ item.price }}</li>
-                                        </ul>
-                                        <button class="btn btn-primary">Detalles</button>
-                                    </div>
-                                </div>
-                            </div>    
-                            
+                                <app-course-card [courseInfo]="course" class=""></app-course-card>
+                            </div>
                         }
-                    </div>
+                    }
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="filtros">
                     <h2>Filtrar por</h2>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Buscar..." aria-label="Buscar" (keyup)="onEnter($event)" [(ngModel)]="mensaje">
+                        <input type="text" class="form-control" placeholder="Buscar..." aria-label="Buscar" >
                     </div>
                     <div class="accordion" id="categoriasAccordion">
                         <div class="accordion-item">
@@ -58,9 +43,11 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="text-center m-2">
+                            <a class="btn btn-primary" routerLink="/create">Añadir curso</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</body>

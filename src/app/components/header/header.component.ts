@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { SearchService } from '../../service/search.service';
+import { SearchService } from '../../services/search/search.service';
 import { CommonModule } from '@angular/common';
 
 @Component({

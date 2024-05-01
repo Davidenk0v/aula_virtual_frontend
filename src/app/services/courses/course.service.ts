@@ -59,8 +59,8 @@ export class CourseService {
     );
   }
 
-  addWorkout(credentials:CourseRequest): Observable<any> {
-    return this.http.post<any>(`${environment.api.urlApi}/courses/`, credentials).pipe(
+  addCourse(credentials:CourseRequest): Observable<any> {
+    return this.http.post<any>(`${environment.api.urlApi}/courses/${1}`, credentials).pipe(
       catchError((error: HttpErrorResponse) => {
         let errorMessage = '';
 
@@ -90,6 +90,7 @@ export class CourseService {
       })
     );
   }
+
 
 
 }
