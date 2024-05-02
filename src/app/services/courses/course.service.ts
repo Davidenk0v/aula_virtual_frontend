@@ -91,6 +91,21 @@ export class CourseService {
     );
   }
 
+  searchCourseByName(name:string): Observable<Course[]> {
+    return this.http.get<Course[]>(`${environment.api.urlApi}/courses/lista/${name}`)
+    .pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.error instanceof ErrorEvent) {
+          this.errorMessage = `Error: ${error.error.message}`;
+        } else {
+          this.errorMessage = `Error code: ${error.status}, message: ${error.message}`;
+        }
+
+        return throwError(() => this.errorMessage);
+      })
+    );
+  }
+
 
 
 }

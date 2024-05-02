@@ -3,6 +3,7 @@ import { SearchService } from '../../services/search/search.service';
 import { Course } from '../../interfaces/Course';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CourseService } from '../../services/courses/course.service';
 
 @Component({
   selector: 'app-search',
@@ -21,9 +22,9 @@ export class SearchComponent implements OnInit {
   mensaje : string = "";
 
   result?:number
-  constructor(private service: SearchService,private formBuilder:FormBuilder){}
+  constructor(private searchService: SearchService,private courseService:CourseService, private formBuilder:FormBuilder){}
   ngOnInit(): void {
-    this.service.verDatos().subscribe({
+    this.courseService.searchCourseByName(this.mensaje).subscribe({
       next: (cita) => {
         console.info(cita)
         this.courseList = cita
@@ -40,7 +41,7 @@ export class SearchComponent implements OnInit {
 
     
   });
-  this.mensajeBusqueda = this.service.getString();
+  this.mensajeBusqueda = this.searchService.getString();
   }
 
   onEnter(event: KeyboardEvent) {
@@ -48,7 +49,7 @@ export class SearchComponent implements OnInit {
     if (event.key === "Enter") {
       // Ejecuta la lógica que deseas cuando se presiona "Enter"
       this.courseList = undefined
-      this.service.setString(this.mensaje);
+      this.searchService.setString(this.mensaje);
       this.ngOnInit();
       console.info(this.mensaje)
       console.info(this.mensajeBusqueda)

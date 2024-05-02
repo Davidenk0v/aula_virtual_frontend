@@ -4,11 +4,12 @@ import { CourseComponentComponent } from '../course-component/course-component.c
 import { EMPTY, Observable, catchError } from 'rxjs';
 import { CourseService } from '../../services/courses/course.service';
 import { AsyncPipe } from '@angular/common';
+import { CourseCardComponent } from '../course-card/course-card.component';
 
 @Component({
   selector: 'app-carousel-component',
   standalone: true,
-  imports: [CourseComponentComponent, AsyncPipe],
+  imports: [CourseComponentComponent, AsyncPipe, CourseCardComponent],
   templateUrl: './carousel-component.component.html',
   styleUrl: './carousel-component.component.css',
 })

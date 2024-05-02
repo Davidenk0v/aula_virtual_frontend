@@ -8,9 +8,7 @@
     <div class="carousel-item active">
       <tr class="classContainer">
         @for(course of coursePage; track course.idCourse){
-      <td class="classes" >
-        <app-course-component [course]="course"></app-course-component>
-      </td>
+        <app-course-card [courseInfo]="course" ></app-course-card>
     }
     </tr>
   </div>
