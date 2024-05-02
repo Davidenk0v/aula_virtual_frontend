@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Course } from '../../interfaces/Course';
 import { CourseComponentComponent } from '../course-component/course-component.component';
 import { EMPTY, Observable, catchError } from 'rxjs';
@@ -15,6 +15,10 @@ import { CourseCardComponent } from '../course-card/course-card.component';
 })
 export class CarouselComponentComponent {
 
+
+  
+  @Input() inputValue?: string;
+  
   errorMessage?:string;
   successMessage?:string;
   courses?: Observable<Course[]>;
