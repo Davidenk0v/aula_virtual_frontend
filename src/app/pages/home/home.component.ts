@@ -8,13 +8,14 @@ import { CourseService } from '../../services/courses/course.service';
 import { EMPTY, Observable, catchError } from 'rxjs';
 import { User } from '../../interfaces/User';
 import { Router, RouterModule } from '@angular/router';
+import { ImgMoveComponent } from "../../components/img-move/img-move.component";
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [CourseComponentComponent, CarouselComponentComponent, AsyncPipe, ErrorMessageComponent, RouterModule],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+    selector: 'app-home',
+    standalone: true,
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.css',
+    imports: [CourseComponentComponent, CarouselComponentComponent, AsyncPipe, ErrorMessageComponent, RouterModule, ImgMoveComponent]
 })
 export class HomeComponent {
 

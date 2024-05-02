@@ -1,30 +1,55 @@
-.logoTitle {
-  color: #ffffff;
-  font-size: 26px;
-  font-weight: bold;
-  letter-spacing: 1px;
+.navbarBackground {
+  background-color: rgba(23, 24, 59, 1) !important;
 }
 
-.navbarBackground {
-    background-color: #17183B;
+.logoTitle {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .searchContainer {
-    margin-left: 3%;
+  display: flex;
+  align-items: center;
 }
 
 .searchBar {
-  border: #17183B solid 1px;
-  border-radius: 5px;
-  margin-left: -10%;
-  margin-top: 3%;
+  border-radius: 20px;
+  padding: 5px 10px;
+  border: none;
+  background-color: rgb(222, 222, 231);
+}
+
+.searchBar:focus {
+  background-color: rgb(222, 222, 231);
 }
 
 .magnifyingIcon {
-  margin-left: 2%;
-  color: #ffffff;
+  color: white;
+  margin-left: 5px;
 }
 
-.magnifyingIcon:hover {
-  color: #CECECE;
+.navbar-nav .nav-link {
+  color: white;
+  margin-left: 10px;
+}
+
+.navbar-nav .nav-link:hover {
+  color: rgb(0, 84, 158);
+}
+
+.navbar-toggler {
+  border: none;
+  background: transparent !important;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(255, 255, 255, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Asegura que el encabezado esté por encima de otros elementos */
 }

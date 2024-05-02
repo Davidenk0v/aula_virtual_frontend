@@ -21,7 +21,6 @@ export class LessonPostService {
 
 
   putLessons(idLesson: number,cita:Lesson): Observable<Lesson> {
-    
     return this.http.put<any>(`${environment.api.urlApi}lessons/${idLesson}`,cita).pipe(
       
     )

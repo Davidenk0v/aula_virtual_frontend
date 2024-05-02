@@ -1,7 +1,16 @@
 .contenedor-principal {
     background-color: rgba(163, 161, 161, 1);
+    
 }
 
+#login {
+    margin-top: 300px; 
+    padding-top: 5%;
+    padding-bottom: 0%;
+    width: 100%;
+    height: 100%;/* Puedes ajustar el valor según sea necesario */
+  }
+  
 .entrada:focus {
     background-color: rgb(222, 222, 231);
 }

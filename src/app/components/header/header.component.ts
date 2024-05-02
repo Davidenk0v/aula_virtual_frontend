@@ -22,6 +22,8 @@ export class HeaderComponent {
     private router: Router,
   ) {}
 
+  permiso : boolean = false
+
   mensaje : string = "";
   goToProfile() {
     this.router.navigate(['/userProfile']);
