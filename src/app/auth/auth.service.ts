@@ -41,10 +41,12 @@ export class AuthService {
 
    logout() {
     this.oAuthService.revokeTokenAndLogout();
+    this.oAuthService.logOut();
    }
 
    getProfile():User {
     const claims = this.oAuthService.getIdentityClaims();
+    console.log(claims);
     return {
       firstName: claims['name'],
       email: claims['email'],

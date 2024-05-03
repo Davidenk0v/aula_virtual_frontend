@@ -3,6 +3,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { SearchService } from '../../services/search/search.service';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -20,15 +21,27 @@ export class HeaderComponent {
   constructor(
     private service: SearchService,
     private router: Router,
+    private authService:AuthService
   ) {}
 
   mensaje : string = "";
-  goToProfile() {
-    this.router.navigate(['/userProfile']);
+  profile: any;
+
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    this.showData();
+    console.log(this.profile);
   }
 
-  goToHome() {
-    this.router.navigate(['/homeScreen']);
+
+  showData() {
+    this.profile = this.authService.getProfile();
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
   onEnter(event: KeyboardEvent) {
