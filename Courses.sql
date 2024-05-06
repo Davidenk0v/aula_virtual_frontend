@@ -61,4 +61,7 @@ VALUES (
     ),   
     (
         20, 'Object-Test-2 Programming with Java', 'Learn the principles of object-oriented programming using the Java language', '2024-10-01', '2024-10-31', 77
+    ),   
+    (
+        21, 'Object-Test-3 Programming with Java', 'Learn the principles of object-oriented programming using the Java language', '2024-10-01', '2024-10-31', 77
     )

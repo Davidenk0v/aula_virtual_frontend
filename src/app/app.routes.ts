@@ -19,5 +19,5 @@ export const routes: Routes = [
     {path: "create", component: CreateCourseComponent},
     {path: "edit", component: EditCourseComponent},
     {path:"search", component:SearchComponent},
-    {path:"all-courses", component:AllCoursesComponent}
+    {path:"all-courses", component:AllCoursesComponent},
 ];

@@ -10,4 +10,15 @@ import { Course } from '../../interfaces/Course';
 })
 export class PaymentComponent {
   @Input() courseInfo?: Course;
+
+  popupShown = false;
+
+
+  showPopup(): boolean {
+    return (this.popupShown = true);
+  }
+
+  closePopup(): boolean {
+    return (this.popupShown = false);
+  }
 }
