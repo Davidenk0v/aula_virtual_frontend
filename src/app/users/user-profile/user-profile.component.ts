@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { User } from '../../interfaces/User';
-import { Course } from '../../interfaces/Course';
 import { FormsModule } from '@angular/forms';
 import { CarouselComponentComponent } from '../../components/carousel-component/carousel-component.component';
 

@@ -1,16 +1,23 @@
-@if (courses | async; as coursePage) {
 <div id="carousel" class="carousel">
     <div class="carousel-indicators" style="margin-bottom: -2%">
 
 
   </div>
+  
   <div class="carousel-inner carouselContainer">
     <div class="carousel-item active">
       <tr class="classContainer">
-        @for(course of coursePage; track course.idCourse){
-        <app-course-card [courseInfo]="course" ></app-course-card>
-    }
-    </tr>
+        @for(course of courses | async; track course.idCourse){
+          @if (course.idCourse != null) {
+              <a href="course/{{course.idCourse}}">
+                <app-course-card [courseInfo]="course" ></app-course-card>
+              </a>
+            } @else {
+              {{autoFirstPage()}}
+            }
+            
+          }
+        </tr>
   </div>
   </div>
   <button
@@ -36,4 +43,3 @@
     <span class="visually-hidden">Next</span>
   </button>
 </div>
-}
