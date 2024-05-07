@@ -4,6 +4,5 @@ export interface CourseRequest {
     description: string;
     startDate: Date;
     finishDate: Date;
-    price: number;
-    idTeacher: number;
+    pago: number;
 }

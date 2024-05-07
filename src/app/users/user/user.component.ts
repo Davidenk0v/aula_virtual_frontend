@@ -11,7 +11,7 @@ import { TeacherProfileComponent } from "../teacher-profile/teacher-profile.comp
 })
 export class UserComponent {
 
-  role: string = '';
+  role: string = 'TEACHER';
 
   constructor(){}
 }

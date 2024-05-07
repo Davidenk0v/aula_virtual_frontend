@@ -17,18 +17,18 @@ export class UserProfileComponent {
   }
 
   user: User = {
-    firstName: '',
-    lastName: '',
+    firstname: '',
+    lastname: '',
     email: '',
-    userName: '',
+    username: '',
     emailVerified: false,
   };
 
   userTemplate: User = {
-    firstName: '',
-    lastName: '',
+    firstname: '',
+    lastname: '',
     email: '',
-    userName: '',
+    username: '',
     emailVerified: false,
   };
 
@@ -44,10 +44,10 @@ export class UserProfileComponent {
   }
 
   updateUser(updatedUser: User) {
-    (this.user.firstName = updatedUser.firstName),
-      (this.user.lastName = updatedUser.lastName),
+    (this.user.firstname = updatedUser.firstname),
+      (this.user.lastname = updatedUser.lastname),
       (this.user.email = updatedUser.email),
-      (this.user.userName = updatedUser.userName);
+      (this.user.username = updatedUser.username);
 
     return (this.popupShown = false);
   }

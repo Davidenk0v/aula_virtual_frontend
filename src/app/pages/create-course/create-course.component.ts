@@ -24,7 +24,7 @@ export class CreateCourseComponent {
     description: ['', [Validators.required]],
     startDate: [new Date(), [Validators.required]],
     finishDate: [new Date(), [Validators.required]],
-    price: [0, [Validators.required]],
+    pago: [0, [Validators.required]],
     idTeacher: [1, [Validators.required]]
   });
 
@@ -34,12 +34,15 @@ export class CreateCourseComponent {
         .addCourse(this.newCourseForm.value as CourseRequest)
         .subscribe({
           next: (userData) => {
+            console.info(userData)
           },
           error: (errorData) => {
             this.errorMessage = errorData;
+            console.info(this.newCourseForm.value as CourseRequest)
+  
           },
           complete: () => {
-            this.router.navigateByUrl('/all-courses');
+            this.router.navigateByUrl('/profile');
             this.newCourseForm.reset();
           },
         });

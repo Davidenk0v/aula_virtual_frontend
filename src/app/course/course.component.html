@@ -1,6 +1,5 @@
 <div class="container my-5" id="course">
   <div class="row">
-    @if(courseInfo | async; as courseInfo){
     <div class="col-9" id="cont_info_course">
         <app-info-course [courseInfo]="courseInfo"></app-info-course>
         <app-topic [courseInfo]="courseInfo"></app-topic>
@@ -8,6 +7,6 @@
       <div class="col-3" id="cont_info_course"> 
         <app-payment [courseInfo]="courseInfo"></app-payment>
       </div> 
-    }
+    
     </div> 
 </div> 

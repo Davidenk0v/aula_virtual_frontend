@@ -46,16 +46,16 @@ export class AuthService {
    getProfile():User {
     const claims = this.oAuthService.getIdentityClaims();
     return {
-      firstName: claims['name'],
+      firstname: claims['name'],
       email: claims['email'],
-      userName: claims['preferred_username'],
-      lastName: claims['family_name'],
+      username: claims['preferred_username'],
+      lastname: claims['family_name'],
       emailVerified: claims['email_verified'],
     };
    }
 
    getUsername() {
-    return this.getProfile().userName;
+    return this.getProfile().username;
    }
 
    getToken() { 

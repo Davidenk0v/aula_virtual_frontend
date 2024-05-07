@@ -18,7 +18,7 @@ export class CourseComponent {
 
   constructor(private activateRoute: ActivatedRoute, private courseService:CourseService) { }
   courseId?:number;
-  courseInfo?:Observable<Course>;
+  courseInfo:Course | undefined;
   errorMessage?:string;
 
   ngOnInit(): void {
@@ -28,10 +28,19 @@ export class CourseComponent {
   }
 
   getCourseInfo(courseId:number){
-      this.courseInfo = this.courseService.getCourseById(courseId)
-      .pipe(catchError((error:string)=> {
-        this.errorMessage = error;
-        return EMPTY;
-      }));
+      this.courseService.getCourseById(courseId).subscribe({
+        next: (cita) => {
+          console.info(cita)
+          this.courseInfo = cita
+        
+        },
+        error:(userData) => {
+            console.log(userData)
+            
+        },
+        complete:()=> {
+          console.info("Completo")
+        }
+      })
     }
 }

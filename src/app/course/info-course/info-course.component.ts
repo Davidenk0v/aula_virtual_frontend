@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Course } from '../../interfaces/Course';
 import { AsyncPipe } from '@angular/common';
 
@@ -9,6 +9,10 @@ import { AsyncPipe } from '@angular/common';
   templateUrl: './info-course.component.html',
   styleUrl: './info-course.component.css'
 })
-export class InfoCourseComponent {
+export class InfoCourseComponent implements OnInit{
   @Input() courseInfo?: Course;
+  constructor(){}
+  ngOnInit(): void {
+    console.info(this.courseInfo)
+  }
 }
