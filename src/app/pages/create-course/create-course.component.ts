@@ -16,6 +16,8 @@ export class CreateCourseComponent {
 
   errorMessage?: string;
 
+
+  idCourse:number | undefined;
   constructor(private formBuilder:FormBuilder, private courseService:CourseService, private router:Router) { }
 
   // Este objeto es el que luego se mandrá a la base de datos
@@ -34,7 +36,9 @@ export class CreateCourseComponent {
         .addCourse(this.newCourseForm.value as CourseRequest)
         .subscribe({
           next: (userData) => {
+            this.idCourse = userData
             console.info(userData)
+
           },
           error: (errorData) => {
             this.errorMessage = errorData;
@@ -42,7 +46,10 @@ export class CreateCourseComponent {
   
           },
           complete: () => {
-            this.router.navigateByUrl('/profile');
+            if (this.idCourse) {
+              this.router.navigateByUrl('/course/' + this.idCourse);
+            }
+  
             this.newCourseForm.reset();
           },
         });

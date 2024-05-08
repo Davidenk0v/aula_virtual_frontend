@@ -20,6 +20,7 @@ export class DeleteCourseComponent {
   }
 
 
+  
   borrar(){
     console.info(this.idBorrar)
     

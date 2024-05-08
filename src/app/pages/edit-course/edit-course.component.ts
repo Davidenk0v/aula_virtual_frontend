@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Course } from '../../interfaces/Course';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
@@ -13,7 +13,7 @@ import { CourseRequest } from '../../interfaces/requests/CourseRequest';
   templateUrl: './edit-course.component.html',
   styleUrl: './edit-course.component.css'
 })
-export class EditCourseComponent {
+export class EditCourseComponent implements OnInit{
   
   courseId:number | undefined;
 
@@ -23,15 +23,16 @@ export class EditCourseComponent {
     description: ['', [Validators.required]],
     startDate: [new Date(), [Validators.required]],
     finishDate: [new Date(), [Validators.required]],
-    pago: [0, [Validators.required]],
-    idTeacher: [1, [Validators.required]]
+    pago: [0, [Validators.required]]
   });
 
   constructor(private formBuilder:FormBuilder, private courseService:CourseService, private router:Router,private activateRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.courseId = Number(this.activateRoute.snapshot.paramMap.get('id'));
+    this.courseId = Number(this.activateRoute.snapshot.paramMap.get('idCourse'));
+    this.valueCourse();
+    console.info(Number(this.activateRoute.snapshot.paramMap.get('idCourse')))
   }
 
   edit(){
@@ -56,7 +57,21 @@ export class EditCourseComponent {
     
   }
 
-  // Este objeto es el que luego se mandrá a la base de datos
-  
 
+  valueCourse(){
+    if (this.courseId) {
+      this.courseService
+        .getCourseById(this.courseId)
+        .subscribe({
+          next: (userData) => {
+            console.info(userData)
+            this.newCourseForm.patchValue(userData)
+          },
+          error: (errorData) => {
+            this.errorMessage = errorData;
+            console.info(this.newCourseForm.value as CourseRequest)
+          }});
+  }
+
+  }
 }

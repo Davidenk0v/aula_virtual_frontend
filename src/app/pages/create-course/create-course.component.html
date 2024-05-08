@@ -1,11 +1,37 @@
-<body class="container my-3">
-  <h2 class="text-center">Crear nuevo curso</h2>
-  <form [formGroup]="newCourseForm" class="text-center">
-    <div class="itemInput my-2">Nombre del curso: <input type="text" formControlName="name" class="courseName" name="name"/></div>
-    <div class="itemInput my-2">Descripción: <textarea formControlName="description" name="description" class="courseDescription" > </textarea></div>
-    <div class="itemInput my-2">Fecha inicio: <input type="date" formControlName="startDate" name="startDate"  class="courseStartDate"/></div>
-    <div class="itemInput my-2">Fecha fin: <input type="date" formControlName="finishDate" name="finishDate" class="courseFinishDate" /></div>
-    <div class="itemInput my-2">Precio: <input type="number" formControlName="price" name="pago" class="coursePrice"/></div>
-    <button class="btn btnSend" (click)="addWorkout()">Enviar</button>
-  </form>
-</body>
+<div class="container my-5">
+  <div class="card">
+    <div class="card-body">
+      <h2 class="card-title text-center mb-4">Crear Nuevo Curso</h2>
+      <form [formGroup]="newCourseForm">
+        <div class="form-group">
+          <label for="courseName">Nombre del Curso</label>
+          <input type="text" formControlName="name" id="courseName" class="form-control" placeholder="Ingrese el nombre del curso">
+        </div>
+        <div class="form-group">
+          <label for="courseDescription">Descripción</label>
+          <textarea formControlName="description" id="courseDescription" class="form-control" placeholder="Ingrese la descripción del curso"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="startDate">Fecha de Inicio</label>
+            <input type="date" formControlName="startDate" id="startDate" class="form-control">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="finishDate">Fecha de Fin</label>
+            <input type="date" formControlName="finishDate" id="finishDate" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="coursePrice">Precio</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">$</span>
+            </div>
+            <input type="number" formControlName="price" id="coursePrice" class="form-control" placeholder="Ingrese el precio">
+          </div>
+        </div>
+        <button type="button" class="btn btn-block btn-success" (click)="addWorkout()">Crear Curso</button>
+      </form>
+    </div>
+  </div>
+</div>

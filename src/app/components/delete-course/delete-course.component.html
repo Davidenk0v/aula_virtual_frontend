@@ -1,18 +1,24 @@
-<div class="popup">
+<!-- Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">¿Estás seguro de que quieres borrar este curso?</h5>
+          <h5 class="modal-title" id="confirmDeleteModalLabel">¿Estás seguro de que quieres borrar este curso?</h5>
           <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <p>Esta acción no se puede deshacer. Una vez que elimines el curso, no podrás recuperarlo.</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal"(click)="cancelar()">Cancelar</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancelar()">Cancelar</button>
           <button type="button" class="btn btn-danger" (click)="borrar()">Borrar</button>
         </div>
       </div>
     </div>
   </div>
+  
+  <!-- Botón para abrir el modal -->
+  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal">
+    Borrar Curso
+  </button>
   

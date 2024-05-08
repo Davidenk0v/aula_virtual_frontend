@@ -111,7 +111,10 @@ body {
     }
 }
 
-
+.btn-danger {
+    background-color: rgb(222, 22, 22);
+    border: none;
+  }
 /* Estilos personalizados para botones */
 .btn-custom-yellow {
     background-color: #ffc107; /* Color amarillo */

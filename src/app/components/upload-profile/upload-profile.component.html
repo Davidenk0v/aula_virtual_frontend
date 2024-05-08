@@ -1,23 +1,26 @@
-<div class="popup">
-    <div class="container center-container">
-      <h2 class="text-center">Actualizar</h2>
-      <form [formGroup]="profile">
-        <div class="mb-3">
-          <label for="firstName" class="form-label">Nombre</label>
-          <input type="text" name="firstName" id="firstName" class="form-control" placeholder="Nombre" formControlName="firstname">
-        </div>
-        <div class="mb-3">
-          <label for="lastName" class="form-label">Apellido</label>
-          <input type="text"  name="lastName" id="lastName" class="form-control" placeholder="Apellido" formControlName="lastname">
-        </div>
-        <div class="mb-3">
-          <label for="userName" class="form-label">Imagen poner URL</label>
-          <input type="text"  name="userName" id="userName" class="form-control" placeholder="Username" formControlName="urlImg">
-        </div>
-        <div class="d-grid gap-2">
-          <button class="btn btn-primary" (click)="update()">Actualizar</button>
-          <button class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
-        </div>
-      </form>
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <form [formGroup]="profile" class="rounded shadow p-4 bg-light">
+          <h2 class="text-center mb-4">Actualizar Perfil</h2>
+          <div class="mb-3">
+            <label for="firstName" class="form-label">Nombre</label>
+            <input type="text" name="firstName" id="firstName" class="form-control" placeholder="Nombre" formControlName="firstname">
+          </div>
+          <div class="mb-3">
+            <label for="lastName" class="form-label">Apellido</label>
+            <input type="text" name="lastName" id="lastName" class="form-control" placeholder="Apellido" formControlName="lastname">
+          </div>
+          <div class="mb-3">
+            <label for="userName" class="form-label">Imagen (URL)</label>
+            <input type="text" name="userName" id="userName" class="form-control" placeholder="URL de la imagen" formControlName="urlImg">
+          </div>
+          <div class="d-grid gap-2">
+            <button class="btn btn-primary btn-lg" (click)="update()">Actualizar</button>
+            <button class="btn btn-secondary btn-lg mt-2" (click)="cancelar()">Cancelar</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
+  

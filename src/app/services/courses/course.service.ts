@@ -2,8 +2,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Course } from '../../interfaces/Course';
 import { environment } from '../../../environments/environment';
-import { Observable, catchError, map, throwError } from 'rxjs';
+import { Observable , catchError, map, throwError } from 'rxjs';
 import { CourseRequest } from '../../interfaces/requests/CourseRequest';
+import { Subject } from '../../interfaces/Subject';
 
 @Injectable({
   providedIn: 'root'
@@ -60,8 +61,9 @@ export class CourseService {
     );
   }
 
-  addCourse(credentials: CourseRequest): Observable<any> {
-    return this.http.post<any>(`${environment.api.urlApi}/courses/2`, credentials).pipe(
+  addCourse(credentials: CourseRequest): Observable<number> {
+    return this.http.post<Record<string,number>>(`${environment.api.urlApi}/courses/2`, credentials).pipe(
+      map(response => response['Curso subido ']),
       catchError((error: HttpErrorResponse) => {
         // Manejar errores de la solicitud
         let errorMessage = '';
@@ -127,6 +129,28 @@ export class CourseService {
     );
   }
 
+
+  
+
+
+  postSubject(credentials: Subject,idCourse :number): Observable<number> {
+    return this.http.post<Record<string,number>>(`${environment.api.urlApi}/subjects/${idCourse}`, credentials).pipe(
+      map(response => response['Tema subido ']),
+      catchError((error: HttpErrorResponse) => {
+        // Manejar errores de la solicitud
+        let errorMessage = '';
+  
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Error: ${error.error.message}`;
+        } else {
+          errorMessage = `Error code: ${error.status}, message: ${error.message}`;
+        }
+  
+        // Devolver un observable de error con el mensaje de error
+        return throwError(() => errorMessage);
+      })
+    );
+  }
 
   getAllCoursesTeacher(id:number): Observable<Course[]> {
     return this.http.get<Course[]>(`${environment.api.urlApi}/users/listaTeacher/${id}`)
