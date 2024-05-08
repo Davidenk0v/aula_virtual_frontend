@@ -27,8 +27,8 @@
                     <li class="d-flex justify-content-between align-items-center">
                         <div>{{subject.name}}</div>
                         <div>
-                            <button type="button" class="btn btn-warning">Editar</button>
-                            <button type="button" class="btn btn-danger ms-2">Borrar</button>
+                            <button type="button" class="btn btn-warning" (click)="abrirModal(subject.idSubject)">Editar</button>
+                            <button type="button" class="btn btn-danger ms-2" (click)="abrirModalDelete(subject.idSubject)">Borrar</button>
                         </div>
                     </li>
                     <li >
@@ -56,6 +56,8 @@
     
     </div> 
 </div> 
+
+<!-- Modal agregar Tema -->
 <div class="modal fade" id="modalAgregarTema" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -80,5 +82,55 @@
         <button type="button" class="btn btn-primary" (click)="postSubject()"  data-bs-dismiss="modal">Guardar</button>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Modal editar Tema -->
+
+<div class="modal fade" id="modalEditarTema" tabindex="-1" aria-labelledby="modal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal">Editar Tema</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cerrarModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="subjectForm">
+          <div class="mb-3">
+            <label for="nombreTema" class="form-label">Nombre del Tema</label>
+            <input type="text" class="form-control" id="nombreTema" formControlName="name">
+          </div>
+          <div class="mb-3">
+            <label for="descripcionTema" class="form-label">Descripción del Tema</label>
+            <textarea class="form-control" id="descripcionTema" rows="3"  formControlName="description"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cerrarModal()">Cancelar</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="editSubject()">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h1 class="modal-title" id="alertModalLabel">Alerta</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cerrarModal()"></button>
+          </div>
+          <div class="modal-body">
+              ¿Estás seguro de que quieres borrar este curso?
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cerrarModal()">Cancelar</button>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                  (click)="deleteSubject()">Borrar</button>
+          </div>
+      </div>
   </div>
 </div>

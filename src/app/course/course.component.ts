@@ -26,7 +26,7 @@ export class CourseComponent implements OnInit{
   courseInfo:Course | undefined;
   errorMessage?:string;
 
-
+  
   subjectId?: number;
   
 
@@ -46,6 +46,48 @@ export class CourseComponent implements OnInit{
     toggleSubmenu() {
         this.submenuAbierto = !this.submenuAbierto;
     }
+
+
+    //Metodo modal
+    abrirModal(id :number) {
+      console.info(id)
+      this.subjectId = id
+      const modal = document.getElementById('modalEditarTema');
+      if (modal) {
+        modal.classList.add('show');
+        modal.style.display = 'block';
+      }
+      
+    }
+    
+    cerrarModal() {
+      const modal = document.getElementById('modalEditarTema');
+      if (modal) {
+        modal.classList.remove('show');
+        modal.style.display = 'none';
+      }
+    }
+
+    abrirModalDelete(id :number) {
+      console.info(id)
+      this.subjectId = id
+      const modal = document.getElementById('alertModal');
+      if (modal) {
+        modal.classList.add('show');
+        modal.style.display = 'block';
+      }
+      
+    }
+    
+    cerrarModalDelete() {
+      const modal = document.getElementById('alertModal');
+      if (modal) {
+        modal.classList.remove('show');
+        modal.style.display = 'none';
+      }
+    }
+
+  //Service 
   postSubject(){
     console.info(this.courseId)
     if (this.courseId) {
@@ -110,5 +152,49 @@ export class CourseComponent implements OnInit{
       })
     }
 
+
+    editSubject(){
+      console.info(this.subjectId)
+      if (this.subjectId) {
+        this.subjectService.editSubjectById(this.subjectId,this.subjectForm.value as Subject).subscribe({
+          next: (cita) => {
+            console.info(cita)
+          },
+          error:(userData) => {
+              console.log(userData)
+          },
+          complete:()=> {
+            console.info("Completo")
+            if (this.courseId) {
+              this.subjectForm.reset();
+              this.cerrarModal();
+              this.getSubjects(this.courseId);
+            }
+          }
+        })
+      }
+    }
     
+
+    deleteSubject(){
+      console.info(this.subjectId)
+      if (this.subjectId) {
+        this.subjectService.deleteSubjectById(this.subjectId).subscribe({
+          next: (cita) => {
+            console.info(cita)
+          },
+          error:(userData) => {
+              console.log(userData)
+          },
+          complete:()=> {
+            console.info("Completo")
+            if (this.courseId) {
+              this.subjectForm.reset();
+              this.cerrarModalDelete();
+              this.getSubjects(this.courseId);
+            }
+          }
+        })
+      }
+    }
 }
