@@ -32,5 +32,4 @@ import { CommonModule, DatePipe } from '@angular/common';
 export class AppComponent {
   title = 'aula-virtual-frontend';
   
-  
 }

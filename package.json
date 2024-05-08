@@ -27,6 +27,7 @@
     "boostrap": "^2.0.0",
     "bootstrap": "^5.3.3",
     "jquery": "^3.7.1",
+    "jwt-decode": "^4.0.0",
     "keycloak-angular": "^15.2.1",
     "keycloak-js": "^24.0.3",
     "popper.js": "^1.16.1",

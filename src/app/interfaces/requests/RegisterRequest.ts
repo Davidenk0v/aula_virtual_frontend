@@ -1,4 +1,4 @@
-import { Address } from "./Address";
+import { Address } from "../Address";
 
 export interface RegisterRequest {
 
@@ -8,5 +8,4 @@ export interface RegisterRequest {
     email?: string;
     address?: Address;
     password?: string;
-  
   }
