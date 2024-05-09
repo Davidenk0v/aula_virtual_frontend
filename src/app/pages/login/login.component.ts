@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule , Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
-import { LoginRequest } from '../../interfaces/requests/LoginRequest';
+import { LoginRequest } from '../../interfaces/LoginRequest';
 import { SuccessMessageComponent } from '../../components/success-message/success-message.component';
 import { ErrorMessageComponent } from '../../components/error-message/error-message.component';
 
@@ -78,6 +78,7 @@ export class LoginComponent {
         }
       });
     }else{
+      this.errorMessage = "Debe rellenar todos los campos"
       this.loginForm.markAllAsTouched();
     } 
   }

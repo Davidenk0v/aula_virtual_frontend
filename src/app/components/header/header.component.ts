@@ -41,9 +41,14 @@ export class HeaderComponent {
       }else {
         this.logged = false;
       }
-      this.name = this.jwtService.getNameFromToken();
     })
-    
+    this.authService.name$.subscribe((nameFromToken)=> {
+      if(nameFromToken){
+        this.name = nameFromToken;
+      }else{
+        this.name = this.jwtService.getNameFromToken();
+      }
+    })
   }
 
   logout(){

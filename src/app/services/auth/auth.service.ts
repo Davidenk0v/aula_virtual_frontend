@@ -3,8 +3,10 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, catchError, map, tap, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { LoginRequest } from '../../interfaces/requests/LoginRequest';
+import { LoginRequest } from '../../interfaces/LoginRequest';
 import { RegisterRequest } from '../../interfaces/requests/RegisterRequest';
+import { jwtDecode } from 'jwt-decode';
+import { JwtKeycloak } from '../../interfaces/JwtKeycloak';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +16,9 @@ export class AuthService {
   
   private loggedInSubject = new BehaviorSubject<boolean>(false);
   loggedIn$ = this.loggedInSubject.asObservable();
+
+  private takeNameFromToken = new BehaviorSubject<string>('');
+  name$ = this.takeNameFromToken.asObservable();
 
   currentUserTeacher: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   currentToken: BehaviorSubject<string> = new BehaviorSubject<string>('');
@@ -25,7 +30,8 @@ export class AuthService {
    login(credentials:LoginRequest):Observable<any>{
     return this.http.post<any>(`${environment.api.urlHost}auth/login`,credentials).pipe( //La url de la API se obtiene del archivo env_api.ts
       tap((userData) => {
-        //Aqui guardaríamos el token en el sessionStorage o en el localStorage
+        const {name} = jwtDecode(userData.access_token) as JwtKeycloak;
+        this.takeNameFromToken.next(name ?? '');
         this.loggedInSubject.next(true);
         sessionStorage.setItem("loggin", "true");
       }),
