@@ -58,8 +58,7 @@ export class RegisterComponent {
             localStorage.setItem("rememberMe", "true");
             localStorage.setItem("username", this.registerForm.value.username ?? '');
             localStorage.setItem("password", this.registerForm.value.password ?? '');
-            this.router.navigateByUrl('/login');
-            sessionStorage.setItem("verify", "Se ha enviado un correo para verificar su cuenta")
+            this.router.navigate(['/verify', this.registerForm.value.email]);
             this.registerForm.reset();
           },
         });

@@ -24,6 +24,7 @@ export class HeaderComponent {
 
   mensaje:string = "";
   name:string = "";
+  role?:string;
 
   constructor(
     private service: SearchService,
@@ -33,6 +34,12 @@ export class HeaderComponent {
   ) {}
 
   ngOnInit(): void {
+    this.loggedIn();
+    this.getName();
+    this.getRole()
+  }
+
+  private loggedIn(){
     this.authService.loggedIn$.subscribe((loggedIn)=> {
       if(loggedIn){
         this.logged = true;
@@ -42,12 +49,22 @@ export class HeaderComponent {
         this.logged = false;
       }
     })
+  }
+
+  private getName(){
     this.authService.name$.subscribe((nameFromToken)=> {
       if(nameFromToken){
         this.name = nameFromToken;
       }else{
         this.name = this.jwtService.getNameFromToken();
       }
+    })
+  }
+
+  private getRole(){
+    this.authService.role$.subscribe((roleFromToken)=> {
+      if(roleFromToken.includes('teacher_class_room')) this.role = "teacher";
+      if(roleFromToken.includes('student_class_room')) this.role = "student";
     })
   }
 

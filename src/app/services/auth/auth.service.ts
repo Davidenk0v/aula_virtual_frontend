@@ -20,6 +20,9 @@ export class AuthService {
   private takeNameFromToken = new BehaviorSubject<string>('');
   name$ = this.takeNameFromToken.asObservable();
 
+  private takeRoleFromToken = new BehaviorSubject<string[]>([]);
+  role$ = this.takeRoleFromToken.asObservable();
+
   currentUserTeacher: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   currentToken: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
@@ -31,8 +34,10 @@ export class AuthService {
     return this.http.post<any>(`${environment.api.urlHost}auth/login`,credentials).pipe( //La url de la API se obtiene del archivo env_api.ts
       tap((userData) => {
         const {name} = jwtDecode(userData.access_token) as JwtKeycloak;
+        const {realm_access} = jwtDecode(userData.access_token) as JwtKeycloak;
         this.takeNameFromToken.next(name ?? '');
         this.loggedInSubject.next(true);
+        this.takeRoleFromToken.next(realm_access.roles ?? [])
         sessionStorage.setItem("loggin", "true");
       }),
       map((userData)=> userData),
@@ -63,8 +68,6 @@ export class AuthService {
   isLoggedIn(): boolean {
     return this.loggedInSubject.value;
   }
-
-
 
 
   private handleError(error:HttpErrorResponse){

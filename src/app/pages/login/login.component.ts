@@ -36,9 +36,6 @@ export class LoginComponent {
   }
 
   ngOnInit(): void {
-    if(sessionStorage.getItem("verify")){
-      this.successMessage = sessionStorage.getItem("verify") ?? ''
-    }
     this.authService.loggedIn$.subscribe((loggedIn)=> {
       if(loggedIn){
           this.userLoggedIn = true;

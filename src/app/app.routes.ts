@@ -9,6 +9,8 @@ import { SearchComponent } from './pages/search/search.component';
 import { AllCoursesComponent } from './pages/all-courses/all-courses.component';
 import { CourseComponent } from './course/course.component';
 import { UserComponent } from './users/user/user.component';
+import { TeacherProfileComponent } from './users/teacher-profile/teacher-profile.component';
+import { VerifyComponent } from './pages/verify/verify.component';
 
 export const routes: Routes = [
     {path:"", redirectTo:"/home", pathMatch:"full"},
@@ -20,5 +22,6 @@ export const routes: Routes = [
     {path: "edit/:idCourse", component: EditCourseComponent},
     {path:"search", component:SearchComponent},
     {path:"all-courses", component:AllCoursesComponent},
-    {path:"profile",component:UserComponent}
+    {path:"profile",component:UserComponent},
+    {path:"verify/:email",component:VerifyComponent}
 ];
