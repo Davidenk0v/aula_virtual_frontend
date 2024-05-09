@@ -124,3 +124,8 @@
 .inputPopup {
     border-radius: 5px;
 }
+
+img {
+    max-width: 20%; /* Set maximum width to 50% of its container */
+    height: auto; /* Maintain aspect ratio */
+  }

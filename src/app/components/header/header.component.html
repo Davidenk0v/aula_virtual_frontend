@@ -6,9 +6,15 @@
               <a routerLink="/login" class="nav-link">Iniciar sesión</a>
               <a routerLink="/register" class="nav-link">Registrarse</a>
             }@else {
-              <a routerLink="/profile" class="nav-link" >
-                 {{name}}
-            </a>
+              @if(role == 'student'){
+                <a routerLink="/student-profile" class="nav-link" >
+                   {{name}}
+              </a>
+              }@else {
+                <a routerLink="/teacher-profile" class="nav-link" >
+                  {{name}}
+             </a>
+              }
             <button (click)="logout()" class="nav-link">Cerrar sesión</button>
             }            
           </div>

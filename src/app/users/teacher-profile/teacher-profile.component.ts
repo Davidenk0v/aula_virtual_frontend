@@ -7,6 +7,7 @@ import { UploadProfileComponent } from "../../components/upload-profile/upload-p
 import { RouterLink } from '@angular/router';
 import { CreateCourseComponent } from "../../pages/create-course/create-course.component";
 import { DeleteCourseComponent } from "../../components/delete-course/delete-course.component";
+import { JwtService } from '../../services/jwt/jwt.service';
 
 @Component({
     selector: 'app-teacher-profile',
@@ -17,10 +18,13 @@ import { DeleteCourseComponent } from "../../components/delete-course/delete-cou
 })
 export class TeacherProfileComponent implements OnInit{
 
-  constructor(private courseService:CourseService, private userService:ProfileService){}
+  constructor(private courseService:CourseService, private userService:ProfileService, private jwtService:JwtService){}
+  email:string='';
+  username:string=''
   ngOnInit(): void {
+    this.username = this.jwtService.getUsernameFromToken();
     this.getCoursesTeacher();
-    this.getPerfilTeacher();
+    this.getPerfilTeacher(this.username)
   }
 
 
@@ -67,7 +71,7 @@ export class TeacherProfileComponent implements OnInit{
     this.popUpEdit = isEdited;
     console.info(this.popUpEdit)
     this.cerrarModalPerfil();
-    this.getPerfilTeacher();
+    //this.getPerfilTeacher();
   }
 
   abrirModalPerfil() {
@@ -117,8 +121,9 @@ export class TeacherProfileComponent implements OnInit{
       this.abrirModalPerfil();
     }
   }
+
   getCoursesTeacher():void{
-    this.courseService.getAllCoursesTeacher(2).subscribe({
+    this.courseService.getAllCoursesTeacher(1).subscribe({
       next: (cita) => {
         console.info(cita)
         this.courseList = cita
@@ -135,12 +140,10 @@ export class TeacherProfileComponent implements OnInit{
     })
   }
 
-  getPerfilTeacher():void{
-    this.userService.getProfileById(2).subscribe({
+  getPerfilTeacher(username:string):void{
+    this.userService.getProfileByUsername(username).subscribe({
       next: (cita) => {
         console.info(cita)
-        this.perfil = cita
-        console.info(this.perfil)
       },
       error:(userData) => {
           console.log(userData)

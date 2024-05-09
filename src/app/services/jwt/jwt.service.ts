@@ -27,4 +27,20 @@ export class JwtService {
     }
 }
 
+getEmailFromToken():any{
+  this.token = sessionStorage.getItem('token') ?? '';
+  if(this.token != ''){
+  const {email} = jwtDecode(this.token) as JwtKeycloak;
+  return email;
+  }
+}
+
+getUsernameFromToken():any{
+  this.token = sessionStorage.getItem('token') ?? '';
+  if(this.token != ''){
+  const {preferred_username} = jwtDecode(this.token) as JwtKeycloak;
+  return preferred_username;
+  }
+}
+
 }

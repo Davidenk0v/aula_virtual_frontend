@@ -14,11 +14,9 @@ export class ProfileService {
   constructor(private http: HttpClient) { }
 
   errorMessage?:string;
-  getProfileById(idProfile:number): Observable<UserProfile> {
-    return this.http.get<Record<string, UserProfile>>(`${environment.api.urlApi}/users/${idProfile}`)
-    .pipe(
-      map(response => response['Guardado']),
-      catchError((error: HttpErrorResponse) => {
+  getProfileByUsername(username:string): Observable<User[]> {
+    return this.http.get<User[]>(`${environment.api.urlApi}/users/${username}`)
+    .pipe(catchError((error: HttpErrorResponse) => {
         if (error.error instanceof ErrorEvent) {
           this.errorMessage = `Error: ${error.error.message}`;
         } else {

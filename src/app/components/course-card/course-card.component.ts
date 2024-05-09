@@ -7,7 +7,7 @@ import { CourseService } from '../../services/courses/course.service';
   selector: 'app-course-card',
   standalone: true,
   imports: [RouterLink],
-  templateUrl: './course-card.component.html',
+  templateUrl:'./course-card.component.html',
   styleUrl: './course-card.component.css'
 })
 export class CourseCardComponent {

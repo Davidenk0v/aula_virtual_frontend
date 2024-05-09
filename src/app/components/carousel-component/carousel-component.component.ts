@@ -28,7 +28,7 @@ export class CarouselComponentComponent {
   constructor(private courseService:CourseService){}
 
   ngOnInit(): void {
-    this.getPageCourses( )
+    this.getPageCourses()
   }
 
   showdata(){
