@@ -10,6 +10,7 @@ import { UploadProfileComponent } from '../../components/upload-profile/upload-p
 import { RouterLink } from '@angular/router';
 import { CreateCourseComponent } from '../../pages/create-course/create-course.component';
 import { DeleteCourseComponent } from '../../components/delete-course/delete-course.component';
+import { JwtService } from '../../services/jwt/jwt.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -19,13 +20,13 @@ import { DeleteCourseComponent } from '../../components/delete-course/delete-cou
   styleUrl: './user-profile.component.css'
 })
 export class UserProfileComponent {
-  constructor(private courseService:CourseService, private userService:ProfileService){}
+  constructor(private courseService:CourseService, private userService:ProfileService, private jwtService:JwtService){}
   ngOnInit(): void {
     this.getCoursesTeacher();
-    //this.getPerfilTeacher();
+    this.getPerfilTeacher(this.username);
   }
 
-
+  username:string = this.jwtService.getUsernameFromToken()
   haveCourses?:boolean = true
   idCourse?:number
   courseList?:Course[]
@@ -137,8 +138,8 @@ export class UserProfileComponent {
     })
   }
 
-  getPerfilTeacher(email:string):void{
-    this.userService.getProfileByUsername(email).subscribe({
+  getPerfilTeacher(username:string):void{
+    this.userService.getProfileByUsername(username).subscribe({
       next: (cita) => {
         console.info(cita)
       },

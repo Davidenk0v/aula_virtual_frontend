@@ -23,7 +23,7 @@ export class TeacherProfileComponent implements OnInit{
   username:string=''
   ngOnInit(): void {
     this.username = this.jwtService.getUsernameFromToken();
-    this.getCoursesTeacher();
+    //this.getCoursesTeacher();
     this.getPerfilTeacher(this.username)
   }
 

@@ -2,7 +2,6 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Course } from '../interfaces/Course';
 import { User, UserEdit } from '../interfaces/User';
 import { UserProfile } from '../interfaces/Profile';
 
@@ -14,8 +13,9 @@ export class ProfileService {
   constructor(private http: HttpClient) { }
 
   errorMessage?:string;
-  getProfileByUsername(username:string): Observable<User[]> {
-    return this.http.get<User[]>(`${environment.api.urlApi}/users/${username}`)
+  
+  getProfileByUsername(username:string): Observable<User> {
+    return this.http.get<User>(`${environment.api.urlApi}/users/${username}`)
     .pipe(catchError((error: HttpErrorResponse) => {
         if (error.error instanceof ErrorEvent) {
           this.errorMessage = `Error: ${error.error.message}`;
