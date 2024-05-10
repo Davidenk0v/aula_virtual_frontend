@@ -4,6 +4,9 @@
       <h2 class="card-title text-center mb-4">Crear Nuevo Curso</h2>
       <form [formGroup]="newCourseForm">
         <div class="form-group">
+          @if(errorMessage){
+            <app-error-message [message]="errorMessage"></app-error-message>
+          }
           <label for="courseName">Nombre del Curso</label>
           <input type="text" formControlName="name" id="courseName" class="form-control" placeholder="Ingrese el nombre del curso">
         </div>
@@ -25,12 +28,12 @@
           <label for="coursePrice">Precio</label>
           <div class="input-group">
             <div class="input-group-prepend">
-              <span class="input-group-text">$</span>
+              <span class="input-group-text">€</span>
             </div>
             <input type="number" formControlName="price" id="coursePrice" class="form-control" placeholder="Ingrese el precio">
           </div>
         </div>
-        <button type="button" class="btn btn-block btn-success" (click)="addWorkout()">Crear Curso</button>
+        <button type="button" class="btn btn-block btn-success" (click)="addCourse()">Crear Curso</button>
       </form>
     </div>
   </div>

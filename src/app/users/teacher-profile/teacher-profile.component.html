@@ -64,18 +64,21 @@
                 <div class="container mt-4">
                     <!-- Perfil del profesor -->
                     <div class="perfil-profesor">
-                        <h1 class="titulo">Perfil del Profesor</h1>
+                        @if(editMessage != null && editMessage != ""){
+                            <app-success-message [message]="editMessage"></app-success-message>
+                        }
+                        <h1 class="titulo">Zona Profesor</h1>
                         <div class="card mb-4 shadow-sm">
                             <div class="card-body">
                                 <img src="" alt="Foto de perfil" class="w-100 rounded-top">
-                                <h5 class="card-title">{{perfil?.firstname}} {{perfil?.lastname}}</h5>
+                                <h5 class="card-title">{{teacher?.firstname}} {{teacher?.lastname}}</h5>
                                 <ul class="list-unstyled mt-3 mb-4">
-                                    <li><strong>Nombre de usuario:</strong> {{perfil?.username}}</li>
-                                    <li><strong>Email:</strong> {{perfil?.email}}</li>
+                                    <li><strong>Nombre de usuario:</strong> {{teacher?.username}}</li>
+                                    <li><strong>Email:</strong> {{teacher?.email}}</li>
                                 </ul>
                                 @if(editOn){
                                 <button class="btn btn-custom-yellow btn-block mb-2" (click)="pupUpEditProfile()">Editar
-                                    perfil</button>
+                                    datos</button>
                                 <button class="btn btn-custom-red btn-block">Borrar cuenta</button>
                                 }
                             </div>
@@ -92,7 +95,7 @@
                             <div class="col-md-4">
                                 <div class="card mb-4 shadow-sm">
                                     <div class="card-body">
-                                        <img src="https://via.placeholder.com/300" alt="" class="w-100 rounded-top"
+                                        <img src="{{item.urlImg}}" alt="{{item.name}}" class="w-100 rounded-top"
                                             [routerLink]="['/course', item?.idCourse]">
                                         <h5 class="card-title">{{item.name}}</h5>
                                         <ul class="list-unstyled mt-3 mb-4">

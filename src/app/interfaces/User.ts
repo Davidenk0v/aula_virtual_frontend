@@ -11,6 +11,7 @@ export interface User {
 
 
 export interface UserEdit {
+  username: string;
   lastname: string
   firstname: string
   urlImg: string

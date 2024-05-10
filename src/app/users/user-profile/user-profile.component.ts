@@ -23,10 +23,11 @@ export class UserProfileComponent {
   constructor(private courseService:CourseService, private userService:ProfileService, private jwtService:JwtService){}
   ngOnInit(): void {
     this.getCoursesTeacher();
-    this.getPerfilTeacher(this.username);
+    this.email = this.jwtService.getEmailFromToken();
+    this.getPerfilTeacher(this.email);
   }
 
-  username:string = this.jwtService.getUsernameFromToken()
+  email:string='';
   haveCourses?:boolean = true
   idCourse?:number
   courseList?:Course[]
@@ -121,7 +122,7 @@ export class UserProfileComponent {
     }
   }
   getCoursesTeacher():void{
-    this.courseService.getAllCoursesTeacher(2).subscribe({
+    this.courseService.getAllCoursesTeacher(this.email).subscribe({
       next: (cita) => {
         console.info(cita)
         this.courseList = cita

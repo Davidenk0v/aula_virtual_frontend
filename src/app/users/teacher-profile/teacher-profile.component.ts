@@ -8,23 +8,34 @@ import { RouterLink } from '@angular/router';
 import { CreateCourseComponent } from "../../pages/create-course/create-course.component";
 import { DeleteCourseComponent } from "../../components/delete-course/delete-course.component";
 import { JwtService } from '../../services/jwt/jwt.service';
+import { User } from '../../interfaces/User';
+import { SuccessMessageComponent } from '../../components/success-message/success-message.component';
 
 @Component({
     selector: 'app-teacher-profile',
     standalone: true,
     templateUrl: './teacher-profile.component.html',
     styleUrl: './teacher-profile.component.css',
-    imports: [UploadProfileComponent, RouterLink, CreateCourseComponent, DeleteCourseComponent]
+    imports: [UploadProfileComponent, RouterLink, CreateCourseComponent, DeleteCourseComponent, SuccessMessageComponent]
 })
 export class TeacherProfileComponent implements OnInit{
 
   constructor(private courseService:CourseService, private userService:ProfileService, private jwtService:JwtService){}
   email:string='';
   username:string=''
+  teacher?:User;
+  editMessage?:string;
+
   ngOnInit(): void {
-    this.username = this.jwtService.getUsernameFromToken();
-    //this.getCoursesTeacher();
-    this.getPerfilTeacher(this.username)
+    this.email = this.jwtService.getEmailFromToken();
+    this.getCoursesTeacher(this.email);
+    this.getPerfilTeacher(this.email)
+    if (sessionStorage.getItem('edit')) {
+      this.editMessage = sessionStorage.getItem('edit') ?? '';
+      setTimeout(() => {
+        this.editMessage = '';
+    }, 10000);
+    }
   }
 
 
@@ -32,7 +43,6 @@ export class TeacherProfileComponent implements OnInit{
   idCourse?:number
   courseList?:Course[]
   editOn: boolean = false;
-  perfil? : UserProfile
   popUpEdit : boolean = false;
 
 
@@ -57,7 +67,7 @@ export class TeacherProfileComponent implements OnInit{
       complete:()=> {
         console.info("Completo")  
         this.abrirModal();
-        this.getCoursesTeacher();
+        this.getCoursesTeacher(this.email);
       }
     });
     }
@@ -71,7 +81,7 @@ export class TeacherProfileComponent implements OnInit{
     this.popUpEdit = isEdited;
     console.info(this.popUpEdit)
     this.cerrarModalPerfil();
-    //this.getPerfilTeacher();
+    this.getPerfilTeacher(this.username);
   }
 
   abrirModalPerfil() {
@@ -88,6 +98,7 @@ export class TeacherProfileComponent implements OnInit{
     if (modal) {
       modal.classList.remove('show');
       modal.style.display = 'none';
+      this.getPerfilTeacher(this.email);
     }
   }
   
@@ -122,8 +133,8 @@ export class TeacherProfileComponent implements OnInit{
     }
   }
 
-  getCoursesTeacher():void{
-    this.courseService.getAllCoursesTeacher(1).subscribe({
+  getCoursesTeacher(email:string):void{
+    this.courseService.getAllCoursesTeacher(email).subscribe({
       next: (cita) => {
         console.info(cita)
         this.courseList = cita
@@ -140,14 +151,13 @@ export class TeacherProfileComponent implements OnInit{
     })
   }
 
-  getPerfilTeacher(username:string):void{
-    this.userService.getProfileByUsername(username).subscribe({
+  getPerfilTeacher(email:string):void{
+    this.userService.getProfileByUsername(email).subscribe({
       next: (cita) => {
-        console.info(cita)
+        this.teacher = cita;
       },
       error:(userData) => {
-          console.log(userData)
-          
+          console.error(userData)
       },
       complete:()=> {
         console.info("Completo")

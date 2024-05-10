@@ -29,8 +29,8 @@ export class ProfileService {
   }
 
 
-  updateProfile(id:number, profile:UserEdit):Observable<UserProfile>{
-    return this.http.put<Record<string, UserProfile>>(`${environment.api.urlApi}/users/${id}`,profile).pipe(
+  updateProfile(email:string, profile:UserEdit):Observable<UserProfile>{
+    return this.http.put<Record<string, UserProfile>>(`${environment.api.urlApi}/users/${email}`,profile).pipe(
       map(response => response['Guardado']),
       catchError((error: HttpErrorResponse) => {
         if (error.error instanceof ErrorEvent) {

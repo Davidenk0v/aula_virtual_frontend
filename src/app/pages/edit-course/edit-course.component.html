@@ -2,10 +2,10 @@
   <div class="card">
     <div class="card-body">
       <h2 class="card-title text-center mb-4">Editar Curso</h2>
-      <form [formGroup]="newCourseForm">
+      <form [formGroup]="editCourseForm">
         <div class="mb-3">
           <label for="courseName" class="form-label">Nombre del Curso</label>
-          <input type="text" formControlName="name" id="courseName" class="form-control" placeholder="Ingrese el nombre del curso">
+          <input type="text" formControlName="name" id="courseName" class="form-control" value="{{courseInfo?.name}}">
         </div>
         <div class="mb-3">
           <label for="courseDescription" class="form-label">Descripción</label>
