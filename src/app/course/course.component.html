@@ -48,13 +48,25 @@
     
     
     
-    </div>
-      </div> 
-      <div class="col-3" id="cont_info_course"> 
-        <app-payment [courseInfo]="courseInfo"></app-payment>
-      </div> 
-    
-    </div> 
+  </div>
+</div> 
+<div class="col-3" id="cont_info_course"> 
+  <app-payment [courseInfo]="courseInfo"></app-payment>
+</div> 
+
+</div> 
+<div>
+  <h3>Comentarios:</h3>
+  <div>
+    @for (coment of coments; track $index) {
+      <div class="row my-2 msg-container" style="background-color: red; max-width: 80%;"> 
+        {{coment.username}}: 
+        {{coment.comment}}
+      </div>
+    }
+  
+</div>
+
 </div> 
 <div class="modal fade" id="modalAgregarTema" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
