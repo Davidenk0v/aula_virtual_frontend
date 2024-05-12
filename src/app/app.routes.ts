@@ -9,6 +9,7 @@ import { SearchComponent } from './pages/search/search.component';
 import { AllCoursesComponent } from './pages/all-courses/all-courses.component';
 import { CourseComponent } from './course/course.component';
 import { UserComponent } from './users/user/user.component';
+import { ZoomComponent } from './zoom/zoom/zoom.component';
 
 export const routes: Routes = [
     {path:"", redirectTo:"/home", pathMatch:"full"},
@@ -20,5 +21,6 @@ export const routes: Routes = [
     {path: "edit/:idCourse", component: EditCourseComponent},
     {path:"search", component:SearchComponent},
     {path:"all-courses", component:AllCoursesComponent},
-    {path:"profile",component:UserComponent}
+    {path:"profile",component:UserComponent},
+    {path:"zoom",component:ZoomComponent}
 ];

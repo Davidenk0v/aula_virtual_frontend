@@ -23,6 +23,7 @@
     "@fortawesome/fontawesome-free": "^6.5.2",
     "@ng-bootstrap/ng-bootstrap": "^16.0.0",
     "@popperjs/core": "^2.11.8",
+    "@zoom/meetingsdk": "^3.6.0",
     "@zoomus/websdk": "^2.18.3",
     "angular-oauth2-oidc": "^17.0.2",
     "boostrap": "^2.0.0",

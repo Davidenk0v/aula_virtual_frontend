@@ -1,33 +1,38 @@
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, NgZone } from '@angular/core';
-import { ZoomMtg } from '@zoomus/websdk';
+import { Component, Inject, NgZone, OnInit } from '@angular/core';
+import ZoomMtgEmbedded from '@zoom/meetingsdk/embedded';
 
 @Component({
   selector: 'app-zoom',
   standalone: true,
   imports: [],
   templateUrl: './zoom.component.html',
-  styleUrl: './zoom.component.css'
+  styleUrls: ['./zoom.component.css']
 })
-export class ZoomComponent {
-  authEndpoint = 'v4YP-ImYQ2W_sJlHYyZ4jg'
-  sdkKey = 'FVOEXlkbSgGMUTLHcokuQ'
-  meetingNumber = '123456789'
-  passWord = ''
-  role = 0
+export class ZoomComponent implements OnInit {
+  
+  authEndpoint = 'http://localhost:4000'
+  sdkKey = '6p_ZQkgXQ_K8gJe7bxq8Tg'
+  meetingNumber = '83888129757'
+  passWord = 'd7HiN4'
+  role = 1
   userName = 'Angular'
   userEmail = ''
   registrantToken = ''
   zakToken = ''
-  leaveUrl = 'http://localhost:4200'
 
-  constructor(public httpClient: HttpClient, @Inject(DOCUMENT) private document:Document, private ngZone: NgZone) {
+  client = ZoomMtgEmbedded.createClient();
+
+  constructor(
+    private httpClient: HttpClient, 
+    @Inject(DOCUMENT) private document: Document, 
+    private ngZone: NgZone) {
 
   }
 
   ngOnInit() {
-
+    
   }
 
   getSignature() {
@@ -46,43 +51,32 @@ export class ZoomComponent {
     })
   }
 
-  startMeeting(signature: any) {
+  startMeeting(signature : string) {
 
-    
-    if (document) {
-      let element = document.getElementById('zmmtg-root');
-      if (element) {
-        element.style.display = 'block';
-      }
-    }
+    let meetingSDKElement = this.document.getElementById('meetingSDKElement');
 
     this.ngZone.runOutsideAngular(() => {
-      ZoomMtg.init({
-        leaveUrl: this.leaveUrl,
-        patchJsMedia: true,
-        success: (success: string) => {
-          console.log(success)
-          ZoomMtg.join({
-            signature: signature,
-            sdkKey: this.sdkKey,
-            meetingNumber: this.meetingNumber,
-            passWord: this.passWord,
-            userName: this.userName,
-            userEmail: this.userEmail,
-            tk: this.registrantToken,
-            zak: this.zakToken,
-            success: (success : string) => {
-              console.log(success)
-            },
-            error: (error: any) => {
-              console.log(error)
-            }
-          })
-        },
-        error: (error: any) => {
+      if (meetingSDKElement) {
+         this.client.init({zoomAppRoot: meetingSDKElement, language: 'en-US', patchJsMedia: true}).then(() => {
+        this.client.join({
+          signature: signature,
+          sdkKey: this.sdkKey,
+          meetingNumber: this.meetingNumber,
+          password: this.passWord,
+          userName: this.userName,
+          userEmail: this.userEmail,
+          tk: this.registrantToken,
+          zak: this.zakToken
+        }).then(() => {
+          console.log('joined successfully')
+        }).catch((error) => {
           console.log(error)
-        }
+        })
+      }).catch((error) => {
+        console.log(error)
       })
+      }
+     
     })
   }
 }
