@@ -11,6 +11,8 @@ import { RouterLink } from '@angular/router';
 import { CreateCourseComponent } from '../../pages/create-course/create-course.component';
 import { DeleteCourseComponent } from '../../components/delete-course/delete-course.component';
 import { JwtService } from '../../services/jwt/jwt.service';
+import { Observable, scan } from 'rxjs';
+import { HttpEvent } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-profile',
@@ -20,50 +22,54 @@ import { JwtService } from '../../services/jwt/jwt.service';
   styleUrl: './user-profile.component.css'
 })
 export class UserProfileComponent {
-  constructor(private courseService:CourseService, private userService:ProfileService, private jwtService:JwtService){}
+  constructor(private courseService: CourseService, private userService: ProfileService, private jwtService: JwtService) { }
   ngOnInit(): void {
     this.getCoursesTeacher();
     this.email = this.jwtService.getEmailFromToken();
     this.getPerfilTeacher(this.email);
+    this.downloadImage(1);
   }
 
-  email:string='';
-  haveCourses?:boolean = true
-  idCourse?:number
-  courseList?:Course[]
+  email: string = '';
+  haveCourses?: boolean = true
+  idCourse?: number
+  courseList?: Course[]
   editOn: boolean = false;
-  perfil? : UserProfile
-  popUpEdit : boolean = false;
+  perfil?: UserProfile
+  popUpEdit: boolean = false;
+
+  payload: any;
+  imageUrl: any;
 
 
-  popUpDelete : boolean = false;
+  popUpDelete: boolean = false;
   onEnter(event: KeyboardEvent) {
     // Verifica si la tecla presionada es "Enter" (código 13)
     if (event.key === "Enter") {
       // Ejecuta la lógica que deseas cuando se presiona "Enter"
-      
+
     }
   }
 
-  borrar(){
-    
+  borrar() {
+
     if (this.idCourse) {
       this.courseService.deleteCourseById(this.idCourse).subscribe({
-      next: (data) => {
-        console.info(data);
-      },error:(data) => {
-        console.info(data, "Error")
-      },
-      complete:()=> {
-        console.info("Completo")  
-        this.abrirModal();
-        this.getCoursesTeacher();
-      }
-    });
+        next: (data) => {
+          console.info(data);
+        }, error: (data) => {
+          console.info(data, "Error")
+        },
+        complete: () => {
+          console.info("Completo")
+          this.abrirModal();
+          this.getCoursesTeacher();
+        }
+      });
     }
   }
 
-  cambiarIdCourse(course: number){
+  cambiarIdCourse(course: number) {
     this.idCourse = course
     console.info(this.idCourse)
   }
@@ -71,7 +77,7 @@ export class UserProfileComponent {
     this.popUpEdit = isEdited;
     console.info(this.popUpEdit)
     this.cerrarModalPerfil();
-   // this.getPerfilTeacher();
+    // this.getPerfilTeacher();
   }
 
   abrirModalPerfil() {
@@ -90,7 +96,6 @@ export class UserProfileComponent {
       modal.style.display = 'none';
     }
   }
-  
 
   abrirModal() {
     const modal = document.getElementById('successModal');
@@ -99,7 +104,7 @@ export class UserProfileComponent {
       modal.style.display = 'block';
     }
   }
-  
+
   cerrarModal() {
     const modal = document.getElementById('successModal');
     if (modal) {
@@ -107,50 +112,124 @@ export class UserProfileComponent {
       modal.style.display = 'none';
     }
   }
-  
-  
-  
-  editMode(): void{
+
+
+
+  editMode(): void {
     this.editOn = !this.editOn
-    
+
   }
 
-  pupUpEditProfile(): void{
+  pupUpEditProfile(): void {
     this.popUpEdit = !this.popUpEdit
-    if (this.popUpEdit==true) {
+    if (this.popUpEdit == true) {
       this.abrirModalPerfil();
     }
   }
-  getCoursesTeacher():void{
+  getCoursesTeacher(): void {
     this.courseService.getAllCoursesTeacher(this.email).subscribe({
       next: (cita) => {
         console.info(cita)
         this.courseList = cita
-  
+
       },
-      error:(userData) => {
+      error: (userData) => {
         this.haveCourses = false
         console.log(userData)
-          
+
       },
-      complete:()=> {
+      complete: () => {
         console.info("Completo")
       }
     })
   }
 
-  getPerfilTeacher(username:string):void{
+  getPerfilTeacher(username: string): void {
     this.userService.getProfileByUsername(username).subscribe({
       next: (cita) => {
         console.info(cita)
       },
-      error:(userData) => {
-          console.log(userData)
-          
+      error: (userData) => {
+        console.log(userData)
+
       },
-      complete:()=> {
+      complete: () => {
         console.info("Completo")
       }
     })
   }
+
+  /**
+   * Selecciona el archivo y valida si es admitido.
+   * @param event 
+   */
+  setFile(event: any) {
+    let temp = <File>event.target.files[0];
+    console.log("payload ", temp.name);
+    console.log('size', temp.size);
+    console.log('type', temp.type);
+    switch (temp.type) {
+      case "image/png":
+        this.payload = <File>event.target.files[0];
+        break;
+      case "image/jpeg":
+        this.payload = <File>event.target.files[0];
+        break;
+      case "image/jpg":
+        this.payload = <File>event.target.files[0];
+        break;
+      default:
+        this.abrirModalFormat();
+        break;
+    }
+  }
+
+  /**
+   * Envia el archivo a la API.
+   */
+  uploadImage(): void {
+    this.userService.setProfileImage(1, this.payload).subscribe({
+      next: (cita) => {
+        console.info(cita)
+
+      },
+      error: (userData) => {
+        this.haveCourses = false
+        console.log(userData)
+      },
+      complete: () => {
+        console.info("Completo")
+        window.location.reload();
+        //this.getPerfilTeacher(this.email)
+      }
+    });
+  }
+
+  /**
+   * Descarga el archivo desde la API.
+   * @param id La id del usuario.
+   */
+  downloadImage(id: number) {
+    this.userService.getProfileImage(id).subscribe((res: Blob | MediaSource) => {
+      console.log("res ", res)
+      this.imageUrl = URL.createObjectURL(res);
+    });
+  }
+
+  abrirModalFormat() {
+    const modal = document.getElementById('formaterror');
+    if (modal) {
+      modal.classList.add('show');
+      modal.style.display = 'block';
+    }
+  }
+
+  cerrarModalFormat() {
+    const modal = document.getElementById('formaterror');
+    if (modal) {
+      modal.classList.remove('show');
+      modal.style.display = 'none';
+    }
+  }
+
 }
