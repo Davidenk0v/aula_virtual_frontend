@@ -22,9 +22,9 @@ export class SearchComponent implements OnInit {
   mensaje : string = "";
 
   result?:number
-  constructor(private searchService: SearchService,private courseService:CourseService, private formBuilder:FormBuilder){}
+  constructor(private searchService: SearchService,private service:SearchService, private formBuilder:FormBuilder){}
   ngOnInit(): void {
-    this.courseService.searchCourseByName(this.mensaje).subscribe({
+    this.service.verDatos().subscribe({
       next: (cita) => {
         console.info(cita)
         this.courseList = cita

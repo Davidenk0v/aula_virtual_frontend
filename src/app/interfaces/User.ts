@@ -1,10 +1,18 @@
 
 export interface User {
-  userName: string;
-  firstName: string;
-  lastName: string;
+  username: string;
+  firstname: string;
+  lastname: string;
   email: string;
   emailVerified: boolean;
 
 
+}
+
+
+export interface UserEdit {
+  username: string;
+  lastname: string
+  firstname: string
+  urlImg: string
 }

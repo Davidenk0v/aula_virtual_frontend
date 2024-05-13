@@ -1,61 +1,122 @@
 INSERT INTO
     course_entity (
-        id_course, name, description, start_date, finish_date, pago
+        id_course,
+        created_date,
+        description,
+        finish_date,
+        last_modified_date,
+        name,
+        pago,
+        start_date,
+        url_img
     )
 VALUES (
-        1, 'HTML and CSS Fundamentals', 'Master the basics of HTML and CSS for building web pages', '2024-05-01', '2024-05-31', 33
+        NEXTVAL ('course_entity_id_course_seq'),
+        CURRENT_TIMESTAMP,
+        'This is an introductory course to web development.',
+        '2024-09-30',
+        CURRENT_TIMESTAMP,
+        'Web Development Fundamentals',
+        199.99,
+        '2024-06-01',
+        'https://www.example.com/web_dev_fundamentals.jpg'
     ),
     (
-        2, 'JavaScript for Beginners', 'Learn the fundamentals of JavaScript to create interactive web pages', '2024-06-01', '2024-06-30', 44
+        NEXTVAL ('course_entity_id_course_seq'),
+        CURRENT_TIMESTAMP,
+        'Learn the basics of programming with Python.',
+        '2024-08-31',
+        CURRENT_TIMESTAMP,
+        'Python Programming for Beginners',
+        149.99,
+        '2024-07-05',
+        'https://www.example.com/python_beginners.jpg'
     ),
     (
-        3, 'React.js for Front-End Development', 'Build modern web applications using the React.js JavaScript library', '2024-07-01', '2024-07-31', 77
+        NEXTVAL ('course_entity_id_course_seq'),
+        CURRENT_TIMESTAMP,
+        'Master the art of data analysis with Excel.',
+        '2024-10-31',
+        CURRENT_TIMESTAMP,
+        'Data Analysis with Excel',
+        129.99,
+        '2024-08-10',
+        'https://www.example.com/excel_data_analysis.jpg'
     ),
     (
-        4, 'Python for Web Development', 'Learn Python programming for building web back-ends with frameworks like Django', '2024-08-01', '2024-08-31', 77
+        NEXTVAL ('course_entity_id_course_seq'),
+        CURRENT_TIMESTAMP,
+        'Create stunning graphics and designs with Adobe Photoshop.',
+        '2024-11-30',
+        CURRENT_TIMESTAMP,
+        'Adobe Photoshop for Beginners',
+        199.99,
+        '2024-09-15',
+        'https://www.example.com/photoshop_beginners.jpg'
     ),
     (
-        5, 'Node.js for Back-End Development', 'Build scalable and performant web back-ends using Node.js and JavaScript', '2024-09-01', '2024-09-30', 77
+        NEXTVAL ('course_entity_id_course_seq'),
+        CURRENT_TIMESTAMP,
+        'Learn how to build responsive websites with HTML, CSS, and JavaScript.',
+        '2024-12-31',
+        CURRENT_TIMESTAMP,
+        'Front-End Web Development',
+        249.99,
+        '2024-10-01',
+        'https://www.example.com/front_end_web_dev.jpg'
     ),
     (
-        6, 'Spring Boot for Java Web Development', 'Develop enterprise-level web applications using Spring Boot and Java', '2024-10-01', '2024-10-31', 77
+        NEXTVAL ('course_entity_id_course_seq'),
+        CURRENT_TIMESTAMP,
+        'Delve into the world of machine learning and artificial intelligence.',
+        '2024-11-30',
+        CURRENT_TIMESTAMP,
+        'Machine Learning Fundamentals',
+        299.99,
+        '2024-11-15',
+        'https://www.example.com/machine_learning_fundamentals.jpg'
     ),
     (
-        7, 'Android App Development with Kotlin', 'Learn to build native Android apps using the Kotlin programming language', '2024-11-01', '2024-11-30', 107
+        NEXTVAL ('course_entity_id_course_seq'),
+        CURRENT_TIMESTAMP,
+        'Learn how to create interactive data visualizations with Tableau.',
+        '2024-12-31',
+        CURRENT_TIMESTAMP,
+        'Data Visualization with Tableau',
+        199.99,
+        '2024-12-01',
+        'https://www.example.com/tableau_data_visualization.jpg'
     ),
     (
-        8, 'Android UI Design with XML', 'Create beautiful and user-friendly interfaces for Android apps', '2024-12-01', '2024-12-31', 77
+        NEXTVAL ('course_entity_id_course_seq'),
+        CURRENT_TIMESTAMP,
+        'Master the art of storytelling with data.',
+        '2025-01-31',
+        CURRENT_TIMESTAMP,
+        'Data Storytelling',
+        149.99,
+        '2025-01-10',
+        'https://www.example.com/data_storytelling.jpg'
     ),
     (
-        9, 'Android Performance Optimization', 'Optimize your Android apps for performance and responsiveness', '2024-01-01', '2024-01-31', 57
+        NEXTVAL ('course_entity_id_course_seq'),
+        CURRENT_TIMESTAMP,
+        'Learn how to build and manage secure networks.',
+        '2025-02-28',
+        CURRENT_TIMESTAMP,
+        'Cybersecurity Fundamentals',
+        249.99,
+        '2025-02-15',
+        'https://www.example.com/cybersecurity_fundamentals.jpg'
     ),
     (
-        10, 'iOS App Development with Swift', 'Learn to build native iOS apps using the Swift programming language', '2024-02-01', '2024-02-29', 47
-    ),
-    (
-        11, 'iOS UI Design with Storyboards', 'Create intuitive and engaging interfaces for iOS apps', '2024-03-01', '2024-03-31', 77
-    ),
-    (
-        12, 'iOS Performance Optimization', 'Optimize your iOS apps for performance and battery life', '2024-04-01', '2024-04-30', 7
-    ),
-    (
-        13, 'Flutter for Cross-Platform Development', 'Build native-looking apps for iOS and Android using a single codebase', '2024-05-01', '2024-05-31', 77
-    ),
-    (
-        14, 'Dart Programming for Flutter', 'Learn the Dart programming language for building Flutter apps', '2024-06-01', '2024-06-30', 77
-    ),
-    (
-        15, 'Python for Data Science', 'Master the fundamentals of Python for data analysis and machine learning', '2024-07-01', '2024-07-31', 77
-    ),
-    (
-        16, 'R Programming for Data Science', 'Learn R programming for statistical analysis and data visualization', '2024-08-01', '2024-08-31', 72
-    ),
-    (
-        17, 'Machine Learning with TensorFlow', 'Build machine learning models using the TensorFlow library', '2024-09-01', '2024-09-30', 0
-    ),
-    (
-        18, 'Object-Oriented Programming with Java', 'Learn the principles of object-oriented programming using the Java language', '2024-10-01', '2024-10-31', 77
-    ),
-    (
-        19, 'Design Patterns for Software Development', 'Understand and apply design patterns to create reusable and maintainable software', '2024-11-01', 77
-    )
+        NEXTVAL ('course_entity_id_course_seq'),
+        CURRENT_TIMESTAMP,
+        'Master the art of project management with Agile methodologies.',
+        '2025-03-31',
+        CURRENT_TIMESTAMP,
+        'Agile Project Management',
+        199.99,
+        '2025-03-01',
+        'https://www.example.com/agile_project_management.jpg'
+    );

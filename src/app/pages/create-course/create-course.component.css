@@ -1,61 +1,39 @@
 .container {
-  background-color: #cecece;
-  height: 63%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-.courseName {
-  width: 40%;
-  background-color: #17183b;
+.card {
+  max-width: 60%;
+  width: 100%;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.courseDescription {
-  margin-left: 4.5%;
-  width: 40%;
-  height: 20vh;
-  background-color: #17183b;
+.card-body {
+  padding: 40px;
 }
 
-.courseStartDate {
-  margin-left: 4.5%;
-  width: 40%;
-  background-color: #17183b;
+.card-title {
+  font-size: 24px;
+  font-weight: bold;
 }
 
-.courseFinishDate {
-  margin-left: 6.5%;
-  width: 40%;
-  background-color: #17183b;
+.form-group {
+  margin-bottom: 30px;
 }
 
-.coursePrice {
-  margin-left: 8.5%;
-  width: 40%;
-  background-color: #17183b;
+label {
+  font-weight: bold;
 }
 
-input {
-  border-color: #17183b;
-  border-radius: 5px;
-  color: #ffffff;
+.form-control {
+  border-radius: 10px;
 }
 
-textarea {
-  border-color: #17183b;
-  border-radius: 5px;
-  color: #ffffff;
-}
-
-.itemInput {
-  color: #17183b;
-  font-size: large;
-}
-
-.btnSend {
-  background-color: rgb(0, 158, 0);
-  color: #ffffff;
-  width: 35%;
-}
-
-.btnSend:hover {
-  background-color: rgb(0, 124, 0);
+.btn-success {
+  border-radius: 10px;
 }

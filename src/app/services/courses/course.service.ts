@@ -2,8 +2,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Course } from '../../interfaces/Course';
 import { environment } from '../../../environments/environment';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable , catchError, map, throwError } from 'rxjs';
 import { CourseRequest } from '../../interfaces/requests/CourseRequest';
+import { Subject } from '../../interfaces/Subject';
 
 @Injectable({
   providedIn: 'root'
@@ -46,8 +47,7 @@ export class CourseService {
 
   getCourseById(idCourse:number): Observable<Course> {
     return this.http.get<Course>(`${environment.api.urlApi}/courses/${idCourse}`)
-    .pipe(
-      catchError((error: HttpErrorResponse) => {
+    .pipe( catchError((error: HttpErrorResponse) => {
         if (error.error instanceof ErrorEvent) {
           this.errorMessage = `Error: ${error.error.message}`;
         } else {
@@ -59,17 +59,38 @@ export class CourseService {
     );
   }
 
-  addCourse(credentials:CourseRequest): Observable<any> {
-    return this.http.post<any>(`${environment.api.urlApi}/courses/${1}`, credentials).pipe(
+  addCourse(credentials: CourseRequest, emailTeacher:string): Observable<number> {
+    return this.http.post<Record<string,number>>(`${environment.api.urlApi}/courses/${emailTeacher}`, credentials).pipe(
+      map(response => response['Curso subido ']),
       catchError((error: HttpErrorResponse) => {
+        // Manejar errores de la solicitud
         let errorMessage = '';
-
+  
         if (error.error instanceof ErrorEvent) {
           errorMessage = `Error: ${error.error.message}`;
         } else {
           errorMessage = `Error code: ${error.status}, message: ${error.message}`;
         }
+  
+        // Devolver un observable de error con el mensaje de error
+        return throwError(() => errorMessage);
+      })
+    );
+  }
 
+  editCourse(credentials: CourseRequest,idCourse :number): Observable<any> {
+    return this.http.put<any>(`${environment.api.urlApi}/courses/${idCourse}`, credentials).pipe(
+      catchError((error: HttpErrorResponse) => {
+        // Manejar errores de la solicitud
+        let errorMessage = '';
+  
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Error: ${error.error.message}`;
+        } else {
+          errorMessage = `Error code: ${error.status}, message: ${error.message}`;
+        }
+  
+        // Devolver un observable de error con el mensaje de error
         return throwError(() => errorMessage);
       })
     );
@@ -107,5 +128,41 @@ export class CourseService {
   }
 
 
+  
+
+
+  postSubject(credentials: Subject,idCourse :number): Observable<number> {
+    return this.http.post<Record<string,number>>(`${environment.api.urlApi}/subjects/${idCourse}`, credentials).pipe(
+      map(response => response['Tema subido ']),
+      catchError((error: HttpErrorResponse) => {
+        // Manejar errores de la solicitud
+        let errorMessage = '';
+  
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Error: ${error.error.message}`;
+        } else {
+          errorMessage = `Error code: ${error.status}, message: ${error.message}`;
+        }
+  
+        // Devolver un observable de error con el mensaje de error
+        return throwError(() => errorMessage);
+      })
+    );
+  }
+
+  getAllCoursesTeacher(email:string): Observable<Course[]> {
+    return this.http.get<Course[]>(`${environment.api.urlApi}/users/listaTeacher/${email}`)
+    .pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.error instanceof ErrorEvent) {
+          this.errorMessage = `Error: ${error.error.message}`;
+        } else {
+          this.errorMessage = `Error code: ${error.status}, message: ${error.message}`;
+        }
+
+        return throwError(() => this.errorMessage);
+      })
+    );
+  }
 
 }

@@ -1,0 +1,8 @@
+.cardContainer {
+  width: 90%;
+  max-height: 90%;
+}
+
+img {
+  max-width: 40vh;
+}

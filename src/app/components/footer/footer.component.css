@@ -1,26 +1,31 @@
 .footer-container {
-    position: static;
-    bottom: 0;
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
     width: 100%;
-    background-color: #17183B;
-    padding: 10px;
-    text-align: center;
+    z-index: 1000;
+    padding: 0.75rem;
 }
 
-.footer-body{
-    color: #FFFFFF;
-    font-size: 15px;
-    list-style: none;
-    justify-content: center;
+.list-unstyled li {
+    margin-bottom: 2px;
 }
 
-.list-styles {
-    list-style: none;
-    
+.contact-info {
+    margin-top: 5px;
+    font-size: 10px;
 }
 
-.list-container {
-    display: flex;
-    justify-content: center;
-    margin-right: 4%;
+.footer-container .card-footer p {
+    color: #6c757d;
+    font-size: 10px;
+}
+
+.list-unstyled li a {
+    color: #6c757d;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.list-unstyled li a:hover {
+    color: #343a40;
 }

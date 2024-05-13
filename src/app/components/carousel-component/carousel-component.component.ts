@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Course } from '../../interfaces/Course';
-import { CourseComponentComponent } from '../course-component/course-component.component';
 import { EMPTY, Observable, catchError } from 'rxjs';
 import { CourseService } from '../../services/courses/course.service';
 import { AsyncPipe } from '@angular/common';
@@ -9,12 +8,16 @@ import { CourseCardComponent } from '../course-card/course-card.component';
 @Component({
   selector: 'app-carousel-component',
   standalone: true,
-  imports: [CourseComponentComponent, AsyncPipe, CourseCardComponent],
+  imports: [AsyncPipe, CourseCardComponent],
   templateUrl: './carousel-component.component.html',
   styleUrl: './carousel-component.component.css',
 })
 export class CarouselComponentComponent {
 
+
+  
+  @Input() inputValue?: string;
+  
   errorMessage?:string;
   successMessage?:string;
   courses?: Observable<Course[]>;
@@ -24,7 +27,7 @@ export class CarouselComponentComponent {
   constructor(private courseService:CourseService){}
 
   ngOnInit(): void {
-    this.getPageCourses( )
+    this.getPageCourses()
   }
 
   showdata(){
@@ -35,10 +38,17 @@ export class CarouselComponentComponent {
     this.courses = this.courseService.getAllCoursesInPages(this.currentPage)
     .pipe(catchError((error:string)=> {
       this.errorMessage = error;
+      this.currentPage = 0
+      this.courses = this.courseService.getAllCoursesInPages(this.currentPage)
+
       return EMPTY;
     }));
   }
 
+  autoFirstPage() {
+    this.currentPage = 0
+  
+  }
   
 
   changeSlideRight() {
@@ -49,15 +59,18 @@ export class CarouselComponentComponent {
       this.currentPage = 0;
       this.getPageCourses();
     }
+    console.log(this.currentPage);
   }
 
   changeSlideLeft() {
-    if(this.courses != null){
+    if(this.currentPage > 1){
       this.currentPage -= 1;
       this.getPageCourses();
     }else{
       this.currentPage = 0;
       this.getPageCourses();
     }
+    console.log(this.currentPage);
+
   }
 }

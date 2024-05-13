@@ -1,4 +1,3 @@
-
 @if(courseInfo){
     <div class="card mb-4 shadow-sm"  routerLinkActive="router-link-active" >
         <div class="card-body" [routerLink]="['/course', courseInfo.idCourse]">
@@ -7,10 +6,12 @@
             <ul class="list-unstyled mt-3 mb-4">
                 <li><strong>Inicio:</strong> {{courseInfo.startDate}}</li>
                 <li><strong>Fin:</strong> {{courseInfo.finishDate}}</li>
-                <li><strong>Precio:</strong> {{courseInfo.price}} €</li>
+                @if (courseInfo.price == 0) {
+                  <li><strong>Gratis</strong></li>
+                  } @else {
+                  <li><strong>Precio:</strong> {{ courseInfo.price }} €</li>
+                  }
             </ul>
         </div> 
-        <button class="btn btn-danger" (click)="deleteCourse(courseInfo.idCourse)">Borrar curso</button>
     </div>
 }
-    
