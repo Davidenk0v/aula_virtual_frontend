@@ -40,6 +40,7 @@ export class ZoomComponent implements OnInit {
 	    meetingNumber: this.meetingNumber,
 	    role: this.role
     }).toPromise().then((data: any) => {
+      console.info(data)
       if(data.signature) {
         console.log(data.signature)
         this.startMeeting(data.signature)
