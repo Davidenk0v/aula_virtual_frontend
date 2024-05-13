@@ -11,4 +11,9 @@ export const environment = {
       realm: 'class-rom-app',
       clientId: 'classrom-frontend'
     },
+    paypal:{
+      urlPayPal: "https://api-m.sandbox.paypal.com/v1/",
+      clientIdPayPal: "AYc34_BIRYaErn5nChwIVkNqDHmk00fGY026AxAuV51_nylYSkSXQ-nFfA7PIa81HoFIZYP5VG2NtXBv",
+      secretKeyPayPal: "EJ90HQsiW5g6D4ep0pYnbjb6euHcYLrEszqMuL0Co0WtF1Wq8Ce0AwMsppPltOwb4oc0v1v6DAQweV1B"
+    }
   };
