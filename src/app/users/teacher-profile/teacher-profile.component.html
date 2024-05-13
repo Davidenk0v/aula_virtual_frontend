@@ -76,11 +76,10 @@
                                     <li><strong>Nombre de usuario:</strong> {{teacher?.username}}</li>
                                     <li><strong>Email:</strong> {{teacher?.email}}</li>
                                 </ul>
-                                @if(editOn){
                                 <button class="btn btn-custom-yellow btn-block mb-2" (click)="pupUpEditProfile()">Editar
                                     datos</button>
                                 <button class="btn btn-custom-red btn-block">Borrar cuenta</button>
-                                }
+                            
                             </div>
                         </div>
                     </div>
@@ -103,14 +102,11 @@
                                             <li><strong>Fin:</strong> {{item.finishDate}}</li>
                                             <li><strong>Precio:</strong> {{item.price}}</li>
                                         </ul>
-                                        @if(editOn){
                                         <button class="btn btn-custom-yellow btn-block mb-2"
                                             [routerLink]="['/edit', item.idCourse]">Editar</button>
                                         <button class="btn btn-custom-red btn-block" data-bs-toggle="modal"
                                             (click)="cambiarIdCourse(item.idCourse)"
                                             data-bs-target="#alertModal">Borrar</button>
-                                        }
-
                                     </div>
                                 </div>
                             </div>
@@ -161,7 +157,6 @@
                 </div>
                 <button class="btn btn-primary btn-block mt-3" routerLinkActive="router-link-active"
                     [routerLink]="['/create']">Crear curso</button>
-                <button class="btn btn-primary btn-block mt-3" (click)="editMode()">Modo Edición</button>
             </div>
         </div>
     </div>

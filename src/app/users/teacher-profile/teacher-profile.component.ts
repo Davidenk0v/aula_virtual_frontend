@@ -21,15 +21,14 @@ import { SuccessMessageComponent } from '../../components/success-message/succes
 export class TeacherProfileComponent implements OnInit{
 
   constructor(private courseService:CourseService, private userService:ProfileService, private jwtService:JwtService){}
-  email:string='';
-  username:string=''
+  idTeacher:string='';
   teacher?:User;
   editMessage?:string;
 
   ngOnInit(): void {
-    this.email = this.jwtService.getEmailFromToken();
-    this.getCoursesTeacher(this.email);
-    this.getPerfilTeacher(this.email)
+    this.idTeacher = this.jwtService.getIdFromToken();
+    this.getCoursesTeacher(this.idTeacher);
+    this.getPerfilTeacher(this.idTeacher)
     if (sessionStorage.getItem('edit')) {
       this.editMessage = sessionStorage.getItem('edit') ?? '';
       setTimeout(() => {
@@ -67,7 +66,7 @@ export class TeacherProfileComponent implements OnInit{
       complete:()=> {
         console.info("Completo")  
         this.abrirModal();
-        this.getCoursesTeacher(this.email);
+        this.getCoursesTeacher(this.idTeacher);
       }
     });
     }
@@ -81,7 +80,7 @@ export class TeacherProfileComponent implements OnInit{
     this.popUpEdit = isEdited;
     console.info(this.popUpEdit)
     this.cerrarModalPerfil();
-    this.getPerfilTeacher(this.username);
+    this.getPerfilTeacher(this.idTeacher);
   }
 
   abrirModalPerfil() {
@@ -98,7 +97,7 @@ export class TeacherProfileComponent implements OnInit{
     if (modal) {
       modal.classList.remove('show');
       modal.style.display = 'none';
-      this.getPerfilTeacher(this.email);
+      this.getPerfilTeacher(this.idTeacher);
     }
   }
   
@@ -133,16 +132,15 @@ export class TeacherProfileComponent implements OnInit{
     }
   }
 
-  getCoursesTeacher(email:string):void{
-    this.courseService.getAllCoursesTeacher(email).subscribe({
+  getCoursesTeacher(idTeacher:string):void{
+    this.courseService.getAllCoursesTeacher(idTeacher).subscribe({
       next: (cita) => {
-        console.info(cita)
         this.courseList = cita
   
       },
       error:(userData) => {
         this.haveCourses = false
-        console.log(userData)
+        console.error(userData)
           
       },
       complete:()=> {
@@ -151,8 +149,8 @@ export class TeacherProfileComponent implements OnInit{
     })
   }
 
-  getPerfilTeacher(email:string):void{
-    this.userService.getProfileByEmail(email).subscribe({
+  getPerfilTeacher(idTeacher:string):void{
+    this.userService.getProfileById(idTeacher).subscribe({
       next: (cita) => {
         this.teacher = cita;
       },

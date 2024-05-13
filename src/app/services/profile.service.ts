@@ -14,8 +14,8 @@ export class ProfileService {
 
   errorMessage?:string;
   
-  getProfileByEmail(email:string): Observable<User> {
-    return this.http.get<User>(`${environment.api.urlApi}/users/${email}`)
+  getProfileById(id:string): Observable<User> {
+    return this.http.get<User>(`${environment.api.urlApi}/users/${id}`)
     .pipe(catchError((error: HttpErrorResponse) => {
         if (error.error instanceof ErrorEvent) {
           this.errorMessage = `Error: ${error.error.message}`;
@@ -29,8 +29,8 @@ export class ProfileService {
   }
 
 
-  updateProfile(email:string, profile:UserEdit):Observable<UserProfile>{
-    return this.http.put<Record<string, UserProfile>>(`${environment.api.urlApi}/users/${email}`,profile).pipe(
+  updateProfile(id:string, profile:UserEdit):Observable<UserProfile>{
+    return this.http.put<Record<string, UserProfile>>(`${environment.api.urlApi}/users/${id}`,profile).pipe(
       map(response => response['Guardado']),
       catchError((error: HttpErrorResponse) => {
         if (error.error instanceof ErrorEvent) {

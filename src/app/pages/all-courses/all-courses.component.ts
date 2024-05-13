@@ -4,6 +4,8 @@ import { CourseService } from '../../services/courses/course.service';
 import { Course } from '../../interfaces/Course';
 import { AsyncPipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { Category } from '../../interfaces/Category';
+import { CategoryService } from '../../services/categories/category.service';
 
 @Component({
   selector: 'app-all-courses',
@@ -14,15 +16,26 @@ import { RouterModule } from '@angular/router';
 })
 export class AllCoursesComponent {
 
-  constructor(private courseService:CourseService) { }
+  constructor(private courseService:CourseService, private categoryService:CategoryService) { }
 
   courses?:Course[];
+  categories?:Category[];
 
   ngOnInit(): void {
     this.courseService.getAllCourses().subscribe(courses => {
       this.courses = courses;
       console.log(courses);
     });
+
+    this.getCategories();
+  }
+
+
+  getCategories(){
+    this.categoryService.getAllCategories().subscribe(categories => {
+      this.categories = categories;
+      console.log(this.categories)
+    })
   }
 
 }

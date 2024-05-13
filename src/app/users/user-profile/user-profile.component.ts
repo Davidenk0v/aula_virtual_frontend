@@ -22,13 +22,12 @@ import { User } from '../../interfaces/User';
 export class UserProfileComponent {
   constructor(private courseService:CourseService, private userService:ProfileService, private jwtService:JwtService){}
   ngOnInit(): void {
-    this.email = this.jwtService.getEmailFromToken();
+    this.idUser = this.jwtService.getIdFromToken();
     this.getCoursesTeacher();
-    this.email = this.jwtService.getEmailFromToken();
-    this.getPerfilUser(this.email);
+    this.getPerfilUser(this.idUser);
   }
 
-  email:string='';
+  idUser:string='';
   haveCourses?:boolean = true
   idCourse?:number
   courseList?:Course[]
@@ -72,7 +71,7 @@ export class UserProfileComponent {
     this.popUpEdit = isEdited;
     console.info(this.popUpEdit)
     this.cerrarModalPerfil();
-   this.getPerfilUser(this.email);
+   this.getPerfilUser(this.idUser);
   }
 
   abrirModalPerfil() {
@@ -123,7 +122,7 @@ export class UserProfileComponent {
     }
   }
   getCoursesTeacher():void{
-    this.courseService.getAllCoursesTeacher(this.email).subscribe({
+    this.courseService.getAllCoursesTeacher(this.idUser).subscribe({
       next: (cita) => {
         console.info(cita)
         this.courseList = cita
@@ -140,8 +139,8 @@ export class UserProfileComponent {
     })
   }
 
-  getPerfilUser(email:string):void{
-    this.userService.getProfileByEmail(email).subscribe({
+  getPerfilUser(id:string):void{
+    this.userService.getProfileById(id).subscribe({
       next: (cita) => {
         console.info(cita)
         this.perfil = cita;
