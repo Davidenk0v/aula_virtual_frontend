@@ -14,8 +14,8 @@ export class ProfileService {
 
   errorMessage?:string;
   
-  getProfileByUsername(username:string): Observable<User> {
-    return this.http.get<User>(`${environment.api.urlApi}/users/${username}`)
+  getProfileByEmail(email:string): Observable<User> {
+    return this.http.get<User>(`${environment.api.urlApi}/users/${email}`)
     .pipe(catchError((error: HttpErrorResponse) => {
         if (error.error instanceof ErrorEvent) {
           this.errorMessage = `Error: ${error.error.message}`;

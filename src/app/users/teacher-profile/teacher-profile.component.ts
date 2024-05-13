@@ -152,7 +152,7 @@ export class TeacherProfileComponent implements OnInit{
   }
 
   getPerfilTeacher(email:string):void{
-    this.userService.getProfileByUsername(email).subscribe({
+    this.userService.getProfileByEmail(email).subscribe({
       next: (cita) => {
         this.teacher = cita;
       },

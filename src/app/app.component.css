@@ -10,6 +10,7 @@ body {
   
   /* Footer styles */
   .footer-container {
+    display:none;
     position: relative; /* Stick the footer to the bottom */
     bottom: 0; /* Place it at the very bottom */
     width: 100%; /* Span the full width */ /* Dark background color */

@@ -141,7 +141,7 @@ export class UserProfileComponent {
   }
 
   getPerfilUser(email:string):void{
-    this.userService.getProfileByUsername(email).subscribe({
+    this.userService.getProfileByEmail(email).subscribe({
       next: (cita) => {
         console.info(cita)
         this.perfil = cita;
