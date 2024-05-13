@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { User } from '../../interfaces/User';
 import { FormsModule } from '@angular/forms';
 import { CarouselComponentComponent } from '../../components/carousel-component/carousel-component.component';
 import { UserProfile } from '../../interfaces/Profile';
@@ -10,6 +9,7 @@ import { RouterLink } from '@angular/router';
 import { CreateCourseComponent } from '../../pages/create-course/create-course.component';
 import { DeleteCourseComponent } from '../../components/delete-course/delete-course.component';
 import { JwtService } from '../../services/jwt/jwt.service';
+import { Course } from '../../interfaces/Course';
 
 @Component({
   selector: 'app-user-profile',
