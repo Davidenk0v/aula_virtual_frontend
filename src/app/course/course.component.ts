@@ -38,77 +38,16 @@ export class CourseComponent implements OnInit{
   ngOnInit(): void {
     this.courseId = Number(this.activateRoute.snapshot.paramMap.get('id'));
     this.getCourseInfo(this.courseId);
-    this.getSubjects(this.courseId);
+    console.log(this.courseInfo);
   }
 
-   submenuAbierto = false;
-
-    toggleSubmenu() {
-        this.submenuAbierto = !this.submenuAbierto;
-    }
-  postSubject(){
-    console.info(this.courseId)
-    if (this.courseId) {
-        this.courseService.postSubject(this.subjectForm.value as Subject,this.courseId).subscribe({
-      next: (cita) => {
-        console.info(cita)
-        
-      
-      },
-      error:(userData) => {
-          console.log(userData)
-          
-      },
-      complete:()=> {
-        console.info("Completo")
-        if (this.courseId) {
-          this.getSubjects(this.courseId);
-        }
-      }
-    })
-      }
-    
-    
-  }
-
-  subjectIdEdit(id: number){
-    this.subjectId = id
-  }
-
-  getSubjects(courseId:number){
-      this.subjectService.getSubjectsByCourseId(courseId).subscribe({
-      next: (cita) => {
-        console.info(cita)
-        this.subjects = cita
-      },
-      error:(userData) => {
-          console.log(userData)
-          
-      },
-      complete:()=> {
-        console.info("Completo")
-      }
-    })
-    
-    
-  }
-  
-  getCourseInfo(courseId:number){
-      this.courseService.getCourseById(courseId).subscribe({
-        next: (cita) => {
-          console.info(cita)
-          this.courseInfo = cita
-        
-        },
-        error:(userData) => {
-            console.log(userData)
-            
-        },
-        complete:()=> {
-          console.info("Completo")
-        }
+  getCourseInfo(courseId: number) {
+    this.courseInfo = this.courseService.getCourseById(courseId).pipe(
+      catchError((error: string) => {
+        this.errorMessage = error;
+        return EMPTY;
       })
-    }
+    );
+  }
 
-    
 }
