@@ -3,13 +3,11 @@ import { PaymentComponent } from './payment/payment.component';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Course } from '../interfaces/Course';
 import { CourseService } from '../services/courses/course.service';
-import { EMPTY, Observable, catchError } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { ListTaskComponent } from "./list-task/list-task.component";
 import { Subject } from '../interfaces/Subject';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SubjectsService } from '../services/subjects/subjects.service';
-import { Lesson } from '../interfaces/Lesson';
 @Component({
     selector: 'app-course',
     standalone: true,
@@ -23,7 +21,7 @@ export class CourseComponent implements OnInit{
 
   constructor(private subjectService:SubjectsService,private activateRoute: ActivatedRoute, private courseService:CourseService,private formBuild: FormBuilder) { }
   courseId?:number;
-  courseInfo:Course | undefined;
+  courseInfo?:Course;
   errorMessage?:string;
 
 
@@ -37,6 +35,7 @@ export class CourseComponent implements OnInit{
 
   ngOnInit(): void {
     this.courseId = Number(this.activateRoute.snapshot.paramMap.get('id'));
+    console.log(this.courseId)
     this.getCourseInfo(this.courseId);
     this.getSubjects(this.courseId);
   }
@@ -46,6 +45,7 @@ export class CourseComponent implements OnInit{
     toggleSubmenu() {
         this.submenuAbierto = !this.submenuAbierto;
     }
+
   postSubject(){
     console.info(this.courseId)
     if (this.courseId) {
@@ -98,7 +98,7 @@ export class CourseComponent implements OnInit{
         next: (cita) => {
           console.info(cita)
           this.courseInfo = cita
-        
+          
         },
         error:(userData) => {
             console.log(userData)
