@@ -53,7 +53,11 @@ export class CourseComponent implements OnInit {
   ];
 
   addNewComent() {
-    this.coments.unshift({username: "current User", comment: this.newComment, date: this.currentDate})
+    console.log(this.newComment);
+    
+    if (this.newComment !== "" && this.newComment !== " ") {
+      this.coments.unshift({username: "current User", comment: this.newComment, date: this.currentDate})
+    }
   }
 
   subjectId?: number;

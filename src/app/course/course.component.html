@@ -80,15 +80,10 @@
         border-radius: 15px;
       "
     >
-      <div>
-        <h4>
-          Añadir comentario:
-          <input type="text" [(ngModel)]="newComment" /><button
-            (click)="addNewComent()"
-          >
-            Añadir comentario
-          </button>
-        </h4>
+      <div class="container my-3">
+        <span style="font-weight: bold; font-size: x-large;">Añadir comentario:</span>
+        <input class="mx-2" style="border-radius: 5px; border: none;" type="text" [(ngModel)]="newComment" />
+        <button style="border: none; border-radius: 5px; background-color: #21234D; color: #CECECE;" (click)="addNewComent()">Añadir comentario</button>
       </div>
       @for (coment of coments; track $index) {
 
@@ -107,7 +102,7 @@
                 <div class="card-body p-4">
                   <div class="">
                     <h5>{{ coment.username }}</h5>
-                    <p class="small">{{coment.date}}</p>
+                    <p class="small">{{ coment.date }}</p>
                     <p>
                       {{ coment.comment }}
                     </p>

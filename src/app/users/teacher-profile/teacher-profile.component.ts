@@ -141,7 +141,7 @@ export class TeacherProfileComponent implements OnInit{
   }
 
   getPerfilTeacher(username:string):void{
-    this.userService.getProfileByUsername(username).subscribe({
+    this.userService.getProfileByUsername("1").subscribe({
       next: (cita) => {
         console.info(cita)
       },

@@ -1,19 +1,23 @@
 body {
     background-color: #CECECE;
     background-attachment: fixed;
-    height: 100vh; 
     overflow-y: scroll;
     margin: 0;
     padding: 0;
+    min-height:100%; 
+    position:relative;
 }
+
+
+body::after{ 
+  content:''; 
+  display:block;
+  height:100px; }
+
 
   
   /* Footer styles */
   .footer-container {
-    position: relative; /* Stick the footer to the bottom */
-    bottom: 0; /* Place it at the very bottom */
-    width: 100%; /* Span the full width */ /* Dark background color */
-    color: #fff; /* White text color */
     text-align: center; /* Center the content */
     padding: 10px 0; /* Some padding for spacing */
     z-index: 100; /* Ensure it stays on top of other content */
