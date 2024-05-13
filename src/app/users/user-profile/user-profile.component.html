@@ -83,7 +83,7 @@
                   </div>
                   <!-- Cursos del profesor -->
                   <div class="cursos-profesor mt-4">
-                      <h1 class="titulo">Cursos del Profesor</h1>
+                      <h1 class="titulo">Tus cursos</h1>
 
                       @if (haveCourses==true) {
                       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
@@ -116,7 +116,7 @@
                       </div>
                       }
                       @if (haveCourses==false) {
-                      <h2>No tienes ningun curso crea uno</h2>
+                      <h2>Aún no estás registrado en ningún curso</h2>
                       }
                   </div>
               </div>
@@ -156,8 +156,6 @@
                       </div>
                   </div>
               </div>
-              <button class="btn btn-primary btn-block mt-3" routerLinkActive="router-link-active"
-                  [routerLink]="['/create']">Crear curso</button>
               <button class="btn btn-primary btn-block mt-3" (click)="editMode()">Modo Edición</button>
           </div>
       </div>

@@ -10,6 +10,7 @@ import { CreateCourseComponent } from '../../pages/create-course/create-course.c
 import { DeleteCourseComponent } from '../../components/delete-course/delete-course.component';
 import { JwtService } from '../../services/jwt/jwt.service';
 import { Course } from '../../interfaces/Course';
+import { User } from '../../interfaces/User';
 
 @Component({
   selector: 'app-user-profile',
@@ -21,9 +22,10 @@ import { Course } from '../../interfaces/Course';
 export class UserProfileComponent {
   constructor(private courseService:CourseService, private userService:ProfileService, private jwtService:JwtService){}
   ngOnInit(): void {
+    this.email = this.jwtService.getEmailFromToken();
     this.getCoursesTeacher();
     this.email = this.jwtService.getEmailFromToken();
-    this.getPerfilTeacher(this.email);
+    this.getPerfilUser(this.email);
   }
 
   email:string='';
@@ -31,7 +33,7 @@ export class UserProfileComponent {
   idCourse?:number
   courseList?:Course[]
   editOn: boolean = false;
-  perfil? : UserProfile
+  perfil? : User
   popUpEdit : boolean = false;
 
 
@@ -70,7 +72,7 @@ export class UserProfileComponent {
     this.popUpEdit = isEdited;
     console.info(this.popUpEdit)
     this.cerrarModalPerfil();
-   // this.getPerfilTeacher();
+   this.getPerfilUser(this.email);
   }
 
   abrirModalPerfil() {
@@ -138,10 +140,11 @@ export class UserProfileComponent {
     })
   }
 
-  getPerfilTeacher(username:string):void{
-    this.userService.getProfileByUsername(username).subscribe({
+  getPerfilUser(email:string):void{
+    this.userService.getProfileByUsername(email).subscribe({
       next: (cita) => {
         console.info(cita)
+        this.perfil = cita;
       },
       error:(userData) => {
           console.log(userData)
