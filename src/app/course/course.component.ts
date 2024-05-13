@@ -42,11 +42,19 @@ export class CourseComponent implements OnInit {
   courseInfo: Course | undefined;
   errorMessage?: string;
 
+  currentDate = new Date().getDay() + "/" + new Date().getMonth() + "/" + new Date().getFullYear(); 
+
+  newComment = ""
+
   coments = [
-    { username: 'test 1', comment: 'buen curso' },
-    { username: 'test 2', comment: 'regular curso' },
-    { username: 'test 3', comment: "mal curso" },
+    { username: 'test 1', comment: 'buen curso', date: this.currentDate},
+    { username: 'test 2', comment: 'regular curso', date: this.currentDate },
+    { username: 'test 3', comment: "mal curso", date: this.currentDate },
   ];
+
+  addNewComent() {
+    this.coments.unshift({username: "current User", comment: this.newComment, date: this.currentDate})
+  }
 
   subjectId?: number;
 
