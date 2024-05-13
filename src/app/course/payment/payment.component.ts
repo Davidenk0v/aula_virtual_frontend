@@ -49,7 +49,7 @@ loginAction(){
 pago(){
   this.payPalConfig = {
   currency: "EUR",
-  clientId: environment.paypal.clientIdPayPal,
+  clientId: "AWUSbpkq-C6SdH5kSU9a5LrqFuk4Gw4V0x_1N6cX11d5gZCmEEE3qFx5h8TkvzB4d0jMK7-kHvpjoiuN",
   createOrderOnClient: (data: Course) =>
     <ICreateOrderRequest>{
       intent: "CAPTURE",
@@ -57,7 +57,7 @@ pago(){
         {
           amount: {
             currency_code: "EUR",
-            value: "0.05",
+            value: this.courseInfo?.price.toString(),
           },
         }
       ],

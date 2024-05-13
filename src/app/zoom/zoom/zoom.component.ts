@@ -16,7 +16,7 @@ export class ZoomComponent implements OnInit {
   sdkKey = '6p_ZQkgXQ_K8gJe7bxq8Tg'
   meetingNumber = '83888129757'
   passWord = 'd7HiN4'
-  role = 1
+  role = 0
   userName = 'Angular'
   userEmail = ''
   registrantToken = ''
