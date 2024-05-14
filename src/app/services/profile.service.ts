@@ -44,11 +44,11 @@ export class ProfileService {
     )
   }
 
-  setProfileImage(id: number, payload: File) {
+  setProfileImage(user: number, payload: File) {
     const formData: FormData = new FormData();
     formData.append('file ', payload, payload.name);
     console.log("formData", formData);
-    return this.http.post(`${environment.api.urlApi}/users/file/${id}`, formData, { responseType: 'text' }).pipe(
+    return this.http.post(`${environment.api.urlApi}/users/file/${user}`, formData, { responseType: 'text' }).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.error instanceof ErrorEvent) {
           this.errorMessage = `Error: ${error.error.message}`;
@@ -60,8 +60,8 @@ export class ProfileService {
     )
   }
 
-  getProfileImage(id: number): any {
-    return this.http.get(`${environment.api.urlApi}/users/file/${id}`, { responseType: 'blob' }).pipe(
+  getProfileImage(user: number): any {
+    return this.http.get(`${environment.api.urlApi}/users/file/${user}`, { responseType: 'blob' }).pipe(
       map(res => {
         res.text().then((strBlob => {
           localStorage.setItem("image", strBlob);

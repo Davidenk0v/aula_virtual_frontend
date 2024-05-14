@@ -11,8 +11,6 @@ import { RouterLink } from '@angular/router';
 import { CreateCourseComponent } from '../../pages/create-course/create-course.component';
 import { DeleteCourseComponent } from '../../components/delete-course/delete-course.component';
 import { JwtService } from '../../services/jwt/jwt.service';
-import { Observable, scan } from 'rxjs';
-import { HttpEvent } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-profile',
@@ -24,8 +22,8 @@ import { HttpEvent } from '@angular/common/http';
 export class UserProfileComponent {
   constructor(private courseService: CourseService, private userService: ProfileService, private jwtService: JwtService) { }
   ngOnInit(): void {
-    this.getCoursesTeacher();
     this.email = this.jwtService.getEmailFromToken();
+    this.getCoursesTeacher();
     this.getPerfilTeacher(this.email);
     this.downloadImage(1);
   }
@@ -207,10 +205,10 @@ export class UserProfileComponent {
 
   /**
    * Descarga el archivo desde la API.
-   * @param id La id del usuario.
+   * @param user La id del usuario.
    */
-  downloadImage(id: number) {
-    this.userService.getProfileImage(id).subscribe((res: Blob | MediaSource) => {
+  downloadImage(user: number) {
+    this.userService.getProfileImage(user).subscribe((res: Blob | MediaSource) => {
       console.log("res ", res)
       this.imageUrl = URL.createObjectURL(res);
     });

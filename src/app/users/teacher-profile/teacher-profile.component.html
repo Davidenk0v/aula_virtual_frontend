@@ -34,6 +34,23 @@
     </div>
 
 
+    <div class="modal fade" id="formaterror" tabindex="-1" aria-labelledby="formaterror" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title" id="formaterror">Error</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cerrarModalFormat()"></button>
+                </div>
+                <div class="modal-body">
+                    Formato no admitico, solo se admiten jpeg, jpg y png.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        (click)="cerrarModalFormat()">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
@@ -70,7 +87,7 @@
                         <h1 class="titulo">Zona Profesor</h1>
                         <div class="card mb-4 shadow-sm">
                             <div class="card-body">
-                                <img src="" alt="Foto de perfil" class="w-100 rounded-top">
+                                <img src="{{ imageUrl }}" alt="Foto de perfil" class="w-100 rounded-top pfp" width="20" height="20" (click)="uploadImage()">
                                 <h5 class="card-title">{{teacher?.firstname}} {{teacher?.lastname}}</h5>
                                 <ul class="list-unstyled mt-3 mb-4">
                                     <li><strong>Nombre de usuario:</strong> {{teacher?.username}}</li>
@@ -169,3 +186,6 @@
     <!-- Bootstrap y cualquier otro JS necesario -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </body>
+<div>
+    <input type="file" name="file" (change)="setFile($event)" />{{payload}}
+</div>
