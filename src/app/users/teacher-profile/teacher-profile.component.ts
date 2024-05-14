@@ -170,7 +170,7 @@ export class TeacherProfileComponent implements OnInit {
       }
     })
   }
-  
+
   /**
    * Selecciona el archivo y valida si es admitido.
    * @param event 
@@ -204,11 +204,9 @@ export class TeacherProfileComponent implements OnInit {
     this.userService.setProfileImage(1, this.payload).subscribe({
       next: (cita) => {
         console.info(cita)
-
       },
-      error: (userData) => {
-        this.haveCourses = false
-        console.log(userData)
+      error: (error) => {
+        console.log(error)
       },
       complete: () => {
         console.info("Completo")
@@ -224,7 +222,6 @@ export class TeacherProfileComponent implements OnInit {
    */
   downloadImage(user: number) {
     this.userService.getProfileImage(user).subscribe((res: Blob | MediaSource) => {
-      console.log("res ", res)
       this.imageUrl = URL.createObjectURL(res);
     });
   }
@@ -244,6 +241,25 @@ export class TeacherProfileComponent implements OnInit {
       modal.style.display = 'none';
     }
   }
+
+  setDefaultImage() {
+    console.log("Se ha pulsado el boton")
+    // TODO se mantiene esta id numerica por el momento, sustituir por la id de busqueda preferida
+    this.userService.setDefaultProfileImage(1).subscribe({
+      next: (cita: any) => {
+        console.info(cita)
+      },
+      error: (error: any) => {
+        console.log(error)
+      },
+      complete: () => {
+        console.info("Completo")
+        window.location.reload();
+        //this.getPerfilTeacher(this.email)
+      }
+    });
+  }
+
 }
 
 

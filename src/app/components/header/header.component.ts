@@ -97,7 +97,6 @@ export class HeaderComponent {
      */
   downloadImage(user: number) {
     this.userService.getProfileImage(user).subscribe((res: Blob | MediaSource) => {
-      console.log("res ", res)
       this.imageUrl = URL.createObjectURL(res);
     });
   }

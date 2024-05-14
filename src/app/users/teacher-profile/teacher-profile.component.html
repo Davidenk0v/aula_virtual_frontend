@@ -42,7 +42,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cerrarModalFormat()"></button>
                 </div>
                 <div class="modal-body">
-                    Formato no admitico, solo se admiten jpeg, jpg y png.
+                    Formato no admitido, solo se admiten jpeg, jpg y png.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
@@ -87,7 +87,14 @@
                         <h1 class="titulo">Zona Profesor</h1>
                         <div class="card mb-4 shadow-sm">
                             <div class="card-body">
-                                <img src="{{ imageUrl }}" alt="Foto de perfil" class="w-100 rounded pfp" width="20" height="20" (click)="uploadImage()">
+                                <img src="{{ imageUrl }}" alt="Foto de perfil" class="w-100 rounded pfp" width="20" height="20">
+                                <div>
+                                    <input type="file" name="file" (change)="setFile($event)" />
+                                    <input type="button" name="button" (click)="uploadImage()" value="Ok"/>
+                                </div>
+                                <div>
+                                    <input type="button" name="button" (click)="setDefaultImage()" value="Borrar imagen"/>
+                                </div>
                                 <h5 class="card-title">{{teacher?.firstname}} {{teacher?.lastname}}</h5>
                                 <ul class="list-unstyled mt-3 mb-4">
                                     <li><strong>Nombre de usuario:</strong> {{teacher?.username}}</li>
@@ -186,6 +193,3 @@
     <!-- Bootstrap y cualquier otro JS necesario -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </body>
-<div>
-    <input type="file" name="file" (change)="setFile($event)" />{{payload}}
-</div>

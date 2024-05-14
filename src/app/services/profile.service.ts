@@ -80,4 +80,17 @@ export class ProfileService {
     );
   }
 
+  setDefaultProfileImage(user: number): any {
+    return this.http.delete(`${environment.api.urlApi}/users/file/${user}`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.error instanceof ErrorEvent) {
+          this.errorMessage = `Error: ${error.error.message}`;
+        } else {
+          this.errorMessage = `Error code: ${error.status}, message: ${error.message}`;
+        }
+        return throwError(() => this.errorMessage);
+      })
+    )
+  }
+
 }

@@ -16,12 +16,29 @@ export class CourseCardComponent {
   constructor(private courseService:CourseService) {}
   successMessage = '';
   errorMessage = '';
+  courseId?:number;
+  imageUrl: any;
+
+  ngOnInit(): void {
+    this.courseId = this.courseInfo!.idCourse;
+    this.downloadImage(this.courseId);
+  }
 
   deleteCourse(idCourse:number) {
     this.courseService.deleteCourseById(idCourse).subscribe((response) => {
       this.successMessage = response.Ok;
       console.log(response);
       window.location.reload();
+    });
+  }
+
+  /**
+   * Descarga el archivo desde la API.
+   * @param user La id del usuario.
+   */
+  downloadImage(user: number) {
+    this.courseService.getProfileImage(user).subscribe((res: Blob | MediaSource) => {
+      this.imageUrl = URL.createObjectURL(res);
     });
   }
 }

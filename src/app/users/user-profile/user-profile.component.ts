@@ -232,4 +232,22 @@ export class UserProfileComponent {
     }
   }
 
+  setDefaultImage() {
+    console.log("Se ha pulsado el boton")
+    // TODO se mantiene esta id numerica por el momento, sustituir por la id de busqueda preferida
+    this.userService.setDefaultProfileImage(1).subscribe({
+      next: (cita: any) => {
+        console.info(cita)
+      },
+      error: (error: any) => {
+        console.log(error)
+      },
+      complete: () => {
+        console.info("Completo")
+        window.location.reload();
+        //this.getPerfilTeacher(this.email)
+      }
+    });
+  }
+
 }

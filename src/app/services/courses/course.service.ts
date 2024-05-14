@@ -167,4 +167,24 @@ export class CourseService {
     );
   }
 
+  getProfileImage(user: number): any {
+    return this.http.get(`${environment.api.urlApi}/courses/file/${user}`, { responseType: 'blob' }).pipe(
+      map(res => {
+        res.text().then((strBlob => {
+          localStorage.setItem("image", strBlob);
+        }))
+        var file = new File([res], "untitled", {lastModified: Date.now(), type: res.type});
+        return res;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        if (error.error instanceof ErrorEvent) {
+          this.errorMessage = `Error: ${error.error.message}`;
+        } else {
+          this.errorMessage = `Error code: ${error.status}, message: ${error.message}`;
+        }
+        return throwError(() => this.errorMessage);
+      })
+    );
+  }
+
 }
