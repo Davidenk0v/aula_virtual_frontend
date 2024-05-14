@@ -93,9 +93,8 @@
                             @for (item of courseList; track $index) {
                             <div class="col-md-4">
                                 <div class="card mb-4 shadow-sm">
-                                    <div class="card-body">
-                                        <img src="{{item.urlImg}}" alt="{{item.name}}" class="w-100 rounded-top"
-                                            [routerLink]="['/course', item?.idCourse]">
+                                    <div class="card-body" style=" cursor: pointer;" [routerLink]="['/course', item?.idCourse]">
+                                        <img src="{{item.urlImg}}" alt="{{item.name}}" class="w-100 rounded-top">
                                         <h5 class="card-title">{{item.name}}</h5>
                                         <ul class="list-unstyled mt-3 mb-4">
                                             <li><strong>Inicio:</strong> {{item.startDate}}</li>
@@ -121,19 +120,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-12">
-                <div class="filtros mt-4">
-                    <h2 class="titulo">Buscar curso</h2>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Buscar en mis cursos" aria-label="Buscar">
-                    </div>
-                    <div class="accordion" id="categoriasAccordion">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="categoriasHeading">
-                            </h2>
-                        </div>
-                    </div>
-                </div>
-                <button class="btn btn-primary btn-block mt-3" routerLinkActive="router-link-active"
+                <button class="btn btn-success btn-block mt-3" routerLinkActive="router-link-active"
                     [routerLink]="['/create']">Crear curso</button>
             </div>
         </div>

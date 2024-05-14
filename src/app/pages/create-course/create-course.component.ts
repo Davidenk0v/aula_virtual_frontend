@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Course } from '../../interfaces/Course';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CourseService } from '../../services/courses/course.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CourseRequest } from '../../interfaces/requests/CourseRequest';
 import { JwtService } from '../../services/jwt/jwt.service';
 import { ErrorMessageComponent } from '../../components/error-message/error-message.component';
@@ -12,7 +12,7 @@ import { Category } from '../../interfaces/Category';
 @Component({
   selector: 'app-create-course',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, ErrorMessageComponent],
+  imports: [FormsModule, ReactiveFormsModule, ErrorMessageComponent, RouterModule],
   templateUrl: './create-course.component.html',
   styleUrl: './create-course.component.css'
 })

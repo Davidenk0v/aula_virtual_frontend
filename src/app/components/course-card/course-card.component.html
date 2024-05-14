@@ -1,6 +1,6 @@
 @if(courseInfo){
     <div class="card mb-4 shadow-sm"  routerLinkActive="router-link-active" >
-        <div class="card-body" [routerLink]="['/course', courseInfo.idCourse]">
+        <div class="card-body" [routerLink]="['/course', courseInfo.idCourse] " routerLinkActive="router-link-active" style="cursor: pointer;">
             <img src="https://ntfor.com/wp-content/uploads/2023/02/imagen-predeterminada-curso-ntfor.jpg" alt="img" class="w-100 rounded-top">
             <h5 class="card-title">{{courseInfo.name}}</h5>
             <ul class="list-unstyled mt-3 mb-4">

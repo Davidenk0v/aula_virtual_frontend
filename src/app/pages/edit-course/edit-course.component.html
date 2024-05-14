@@ -24,11 +24,12 @@
         <div class="mb-3">
           <label for="coursePrice" class="form-label">Precio</label>
           <div class="input-group">
-            <span class="input-group-text">$</span>
+            <span class="input-group-text">€</span>
             <input type="number" formControlName="price" id="coursePrice" class="form-control" placeholder="Ingrese el precio">
           </div>
         </div>
-        <button type="button" class="btn btn-success btn-lg btn-block" (click)="edit()">Editar Curso</button>
+        <button type="button" class="btn btn-success" (click)="edit()">Editar Curso</button>
+        <a type="button" class="btn btn-danger m-2" routerLink="/teacher-profile" routerLinkActive="router-link-active">Cancelar</a>
       </form>
     </div>
   </div>
