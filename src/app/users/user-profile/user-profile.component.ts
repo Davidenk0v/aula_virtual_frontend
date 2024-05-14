@@ -25,6 +25,7 @@ export class UserProfileComponent {
     this.email = this.jwtService.getEmailFromToken();
     this.getCoursesTeacher();
     this.getPerfilTeacher(this.email);
+    // TODO se mantiene esta id numerica por el momento, sustituir por la id de busqueda preferida
     this.downloadImage(1);
   }
 
@@ -186,6 +187,7 @@ export class UserProfileComponent {
    * Envia el archivo a la API.
    */
   uploadImage(): void {
+    // TODO se mantiene esta id numerica por el momento, sustituir por la id de busqueda preferida
     this.userService.setProfileImage(1, this.payload).subscribe({
       next: (cita) => {
         console.info(cita)

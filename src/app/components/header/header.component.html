@@ -1,30 +1,32 @@
 <nav class="navbar navbar-expand-lg navbar-dark navbarBackground">
   <div class="container px-4">
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <div class="navbar-nav me-auto mb-2 mb-lg-0">
-            @if(!logged){
-              <a routerLink="/login" class="nav-link">Iniciar sesión</a>
-              <a routerLink="/register" class="nav-link">Registrarse</a>
-            }@else {
-              @if(role == 'student'){
-                <a routerLink="/student-profile" class="nav-link" >
-                   {{name}}
-              </a>
-              }@else {
-                <a routerLink="/teacher-profile" class="nav-link" >
-                  {{name}}
-             </a>
-              }
-            <button (click)="logout()" class="nav-link">Cerrar sesión</button>
-            }            
-          </div>
-        </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="navbar-nav me-auto mb-2 mb-lg-0">
+        @if(!logged){
+        <a routerLink="/login" class="nav-link">Iniciar sesión</a>
+        <a routerLink="/register" class="nav-link">Registrarse</a>
+        }@else {
+        @if(role == 'student'){
+        <a routerLink="/student-profile" class="nav-link">
+          {{name}}
+        </a>
+        }@else {
+        <a routerLink="/teacher-profile" class="nav-link">
+          <img src="{{ imageUrl }}" alt="Foto de perfil" class="rounded-circle pfp" width="40" height="40">
+          {{name}}
+        </a>
+        }
+        <button (click)="logout()" class="nav-link">Cerrar sesión</button>
+        }
+      </div>
+    </div>
 
-      <a routerLink="/home" class="navbar-brand">
-          <span class="logoTitle">Atos V.School</span>
-      </a>
-      <span class="navbar-brand searchContainer">
-          <input type="text" class="searchBar form-control" placeholder="Buscar" [(ngModel)]="mensaje" (keyup)="onEnter($event)">
-      </span>
+    <a routerLink="/home" class="navbar-brand">
+      <span class="logoTitle">Atos V.School</span>
+    </a>
+    <span class="navbar-brand searchContainer">
+      <input type="text" class="searchBar form-control" placeholder="Buscar" [(ngModel)]="mensaje"
+        (keyup)="onEnter($event)">
+    </span>
   </div>
 </nav>
