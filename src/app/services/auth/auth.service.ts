@@ -49,7 +49,6 @@ export class AuthService {
     return this.http.post<any>(`${environment.api.urlHost}auth/register`, credentials)
     .pipe(tap((response) => {
       console.log(response);
-      this.loggedInSubject.next(true);
       this.router.navigateByUrl('/login')
     }),
     map((response)=> response),

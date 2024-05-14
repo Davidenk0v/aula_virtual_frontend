@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.config.json",
+    "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -30,8 +30,6 @@
     "fortawesome": "^0.0.1-security",
     "jquery": "^3.7.1",
     "jwt-decode": "^4.0.0",
-    "keycloak-angular": "^15.2.1",
-    "keycloak-js": "^24.0.3",
     "popper.js": "^1.16.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.6.2",

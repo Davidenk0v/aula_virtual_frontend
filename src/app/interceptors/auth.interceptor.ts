@@ -10,7 +10,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   // Clone the request and add the authorization header
   if(authToken != '' && authToken != null){
-    
     req = req.clone({
       setHeaders: {
         Authorization: `Bearer ${authToken}`

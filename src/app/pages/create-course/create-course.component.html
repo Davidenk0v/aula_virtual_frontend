@@ -23,6 +23,15 @@
             <label for="finishDate">Fecha de Fin</label>
             <input type="date" formControlName="finishDate" id="finishDate" class="form-control">
           </div>
+          <div class="form-group col-md-6">
+            <label for="category">Categoria</label>
+            <select formControlName="category" class="form-group " name="category" id="category">
+              <option selected disabled>Seleciona una categoria</option>
+              @for (category of categories; track category.id) {
+                <option value="{{category.category}}">{{category.category}}</option>
+              }
+            </select>
+          </div>
         </div>
         <div class="form-group">
           <label for="coursePrice">Precio</label>

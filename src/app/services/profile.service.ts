@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -13,6 +13,8 @@ export class ProfileService {
   constructor(private http: HttpClient) { }
 
   errorMessage?:string;
+
+
   
   getProfileById(id:string): Observable<User> {
     return this.http.get<User>(`${environment.api.urlApi}/users/${id}`)

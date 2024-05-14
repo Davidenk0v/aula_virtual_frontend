@@ -27,8 +27,8 @@ export class TeacherProfileComponent implements OnInit{
 
   ngOnInit(): void {
     this.idTeacher = this.jwtService.getIdFromToken();
-    this.getCoursesTeacher(this.idTeacher);
     this.getPerfilTeacher(this.idTeacher)
+    this.getCoursesTeacher(this.idTeacher);
     if (sessionStorage.getItem('edit')) {
       this.editMessage = sessionStorage.getItem('edit') ?? '';
       setTimeout(() => {

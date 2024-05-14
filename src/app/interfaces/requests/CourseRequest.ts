@@ -5,4 +5,5 @@ export interface CourseRequest {
     startDate: Date;
     finishDate: Date;
     pago: number;
+    category: string;
 }

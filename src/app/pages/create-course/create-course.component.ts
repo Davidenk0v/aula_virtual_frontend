@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { CourseRequest } from '../../interfaces/requests/CourseRequest';
 import { JwtService } from '../../services/jwt/jwt.service';
 import { ErrorMessageComponent } from '../../components/error-message/error-message.component';
+import { CategoryService } from '../../services/categories/category.service';
+import { Category } from '../../interfaces/Category';
 
 @Component({
   selector: 'app-create-course',
@@ -17,16 +19,22 @@ import { ErrorMessageComponent } from '../../components/error-message/error-mess
 export class CreateCourseComponent {
 
   errorMessage?: string;
+  courseId?:number;
+  idTeacher:string = '';
+  categories?:Category[];
 
+  constructor(private formBuilder:FormBuilder, 
+    private courseService:CourseService, 
+    private router:Router, 
+    private jwtService:JwtService,
+    private categoryService:CategoryService
+  ) { }
 
-  idCourse:number | undefined;
-  constructor(private formBuilder:FormBuilder, private courseService:CourseService, private router:Router, private jwtService:JwtService) { }
-
-  emailTeacher:string = '';
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    this.emailTeacher = this.jwtService.getEmailFromToken();
+    this.idTeacher = this.jwtService.getIdFromToken();
+    this.getCategories();
   }
 
   // Este objeto es el que luego se mandrá a la base de datos
@@ -35,17 +43,18 @@ export class CreateCourseComponent {
     description: ['', [Validators.required]],
     startDate: [new Date(), [Validators.required]],
     finishDate: [new Date(), [Validators.required]],
-    price: [0, [Validators.required]]
+    price: [0, [Validators.required]],
+    category: ['', [Validators.required]]
   });
 
   addCourse(){
     if (this.newCourseForm.valid) {
       this.courseService
-        .addCourse(this.newCourseForm.value as CourseRequest, this.emailTeacher)
+        .addCourse(this.newCourseForm.value as CourseRequest, this.idTeacher)
         .subscribe({
           next: (userData) => {
-            this.idCourse = userData
-            console.info(userData)
+            console.info(userData.idCourse)
+            this.courseId = userData.idCourse;
 
           },
           error: (errorData) => {
@@ -54,9 +63,7 @@ export class CreateCourseComponent {
   
           },
           complete: () => {
-            if (this.idCourse) {
-              this.router.navigateByUrl('/courses/' + this.idCourse);
-            }
+            this.router.navigate(['/course', this.courseId]);
   
             this.newCourseForm.reset();
           },
@@ -67,5 +74,16 @@ export class CreateCourseComponent {
       console.info(this.newCourseForm.value as CourseRequest)
     }
   }
+
+  getCategories(){
+    this.categoryService.getAllCategories().subscribe({
+      next: (categories) => {
+        this.categories = categories;
+      },
+      error: (errorData) => {
+        this.errorMessage = errorData;
+      }
+    });
+  } 
 
 }
