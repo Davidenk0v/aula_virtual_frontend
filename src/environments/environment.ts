@@ -17,6 +17,7 @@ export const environment = {
     secretKeyPayPal: "EJ90HQsiW5g6D4ep0pYnbjb6euHcYLrEszqMuL0Co0WtF1Wq8Ce0AwMsppPltOwb4oc0v1v6DAQweV1B"
   },
   zoom: {
+    urlServerAuth: 'http://localhost:4000',
     urlServer: 'http://localhost:4000/',
     urlServerToken: 'http://localhost:4000/auth/zoom',
     ZOOM_API_KEY:"6p_ZQkgXQ_K8gJe7bxq8Tg",

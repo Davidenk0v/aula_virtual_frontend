@@ -10,6 +10,7 @@ import { AllCoursesComponent } from './pages/all-courses/all-courses.component';
 import { CourseComponent } from './course/course.component';
 import { UserComponent } from './users/user/user.component';
 import { ZoomComponent } from './pages/zoom/zoom/zoom.component';
+import { ZoomComponentVista } from './zoom/zoom/zoom.component';
 
 export const routes: Routes = [
     {path:"", redirectTo:"/home", pathMatch:"full"},
@@ -22,5 +23,7 @@ export const routes: Routes = [
     {path:"search", component:SearchComponent},
     {path:"all-courses", component:AllCoursesComponent},
     {path:"profile",component:UserComponent},
-    {path:"zoom",component:ZoomComponent}
+    {path:"zoom",component:ZoomComponent},
+    { path: 'zoomVista/:meetingNumber/:password/:name', component: ZoomComponentVista }
+
 ];

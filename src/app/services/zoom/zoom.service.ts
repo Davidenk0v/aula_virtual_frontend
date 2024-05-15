@@ -20,6 +20,22 @@ export class ZoomService {
   }
   errorMessage?: string;
 
+  signatureGet(meeting: string, role: number): Observable<any> {
+    return this.http.post<any>(`${environment.zoom.urlServerAuth}`, {
+	    meetingNumber: meeting,
+	    role: role
+    }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.error instanceof ErrorEvent) {
+          this.errorMessage = `Error: ${error.error.message}`;
+        } else {
+          this.errorMessage = `Error code: ${error.status}, message: ${error.message}`;
+        }
+
+        return throwError(() => this.errorMessage);
+      })
+    );
+  }
   updateProfile(id: number, profile: UserEdit): Observable<UserProfile> {
     return this.http.put<Record<string, UserProfile>>(`${environment.api.urlApi}/users/${id}`, profile).pipe(
       map(response => response['Guardado']),
@@ -44,9 +60,25 @@ export class ZoomService {
   }
 
 
-  obtenerMeetings(token: string):Observable<MeetingView> {
+  obtenerMeetings(token: string):Observable<MeetingView[]> {
     
-    return this.http.get<MeetingView>(`${environment.zoom.urlServer}obtenerMeetings/${token}`).pipe(
+    return this.http.get<MeetingView[]>(`${environment.zoom.urlServer}obtenerMeetings/${token}`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.error instanceof ErrorEvent) {
+          this.errorMessage = `Error: ${error.error.message}`;
+        } else {
+          this.errorMessage = `Error code: ${error.status}, message: ${error.message}`;
+        }
+
+        return throwError(() => this.errorMessage);
+      })
+    );
+     
+  }
+
+  obtenerMeeting(token: string,id: number):Observable<string> {
+    
+    return this.http.get<string>(`${environment.zoom.urlServer}obtenerMeeting/${token}/${id}`).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.error instanceof ErrorEvent) {
           this.errorMessage = `Error: ${error.error.message}`;

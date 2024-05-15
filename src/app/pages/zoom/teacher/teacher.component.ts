@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ZoomService } from '../../../services/zoom/zoom.service';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MeetingCreating, MeetingView } from '../../../interfaces/Meeting';
@@ -13,9 +13,10 @@ import { MeetingCreating, MeetingView } from '../../../interfaces/Meeting';
 })
 export class TeacherComponent {
 
-  constructor(private service: ZoomService, private route: ActivatedRoute,private formBuilder: FormBuilder) { }
-  meetings? : MeetingView
+  constructor(private router: Router,private service: ZoomService, private route: ActivatedRoute, private formBuilder: FormBuilder) { }
+  meetings?: MeetingView[]
 
+  idMeeting?: number
   meeting = this.formBuilder.group({
     agenda: ['', [Validators.required]],
     duration: [0, [Validators.required]],
@@ -24,17 +25,63 @@ export class TeacherComponent {
     timezone: ['', [Validators.required]],
     type: [0, [Validators.required]]
   });
+
+
+  iniciarMeeting = this.formBuilder.group({
+    meetingNumber: ['', [Validators.required]],
+    password: ['', [Validators.required]],
+    name: ['', [Validators.required]],
+  });
   token?: string;
   ngOnInit(): void {
     this.tokenObtener();
+
+  }
+  navegarAZoom() {
+    const { meetingNumber, password, name } = this.iniciarMeeting.value;
+    this.router.navigate(['/zoomVista', meetingNumber, password, name]);
   }
 
+  mandarInicio(id: number){
+    this.idMeeting = id
+  }
+
+  meetingInicio(){
+    this.service.obtenerMeeting(this.token as string, this.idMeeting as number).subscribe({
+      next: (data) => {
+        console.log(data)
+        this.iniciarMeetingModal(this.idMeeting?.toString() as string, data, "Profesor")
+      },
+      error: (error) => {
+        console.log(error)
+      },
+      complete: () => {
+        console.log('complete')
+      }
+    })
+  }
+
+  iniciarMeetingModal(meetingNumber: string, password: string, name: string) {
+    this.router.navigate(['/zoomVista', meetingNumber, password, name]);
+  }
 
   obtenerMeetings() {
-    
+    console.info("entra")
+    this.service.obtenerMeetings(this.token as string).subscribe({
+      next: (data) => {
+        console.log(data)
+        this.meetings = data
+      },
+      error: (error) => {
+        console.log(error)
+      },
+      complete: () => {
+        console.log('complete')
+      }
+    })
   }
 
-  createMetting(){
+  createMetting() {
     this.service.createMeeting(this.meeting.value as MeetingCreating, this.token as string).subscribe({
       next: (data) => {
         console.log(data)
@@ -53,18 +100,26 @@ export class TeacherComponent {
   tokenObtener() {
 
     this.route.queryParams.subscribe(params => {
-        this.token = params['token'];
-        console.log('Token recibido:', this.token);
-        // Aquí puedes almacenar el token en localStorage o sessionStorage para su uso posterior
-        // localStorage.setItem('token', this.token);
-      });
+      this.token = params['token'];
+      console.log('Token recibido:', this.token);
+    });
+
     if (this.token == null) {
-        this.service.tokenZoom();
+      this.service.tokenZoom();
+    }else{
+      if (this.token?.length > 100) {
+      this.obtenerMeetings();
+      console.info('Token existente:', this.token);
     }
+    }
+    
+
   }
 
 
-  
+  //Modal
+
+
 
   abrirModalAnyadir() {
     const modal = document.getElementById('exampleModal');

@@ -1,7 +1,9 @@
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, NgZone, OnInit } from '@angular/core';
-import ZoomMtgEmbedded from '@zoom/meetingsdk/embedded';
+import { ActivatedRoute, Router } from '@angular/router';
+import ZoomMtgEmbedded, { ExecutedResult } from '@zoom/meetingsdk/embedded';
+import { ZoomService } from '../../services/zoom/zoom.service';
 
 @Component({
   selector: 'app-zoom',
@@ -10,7 +12,7 @@ import ZoomMtgEmbedded from '@zoom/meetingsdk/embedded';
   templateUrl: './zoom.component.html',
   styleUrls: ['./zoom.component.css']
 })
-export class ZoomComponent implements OnInit {
+export class ZoomComponentVista implements OnInit {
   
   authEndpoint = 'http://localhost:4000'
   sdkKey = '6p_ZQkgXQ_K8gJe7bxq8Tg'
@@ -25,40 +27,70 @@ export class ZoomComponent implements OnInit {
   client = ZoomMtgEmbedded.createClient();
 
   constructor(
-    private httpClient: HttpClient, 
+    private router: Router,
+    private service: ZoomService, 
+    private route: ActivatedRoute,
     @Inject(DOCUMENT) private document: Document, 
     private ngZone: NgZone) {
 
   }
 
   ngOnInit() {
-    
+    this.meetingNumber = String(this.route.snapshot.paramMap.get('meetingNumber'));
+    this.passWord = String(this.route.snapshot.paramMap.get('password'));
+    this.userName = String(this.route.snapshot.paramMap.get('name'));
+
+    console.info(this.meetingNumber, this.passWord, this.userName)
+
+    this.getSignature()
   }
 
   getSignature() {
-    this.httpClient.post(this.authEndpoint, {
-	    meetingNumber: this.meetingNumber,
-	    role: this.role
-    }).toPromise().then((data: any) => {
-      console.info(data)
-      if(data.signature) {
-        console.log(data.signature)
-        this.startMeeting(data.signature)
-      } else {
+    this.service.signatureGet(this.meetingNumber,this.role).subscribe({
+      next: (data) => {
         console.log(data)
+        this.startMeeting(data.signature)
+      },
+      error: (error) => {
+        console.log(error)
+      },
+      complete: () => {
+        console.log('complete')
       }
-    }).catch((error) => {
-      console.log(error)
     })
   }
 
   startMeeting(signature : string) {
 
+    try {
+      
+    
     let meetingSDKElement = this.document.getElementById('meetingSDKElement');
 
     this.ngZone.runOutsideAngular(() => {
       if (meetingSDKElement) {
-         this.client.init({zoomAppRoot: meetingSDKElement, language: 'en-US', patchJsMedia: true}).then(() => {
+         this.client.init({
+          zoomAppRoot: meetingSDKElement, 
+          language: 'en-US', 
+          customize:{
+            video:{
+              isResizable: true,
+              viewSizes:{
+                default:{
+                  width: 900,
+                  height: 400
+                } 
+              }
+            }
+          },
+          patchJsMedia: true}).then(() => {
+            this.client.on('connection-change', (payload) => {
+              if (payload.state === 'Closed') {
+                this.router.navigate(['/home']);
+               
+              }
+            });
+            
         this.client.join({
           signature: signature,
           sdkKey: this.sdkKey,
@@ -79,5 +111,10 @@ export class ZoomComponent implements OnInit {
       }
      
     })
+  } catch (error) {
+      console.log(error)
+    }
   }
+
+
 }

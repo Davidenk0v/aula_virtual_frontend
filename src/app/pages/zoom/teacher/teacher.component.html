@@ -1,22 +1,41 @@
 <div class="container-fluid padre">
     <div class="row">
-        <div class="col-md-6">
-            <div class="left-panel">
+        <div class="col-md-8">
+            <div class="left-panel" >
                 <h2 class="panel-title">Proximos meetings</h2>
-                <div class="card">
-                    <div class="card-body">
-                        
+                <div style="overflow-y: auto; max-height: 400px;">
+                    
+                @if (meetings) {
+                 @for (item of meetings; track $index) {
+                <div class="card" style="margin-top: 2%;">
+                    <div class="card-header d-flex align-items-center border-bottom">
+                      <div class="ms-3">
+                        <h6 class="mb-0 fs-sm">{{ item?.topic }}</h6>
+                        <span class="text-muted fs-sm">{{ item?.start_time }}</span>
+                      </div>
+                      <button class="btn text-muted ms-auto" type="btn"  data-bs-toggle="modal" data-bs-target="#opciones"(click)="mandarInicio(item.id)"><img src="../../../../assets/img/tres-puntos.png" style="width: 20px;" alt=""></button>
                     </div>
+                    <div class="card-body">
+                      <p class="card-text">Creado el {{ item?.created_at }}</p> 
+                        {{ item?.duration }} mins
+                    </div>
+                  </div>
+                }   
+                }@else {
+                    <div class="card">
+                        <h2>No hay Meetings</h2>
+                    </div>
+                }
                 </div>
-                <!-- Agrega más cards si es necesario -->
+                
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="right-panel">
                 <div class="top-right-panel">
                     <h2 style="text-align: center;">Meetings</h2>
-                    <div class="d-flex align-items-center justify-content-between">
-                        <button class="botones" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <div class="d-flex align-items-center">
+                        <button class="botones" style="margin-left: 25%;" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <div class="icon-text text-center me-3 bg-primary pulsar"
                                 style="padding: 10px; border-radius: 15px;">
                                 <img src="../../../../assets/img/mas (1).png" alt="" style="width: 50px;">
@@ -24,19 +43,11 @@
                             </div>
                         </button>
 
-                        <button class="botones" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <div class="icon-text text-center me-3  bg-warning pulsar"
+                        <button class="botones" style="margin-left: 25%;" type="button" data-bs-toggle="modal" data-bs-target="#iniciarModal">
+                            <div class="icon-text text-center me-3  bg-primary pulsar"
                                 style="padding: 10px;border-radius: 15px;">
                                 <img src="../../../../assets/img/editar.png" alt="" style="width: 50px;">
-                                <p class="mb-0 text-dark fw-bold">Editar</p>
-                            </div>
-                        </button>
-
-                        <button class="botones" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <div class="icon-text text-center bg-danger pulsar"
-                                style="padding: 10px;border-radius: 15px;">
-                                <img src="../../../../assets/img/borrar.png" alt="" style="width: 50px;">
-                                <p class="mb-0 text-dark fw-bold">Borrar</p>
+                                <p class="mb-0 text-dark fw-bold">Iniciar</p>
                             </div>
                         </button>
 
@@ -46,8 +57,8 @@
 
 
 
-                <div class="bottom-right-panel">
-                    <h2>Div inferior</h2>
+                <div class="bottom-right-panel" style="text-align: center;">
+                    <h2>Calendario</h2>
                 </div>
             </div>
         </div>
@@ -55,17 +66,13 @@
 </div>
 
 
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Abrir Modal
-</button>
-
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Schedule a Meeting</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Crear meeting</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form [formGroup]="meeting">
@@ -94,6 +101,74 @@
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                   <button type="submit" class="btn btn-primary" (click)="createMetting()">Programar</button>
+                </div>
+              </form>
+              
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Opciones-->
+
+<div class="modal fade" id="opciones"tabindex="-1" aria-labelledby="opciones" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="opciones">Opciones</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex align-items-center justify-content-between">
+                    <button class="botones" type="button" (click)="meetingInicio()">
+                        <div class="icon-text text-center me-3 bg-primary pulsar"
+                            style="padding: 10px; border-radius: 15px;">
+                            <img src="../../../../assets/img/mas (1).png" alt="" style="width: 50px;">
+                            <p class="mb-0 text-dark fw-bold">Iniciar</p>
+                        </div>
+                    </button>
+
+                    <button class="botones" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <div class="icon-text text-center bg-danger pulsar"
+                            style="padding: 10px;border-radius: 15px;">
+                            <img src="../../../../assets/img/borrar.png" alt="" style="width: 50px;">
+                            <p class="mb-0 text-dark fw-bold">Borrar</p>
+                        </div>
+                    </button>
+
+                </div>
+              </div>
+              
+        </div>
+    </div>
+</div>
+
+<!-- Modal Iniciar-->
+<div class="modal fade" id="iniciarModal" tabindex="-1" aria-labelledby="iniciarModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="iniciarModal">Iniciar meeting</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form [formGroup]="iniciarMeeting">
+                <div class="modal-body">
+                  <div class="mb-3">
+                    <label for="agenda" class="form-label">Numero</label>
+                    <input type="text" class="form-control"  formControlName="meetingNumber" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" formControlName="password" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="timezone" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" formControlName="name" required>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                  <button type="submit" class="btn btn-primary" (click)="navegarAZoom()">Iniciar</button>
                 </div>
               </form>
               
