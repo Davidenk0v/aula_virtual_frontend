@@ -34,6 +34,28 @@ export class EmailService {
     );
   }
 
+  sendVerifyEmail(email:string):Observable<any>{
+    return this.http.get<any>(`${environment.api.urlHost}auth/password/send-verify-email/${email}`)
+    .pipe(tap((response) => {
+      console.info(response);
+      
+    }),
+    map((response)=> response),
+    catchError(this.handleError)
+    );
+  }
+
+  verifyEmail(email:string):Observable<any>{
+    return this.http.get<any>(`${environment.api.urlHost}auth/password/verify-email/${email}`)
+    .pipe(tap((response) => {
+      console.info(response);
+      
+    }),
+    map((response)=> response),
+    catchError(this.handleError)
+    );
+  }
+
   private handleError(error:HttpErrorResponse){
     if(error.status === 400){
       console.error(error.error);
