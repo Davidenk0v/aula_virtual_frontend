@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { PaymentComponent } from './payment/payment.component';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Course } from '../interfaces/Course';
@@ -16,7 +16,6 @@ import {
 import { SubjectsService } from '../services/subjects/subjects.service';
 import { JwtService } from '../services/jwt/jwt.service';
 import { ProfileService } from '../services/profile.service';
-import { User } from '../interfaces/User';
 import { AuthService } from '../services/auth/auth.service';
 @Component({
   selector: 'app-course',
@@ -49,7 +48,7 @@ export class CourseComponent {
   courseInfo?: Course;
   errorMessage?: string;
   nameUser = ""
-  emailUser = ""
+  idUser:string = ""
   userData= {
   };
   submenuAbierto = false;
@@ -92,10 +91,9 @@ export class CourseComponent {
 
     
     // EL "3" el id del usuario, hay que hayarlo para que el comentario sea del propio usuario
-    this.commentService.postComment(idCourse!, 3, comment)
+    this.commentService.postComment(idCourse!, this.idUser, comment)
     .subscribe({
       next: (cita) => {
-        console.info("cita" + cita);
       },
       error: (userData) => {
         console.log(userData);
@@ -113,7 +111,7 @@ export class CourseComponent {
     this.getSubjects(this.courseId);
     this.getComents(this.courseId)
     this.nameUser = this.jwtService.getNameFromToken();
-    this.emailUser = this.jwtService.getEmailFromToken()
+    this.idUser = this.jwtService.getIdFromToken()
     this.isLogged()
   }
 

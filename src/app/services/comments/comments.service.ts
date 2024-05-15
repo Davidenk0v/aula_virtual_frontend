@@ -11,7 +11,7 @@ export class CommentService {
 
   constructor(private http: HttpClient) { }
 
-  postComment(idCourse: number, idUser:number, comment: CommentI): Observable<CommentI> {
+  postComment(idCourse: number, idUser:string, comment: CommentI): Observable<CommentI> {
     
     return this.http.post<CommentI>(`${environment.api.urlApi}/comment/${idUser}/${idCourse}`, comment).pipe(
       
