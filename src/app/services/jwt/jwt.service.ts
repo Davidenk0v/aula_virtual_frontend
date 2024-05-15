@@ -19,14 +19,6 @@ export class JwtService {
       }
   }
 
-  getIdFromToken():any{
-    this.token = sessionStorage.getItem('token') ?? '';
-    if(this.token != ''){
-      const {sub} = jwtDecode(this.token);
-      return sub;
-    }
-}
-
   getRoleFromToken():any{
     this.token = sessionStorage.getItem('token') ?? '';
     if(this.token != ''){

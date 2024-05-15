@@ -17,6 +17,7 @@ import { SubjectsService } from '../services/subjects/subjects.service';
 import { JwtService } from '../services/jwt/jwt.service';
 import { ProfileService } from '../services/profile.service';
 import { User } from '../interfaces/User';
+import { AuthService } from '../services/auth/auth.service';
 @Component({
   selector: 'app-course',
   standalone: true,
@@ -30,7 +31,7 @@ import { User } from '../interfaces/User';
     ReactiveFormsModule,
   ],
 })
-export class CourseComponent implements OnInit {
+export class CourseComponent {
   subjects?: Subject[];
 
   constructor(
@@ -40,17 +41,28 @@ export class CourseComponent implements OnInit {
     private formBuild: FormBuilder,
     private commentService: CommentService,
     private jwtService: JwtService,
-    private user: ProfileService
+    private user: ProfileService,
+    private authService:AuthService
   ) {}
+
   courseId?: number;
-  courseInfo??: Course;
+  courseInfo?: Course;
   errorMessage?: string;
-
+  nameUser = ""
+  emailUser = ""
+  userData= {
+  };
+  submenuAbierto = false;
   currentDate = new Date().getFullYear() + "-0" + new Date().getMonth() + "-" + new Date().getUTCDate()  ; 
-
   newComment = ""
-
   coments?: any;
+  subjectId?: number;
+  loggeIn:boolean = false;
+  subjectForm = this.formBuild.group({
+    name: ['', [Validators.required]],
+    description: ['', [Validators.required]],
+  });
+
 
   getComents(courseId: number) {
     console.log(this.currentDate);
@@ -78,8 +90,6 @@ export class CourseComponent implements OnInit {
       
     };
 
-    console.log(comment);
-    
     
     // EL "3" el id del usuario, hay que hayarlo para que el comentario sea del propio usuario
     this.commentService.postComment(idCourse!, 3, comment)
@@ -96,33 +106,32 @@ export class CourseComponent implements OnInit {
     })
   }
 
-  subjectId?: number;
-
-  subjectForm = this.formBuild.group({
-    name: ['', [Validators.required]],
-    description: ['', [Validators.required]],
-  });
-
-
-  nameUser = ""
-  emailUser = ""
-  userData= {
-  };
 
   ngOnInit(): void {
     this.courseId = Number(this.activateRoute.snapshot.paramMap.get('id'));
     this.getCourseInfo(this.courseId);
     this.getSubjects(this.courseId);
     this.getComents(this.courseId)
-    this.userData = this.user.getAllProfiles();
     this.nameUser = this.jwtService.getNameFromToken();
     this.emailUser = this.jwtService.getEmailFromToken()
-    console.log(`${this.nameUser} y ${this.emailUser}`);
-    console.log(this.userData);
-    
+    this.isLogged()
   }
 
-  submenuAbierto = false;
+  isLogged(){
+    this.authService.loggedIn$.subscribe({
+      next: (logged) => {
+        this.loggeIn = logged;
+      },
+      error: (error) => {
+        console.error('Error fetching comments:', error);
+      },
+      complete: () => {
+        console.info('Request completed');
+      },
+    });
+  }
+
+
 
   toggleSubmenu() {
     this.submenuAbierto = !this.submenuAbierto;
