@@ -5,7 +5,6 @@ import { RegisterComponent } from './pages/register/register.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
-import { KeycloakAngularModule } from 'keycloak-angular';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { CommonModule, DatePipe } from '@angular/common';
 
@@ -21,7 +20,6 @@ import { CommonModule, DatePipe } from '@angular/common';
     HeaderComponent, 
     FooterComponent, 
     HttpClientModule,
-    KeycloakAngularModule, 
     RouterModule,
     UserProfileComponent
   ],
