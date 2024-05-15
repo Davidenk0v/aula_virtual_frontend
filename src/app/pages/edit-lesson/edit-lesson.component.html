@@ -1,8 +1,8 @@
 <div class="container my-5">
     <div class="card">
         <div class="card-body">
-            <h2 class="card-title text-center mb-4">Crear Nueva Tarea</h2>
-            <form [formGroup]="newLessonForm">
+            <h2 class="card-title text-center mb-4">Actualizar Tarea</h2>
+            <form [formGroup]="editLessonForm">
                 <div class="form-group">
                     @if(errorMessage){
                     <app-error-message [message]="errorMessage"></app-error-message>
@@ -20,7 +20,7 @@
                     <input type="file" name="file" (change)="setFile($event)" />
                 </div>
                 <br>
-                <button type="button" class="btn btn-block btn-success" (click)="addLesson()">Crear Tarea</button>
+                <button type="button" class="btn btn-block btn-success" (click)="updateLesson()">Actualizar Tarea</button>
             </form>
         </div>
     </div>

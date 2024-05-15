@@ -6,13 +6,13 @@ import { Lesson } from '../../interfaces/Lessons';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-create-lesson',
+  selector: 'app-edit-lesson',
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule, ErrorMessageComponent],
-  templateUrl: './create-lesson.component.html',
-  styleUrl: './create-lesson.component.css'
+  templateUrl: './edit-lesson.component.html',
+  styleUrl: './edit-lesson.component.css'
 })
-export class CreateLessonComponent implements OnInit {
+export class EditLessonComponent implements OnInit {
 
   errorMessage?: string;
 
@@ -24,58 +24,38 @@ export class CreateLessonComponent implements OnInit {
   payload: any;
 
   ngOnInit(): void {
-    this.idSubject = Number(this.activateRoute.snapshot.paramMap.get('idSubject'));
-    console.log("idSubject", this.idSubject);
+    this.idLesson = Number(this.activateRoute.snapshot.paramMap.get('idLesson'));
+    console.log("idSubject", this.idLesson);
 
   }
 
   // Este objeto es el que luego se mandrá a la base de datos
-  newLessonForm = this.formBuilder.group({
+  editLessonForm = this.formBuilder.group({
     name: ['', [Validators.required]],
     description: ['', [Validators.required]]
   });
 
-  addLesson() {
-    if (this.newLessonForm.valid && this.idSubject)
-      this.lessonsPostComponent.postLessons(this.idSubject, this.newLessonForm.value as Lesson)
+  updateLesson() {
+    if (this.editLessonForm.valid && this.idLesson)
+      this.lessonsPostComponent.putLessons(this.idLesson, this.editLessonForm.value as Lesson)
         .subscribe({
           next: (data) => {
             console.info(data)
-            let json = data["Leccion subido"];
           },
           error: (errorData) => {
             this.errorMessage = errorData;
-            console.info(this.newLessonForm.value as Lesson)
+            console.info(this.editLessonForm.value as Lesson)
 
           },
           complete: () => {
-            this.newLessonForm.reset();
+            this.editLessonForm.reset();
             if (this.payload) {
-              this.getLastId(this.idSubject)
+              this.uploadFile();
             } else {
               this.router.navigateByUrl('/subject/' + this.idSubject);
             }
           },
         })
-  }
-
-  /**
-   * Envia el archivo a la API.
-   */
-  getLastId(idSubject: number): void {
-    this.lessonsPostComponent.getIdLastLessond(idSubject).subscribe({
-      next: (cita: Lesson) => {
-        console.info(cita)
-        this.idLesson = cita.idLesson;
-      },
-      error: (error) => {
-        console.log(error)
-      },
-      complete: () => {
-        console.info("completada peticion ID")
-        this.uploadFile();
-      }
-    });
   }
 
   /**

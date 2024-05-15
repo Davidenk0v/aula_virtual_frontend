@@ -11,6 +11,7 @@ import { CourseComponent } from './course/course.component';
 import { TeacherProfileComponent } from './users/teacher-profile/teacher-profile.component';
 import { VerifyComponent } from './pages/verify/verify.component';
 import { CreateLessonComponent } from './pages/create-lesson/create-lesson.component';
+import { EditLessonComponent } from './pages/edit-lesson/edit-lesson.component';
 
 export const routes: Routes = [
     { path: "", redirectTo: "/home", pathMatch: "full" },
@@ -25,5 +26,6 @@ export const routes: Routes = [
     { path: "student-profile", component: UserProfileComponent },
     { path: "teacher-profile", component: TeacherProfileComponent },
     { path: "verify/:email", component: VerifyComponent },
-    { path: "create-lessons/:idSubject", component: CreateLessonComponent }
+    { path: "create-lessons/:idSubject", component: CreateLessonComponent },
+    { path: "edit-lessons/:idLesson", component: EditLessonComponent }
 ];

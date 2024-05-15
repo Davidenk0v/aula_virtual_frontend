@@ -28,9 +28,16 @@ export class LessonPostService {
   }
 
 
-  putLessons(idLesson: number,cita:Lesson): Observable<Lesson> {
+  putLessons(idLesson: number,cita:Lesson) {
     return this.http.put<any>(`${environment.api.urlApi}/lessons/${idLesson}`,cita).pipe(
-      
+      catchError((error: HttpErrorResponse) => {
+        if (error.error instanceof ErrorEvent) {
+          this.errorMessage = `Error: ${error.error.message}`;
+        } else {
+          this.errorMessage = `Error code: ${error.status}, message: ${error.message}`;
+        }
+        return throwError(() => this.errorMessage);
+      })
     )
   }
 
