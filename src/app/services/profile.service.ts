@@ -13,6 +13,10 @@ export class ProfileService {
   constructor(private http: HttpClient) { }
 
   errorMessage?:string;
+
+  getAllProfiles(): Observable<User> {
+    return this.http.get<User>(`${environment.api.urlApi}/users/`)
+  }
   
   getProfileByUsername(username:string): Observable<User> {
     return this.http.get<User>(`${environment.api.urlApi}/users/${username}`)

@@ -3,8 +3,8 @@ import { PaymentComponent } from './payment/payment.component';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Course } from '../interfaces/Course';
 import { CourseService } from '../services/courses/course.service';
-import { EMPTY, Observable, catchError } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
+import { CommentService } from '../services/comments/comments.service';
+import { CommentI } from '../interfaces/Comment';
 import { ListTaskComponent } from './list-task/list-task.component';
 import { Subject } from '../interfaces/Subject';
 import {
@@ -14,7 +14,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { SubjectsService } from '../services/subjects/subjects.service';
-import { Lesson } from '../interfaces/Lesson';
+import { JwtService } from '../services/jwt/jwt.service';
+import { ProfileService } from '../services/profile.service';
+import { User } from '../interfaces/User';
 @Component({
   selector: 'app-course',
   standalone: true,
@@ -24,40 +26,74 @@ import { Lesson } from '../interfaces/Lesson';
     PaymentComponent,
     FormsModule,
     RouterModule,
-    AsyncPipe,
     ListTaskComponent,
     ReactiveFormsModule,
   ],
 })
 export class CourseComponent implements OnInit {
-  subjects: Subject[] | undefined;
+  subjects?: Subject[];
 
   constructor(
     private subjectService: SubjectsService,
     private activateRoute: ActivatedRoute,
     private courseService: CourseService,
-    private formBuild: FormBuilder
+    private formBuild: FormBuilder,
+    private commentService: CommentService,
+    private jwtService: JwtService,
+    private user: ProfileService
   ) {}
   courseId?: number;
-  courseInfo: Course | undefined;
+  courseInfo?: Course | undefined;
   errorMessage?: string;
 
-  currentDate = new Date().getDay() + "/" + new Date().getMonth() + "/" + new Date().getFullYear(); 
+  currentDate = new Date().getFullYear() + "-0" + new Date().getMonth() + "-" + new Date().getUTCDate()  ; 
 
   newComment = ""
 
-  coments = [
-    { username: 'test 1', comment: 'buen curso', date: this.currentDate},
-    { username: 'test 2', comment: 'regular curso', date: this.currentDate },
-    { username: 'test 3', comment: "mal curso", date: this.currentDate },
-  ];
+  coments?: any;
 
-  addNewComent() {
-    console.log(this.newComment);
+  getComents(courseId: number) {
+    console.log(this.currentDate);
     
-    if (this.newComment !== "" && this.newComment !== " ") {
-      this.coments.unshift({username: "current User", comment: this.newComment, date: this.currentDate})
-    }
+    this.commentService.getAllComments(courseId).subscribe({
+      next: (comments) => {
+        this.coments = comments;
+        console.log('Comments:', this.coments);
+      },
+      error: (error) => {
+        console.error('Error fetching comments:', error);
+      }
+    });
+  }
+
+  
+  
+  addNewComent(idCourse?: number) {
+    let comment: CommentI = { 
+      text: this.newComment,
+      date: this.currentDate, 
+      user: { 
+        firstname: this.nameUser
+      }
+      
+    };
+
+    console.log(comment);
+    
+    
+    // EL "3" el id del usuario, hay que hayarlo para que el comentario sea del propio usuario
+    this.commentService.postComment(idCourse!, 3, comment)
+    .subscribe({
+      next: (cita) => {
+        console.info("cita" + cita);
+      },
+      error: (userData) => {
+        console.log(userData);
+      },
+      complete: () => {
+        this.coments.unshift(comment)
+      },
+    })
   }
 
   subjectId?: number;
@@ -67,10 +103,23 @@ export class CourseComponent implements OnInit {
     description: ['', [Validators.required]],
   });
 
+
+  nameUser = ""
+  emailUser = ""
+  userData= {
+  };
+
   ngOnInit(): void {
     this.courseId = Number(this.activateRoute.snapshot.paramMap.get('id'));
     this.getCourseInfo(this.courseId);
     this.getSubjects(this.courseId);
+    this.getComents(this.courseId)
+    this.userData = this.user.getAllProfiles();
+    this.nameUser = this.jwtService.getNameFromToken();
+    this.emailUser = this.jwtService.getEmailFromToken()
+    console.log(`${this.nameUser} y ${this.emailUser}`);
+    console.log(this.userData);
+    
   }
 
   submenuAbierto = false;
@@ -107,10 +156,10 @@ export class CourseComponent implements OnInit {
   getSubjects(courseId: number) {
     this.subjectService.getSubjectsByCourseId(courseId).subscribe({
       next: (cita) => {
-        console.info(cita);
         this.subjects = cita;
+        
       },
-      error: (userData) => {
+      error: (userData) => {        
         console.log(userData);
       },
       complete: () => {
@@ -121,16 +170,16 @@ export class CourseComponent implements OnInit {
 
   getCourseInfo(courseId: number) {
     this.courseService.getCourseById(courseId).subscribe({
-      next: (cita) => {
-        console.info(cita);
-        this.courseInfo = cita;
+      next: (course) => {
+        this.courseInfo = course;
       },
-      error: (userData) => {
-        console.log(userData);
+      error: (error) => {
+        console.error('Error fetching course info:', error);
       },
       complete: () => {
-        console.info('Completo');
+        console.info('Request completed');
       },
     });
   }
+  
 }

@@ -45,21 +45,46 @@ export class CourseService {
     );
   }
 
-  getCourseById(idCourse:number): Observable<Course> {
-    return this.http.get<Record<string,Course>>(`${environment.api.urlApi}/courses/${idCourse}`)
-    .pipe(
-      map(response => response['Id encontrado ']),
-      catchError((error: HttpErrorResponse) => {
-        if (error.error instanceof ErrorEvent) {
-          this.errorMessage = `Error: ${error.error.message}`;
-        } else {
-          this.errorMessage = `Error code: ${error.status}, message: ${error.message}`;
-        }
+  // getCourseById(idCourse:number): Observable<Course> {
+  //   return this.http.get<Record<string,Course>>(`${environment.api.urlApi}/courses/${idCourse}`)
+  //   .pipe(
+  //     map(response => response['Id encontrado ']),
+  //     catchError((error: HttpErrorResponse) => {
+  //       if (error.error instanceof ErrorEvent) {
+  //         this.errorMessage = `Error: ${error.error.message}`;
+  //       } else {
+  //         this.errorMessage = `Error code: ${error.status}, message: ${error.message}`;
+  //       }
 
-        return throwError(() => this.errorMessage);
-      })
-    );
+  //       return throwError(() => this.errorMessage);
+  //     })
+  //   );
+  // }
+
+  getCourseById(idCourse: number): Observable<Course> {
+    
+    return this.http.get<Course>(`${environment.api.urlApi}/courses/${idCourse}`)
+      .pipe(
+        map(response => {
+          const course = response; // Ajusta esto si la clave es diferente
+          if (!course) {
+            throw new Error('Course not found in response');
+          }
+          return course;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          let errorMessage: string;
+          if (error.error instanceof ErrorEvent) {
+            errorMessage = `Error: ${error.error.message}`;
+          } else {
+            errorMessage = `Error code: ${error.status}, message: ${error.message}`;
+          }
+          console.error(errorMessage);
+          return throwError(() => errorMessage);
+        })
+      );
   }
+  
 
   addCourse(credentials: CourseRequest): Observable<number> {
     return this.http.post<Record<string,number>>(`${environment.api.urlApi}/courses/2`, credentials).pipe(

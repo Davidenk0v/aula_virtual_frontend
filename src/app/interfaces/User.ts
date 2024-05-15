@@ -5,7 +5,7 @@ export interface User {
   lastname: string;
   email: string;
   emailVerified: boolean;
-
+  idUser: number
 
 }
 
