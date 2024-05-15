@@ -208,4 +208,17 @@ export class CourseService {
     );
   }
 
+  setDefaultProfileImage(id: number): any {
+    return this.http.delete(`${environment.api.urlApi}/courses/file/${id}`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.error instanceof ErrorEvent) {
+          this.errorMessage = `Error: ${error.error.message}`;
+        } else {
+          this.errorMessage = `Error code: ${error.status}, message: ${error.message}`;
+        }
+        return throwError(() => this.errorMessage);
+      })
+    )
+  }
+
 }
