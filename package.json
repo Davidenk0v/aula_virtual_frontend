@@ -26,6 +26,7 @@
     "@zoom/meetingsdk": "^3.6.0",
     "@zoomus/websdk": "^2.18.3",
     "angular-oauth2-oidc": "^17.0.2",
+    "axios": "^1.6.8",
     "boostrap": "^2.0.0",
     "bootstrap": "^5.3.3",
     "jquery": "^3.7.1",
