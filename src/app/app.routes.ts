@@ -10,6 +10,8 @@ import { AllCoursesComponent } from './pages/all-courses/all-courses.component';
 import { CourseComponent } from './course/course.component';
 import { TeacherProfileComponent } from './users/teacher-profile/teacher-profile.component';
 import { VerifyComponent } from './pages/verify/verify.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { NewPasswordComponent } from './pages/new-password/new-password.component';
 
 export const routes: Routes = [
     {path:"", redirectTo:"/home", pathMatch:"full"},
@@ -23,5 +25,7 @@ export const routes: Routes = [
     {path:"all-courses", component:AllCoursesComponent},
     {path:"student-profile",component:UserProfileComponent},
     {path:"teacher-profile",component:TeacherProfileComponent},
-    {path:"verify/:email",component:VerifyComponent}
+    {path:"verify/:email",component:VerifyComponent},
+    {path:"forgot-password", component:ForgotPasswordComponent},
+    {path:"new-password/:id", component:NewPasswordComponent}
 ];
