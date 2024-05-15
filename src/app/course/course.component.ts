@@ -56,7 +56,7 @@ export class CourseComponent {
   newComment = ""
   coments?: any;
   subjectId?: number;
-  loggeIn:boolean = false;
+  loggeIn: boolean = false;
   subjectForm = this.formBuild.group({
     name: ['', [Validators.required]],
     description: ['', [Validators.required]],
@@ -119,6 +119,9 @@ export class CourseComponent {
     this.authService.loggedIn$.subscribe({
       next: (logged) => {
         this.loggeIn = logged;
+        if(!this.loggeIn){
+          this.loggeIn = sessionStorage.getItem('loggin') == 'true' ? true : false;
+        }
       },
       error: (error) => {
         console.error('Error fetching comments:', error);
