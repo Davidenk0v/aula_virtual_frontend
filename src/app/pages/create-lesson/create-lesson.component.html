@@ -1,0 +1,46 @@
+<div class="container my-5">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title text-center mb-4">Crear Nueva Tarea</h2>
+            <form [formGroup]="newLessonForm">
+                <div class="form-group">
+                    @if(errorMessage){
+                    <app-error-message [message]="errorMessage"></app-error-message>
+                    }
+                    <label for="courseName">Nombre de la tarea</label>
+                    <input type="text" formControlName="name" id="courseName" class="form-control"
+                        placeholder="Ingrese el nombre del curso">
+                </div>
+                <div class="form-group">
+                    <label for="courseDescription">Descripción</label>
+                    <textarea formControlName="description" id="courseDescription" class="form-control"
+                        placeholder="Ingrese la descripción del curso"></textarea>
+                </div>
+                <div>
+                    <input type="file" name="file" (change)="setFile($event)" />
+                </div>
+                <br>
+                <button type="button" class="btn btn-block btn-success" (click)="addLesson()">Crear Tarea</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="formaterror" tabindex="-1" aria-labelledby="formaterror" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="formaterror">Error</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="cerrarModalFormat()"></button>
+            </div>
+            <div class="modal-body">
+                Formato no admitido, solo se admiten jpeg, jpg y png.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                    (click)="cerrarModalFormat()">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -13,17 +13,23 @@ export class LessonPostService {
   constructor(private http: HttpClient) { }
   errorMessage?: string;
 
-  postLessons(idSubject: number,cita:Lesson): Observable<Lesson> {
+  postLessons(idSubject: number,cita:Lesson) {
     //const headers = new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem(`token`)}`);
-    
-    return this.http.post<any>(`${environment.api.urlApi}lessons/${idSubject}`,cita).pipe(
-      
+    return this.http.post<any>(`${environment.api.urlApi}/lessons/${idSubject}`,cita).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.error instanceof ErrorEvent) {
+          this.errorMessage = `Error: ${error.error.message}`;
+        } else {
+          this.errorMessage = `Error code: ${error.status}, message: ${error.message}`;
+        }
+        return throwError(() => this.errorMessage);
+      })
     );
   }
 
 
   putLessons(idLesson: number,cita:Lesson): Observable<Lesson> {
-    return this.http.put<any>(`${environment.api.urlApi}lessons/${idLesson}`,cita).pipe(
+    return this.http.put<any>(`${environment.api.urlApi}/lessons/${idLesson}`,cita).pipe(
       
     )
   }
@@ -31,9 +37,21 @@ export class LessonPostService {
 
   deleteLessons(idLesson: number): Observable<Lesson> {
     
-    return this.http.delete<any>(`${environment.api.urlApi}lessons/${idLesson}`).pipe(
+    return this.http.delete<any>(`${environment.api.urlApi}/lessons/${idLesson}`).pipe(
       
     )
+  }
+
+  getIdLastLessond(idSubject: number) {
+    return this.http.get<any>(`${environment.api.urlApi}/lessons/find/${idSubject}`).pipe(
+      catchError((error: HttpErrorResponse) => {
+      if (error.error instanceof ErrorEvent) {
+        this.errorMessage = `Error: ${error.error.message}`;
+      } else {
+        this.errorMessage = `Error code: ${error.status}, message: ${error.message}`;
+      }
+      return throwError(() => this.errorMessage);
+    }))
   }
 
   setFile(user: number, payload: File) {
