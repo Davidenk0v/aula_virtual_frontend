@@ -39,6 +39,7 @@ export class UserProfileComponent {
 
   payload: any;
   imageUrl: any;
+  imageCourseurl:any;
 
 
   popUpDelete: boolean = false;
@@ -210,9 +211,36 @@ export class UserProfileComponent {
    * @param user La id del usuario.
    */
   downloadImage(user: number) {
-    this.userService.getProfileImage(user).subscribe((res: Blob | MediaSource) => {
-      console.log("res ", res)
-      this.imageUrl = URL.createObjectURL(res);
+    this.userService.getProfileImage(user).subscribe({
+      next: (data: any) => {
+        console.info("data", data);
+        this.imageUrl = URL.createObjectURL(data);
+      }, error: (data: any) => {
+        console.info(data, "Error")
+      },
+      complete: () => {
+        console.info("Completa descarga imagen curso")
+        localStorage.removeItem("fileType");
+      }
+    });
+  }
+
+  /**
+   * Descarga el archivo desde la API.
+   * @param user La id del usuario.
+   */
+  downloadImageCourse(user: number) {
+    this.courseService.getProfileImage(user).subscribe({
+      next: (data: any) => {
+        console.info("data", data);
+        this.imageCourseurl = URL.createObjectURL(data);
+      }, error: (data: any) => {
+        console.info(data, "Error")
+      },
+      complete: () => {
+        console.info("Completa descarga imagen curso")
+        localStorage.removeItem("fileType");
+      }
     });
   }
 
@@ -245,6 +273,7 @@ export class UserProfileComponent {
       complete: () => {
         console.info("Completo")
         window.location.reload();
+        localStorage.removeItem("fileType");
         //this.getPerfilTeacher(this.email)
       }
     });

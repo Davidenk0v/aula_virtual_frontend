@@ -63,10 +63,7 @@ export class ProfileService {
   getProfileImage(user: number): any {
     return this.http.get(`${environment.api.urlApi}/users/file/${user}`, { responseType: 'blob' }).pipe(
       map(res => {
-        res.text().then((strBlob => {
-          localStorage.setItem("image", strBlob);
-        }))
-        var file = new File([res], "untitled", {lastModified: Date.now(), type: res.type});
+        localStorage.setItem("fileType", res.type);
         return res;
       }),
       catchError((error: HttpErrorResponse) => {

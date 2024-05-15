@@ -12,16 +12,16 @@ import { TeacherProfileComponent } from './users/teacher-profile/teacher-profile
 import { VerifyComponent } from './pages/verify/verify.component';
 
 export const routes: Routes = [
-    {path:"", redirectTo:"/home", pathMatch:"full"},
-    {path:"login", component:LoginComponent},
-    {path:"register", component:RegisterComponent},
-    {path: "home", component: HomeComponent},
-    {path: "course/:id", component: CourseComponent},
-    {path: "create", component: CreateCourseComponent},
-    {path: "edit/:idCourse", component: EditCourseComponent},
-    {path:"search", component:SearchComponent},
-    {path:"all-courses", component:AllCoursesComponent},
-    {path:"student-profile",component:UserProfileComponent},
-    {path:"teacher-profile",component:TeacherProfileComponent},
-    {path:"verify/:email",component:VerifyComponent}
+    { path: "", redirectTo: "/home", pathMatch: "full" },
+    { path: "login", component: LoginComponent },
+    { path: "register", component: RegisterComponent },
+    { path: "home", component: HomeComponent },
+    { path: "course/:id", component: CourseComponent },
+    { path: "create", component: CreateCourseComponent },
+    { path: "edit/:idCourse", component: EditCourseComponent },
+    { path: "search", component: SearchComponent },
+    { path: "all-courses", component: AllCoursesComponent },
+    { path: "student-profile", component: UserProfileComponent },
+    { path: "teacher-profile", component: TeacherProfileComponent },
+    { path: "verify/:email", component: VerifyComponent }
 ];

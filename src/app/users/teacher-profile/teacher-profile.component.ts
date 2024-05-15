@@ -10,6 +10,7 @@ import { DeleteCourseComponent } from "../../components/delete-course/delete-cou
 import { JwtService } from '../../services/jwt/jwt.service';
 import { User } from '../../interfaces/User';
 import { SuccessMessageComponent } from '../../components/success-message/success-message.component';
+import saveAs from 'file-saver';
 
 @Component({
   selector: 'app-teacher-profile',
@@ -28,6 +29,7 @@ export class TeacherProfileComponent implements OnInit {
 
   payload: any;
   imageUrl: any;
+  imageCourseurl: any;
 
   ngOnInit(): void {
     this.email = this.jwtService.getEmailFromToken();
@@ -209,7 +211,7 @@ export class TeacherProfileComponent implements OnInit {
         console.log(error)
       },
       complete: () => {
-        console.info("Completo")
+        console.info("Completa subida imagen perfil")
         window.location.reload();
         //this.getPerfilTeacher(this.email)
       }
@@ -221,8 +223,38 @@ export class TeacherProfileComponent implements OnInit {
    * @param user La id del usuario.
    */
   downloadImage(user: number) {
-    this.userService.getProfileImage(user).subscribe((res: Blob | MediaSource) => {
-      this.imageUrl = URL.createObjectURL(res);
+    this.userService.getProfileImage(user).subscribe({
+      next: (data: any) => {
+        console.info("Imagen perfil", data);
+        //saveAs(data, "save-me.txt");
+        this.imageUrl = URL.createObjectURL(data);
+      }, error: (data: any) => {
+        console.info(data, "Error")
+      },
+      complete: () => {
+        console.info("Completa descarga imagen perfil")
+        localStorage.removeItem("fileType");
+      }
+    });
+  }
+
+  /**
+   * Descarga el archivo desde la API.
+   * @param user La id del usuario.
+   */
+  downloadImageCourse(user: any) {
+    console.log("Loaded item: "+user.object.get("id"));
+    this.courseService.getProfileImage(user).subscribe({
+      next: (data: any) => {
+        console.info("Imagen curso", data);
+        this.imageCourseurl = URL.createObjectURL(data);
+      }, error: (data: any) => {
+        console.info(data, "Error")
+      },
+      complete: () => {
+        console.info("Completa descarga imagen curso")
+        localStorage.removeItem("fileType");
+      }
     });
   }
 
@@ -253,7 +285,8 @@ export class TeacherProfileComponent implements OnInit {
         console.log(error)
       },
       complete: () => {
-        console.info("Completo")
+        console.info("Completo borrar imagen perfil")
+        localStorage.removeItem("fileType");
         window.location.reload();
         //this.getPerfilTeacher(this.email)
       }
@@ -261,6 +294,3 @@ export class TeacherProfileComponent implements OnInit {
   }
 
 }
-
-
-

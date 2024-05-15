@@ -1,0 +1,14 @@
+.imgCard {
+    max-width: 100%;
+}
+
+.cardComp {
+    min-height: 55vh;
+    max-height: 500%;
+    padding-top: 5%;
+    max-width: 50vh;
+}
+
+.cardComp:hover {
+    size: 120%;
+}

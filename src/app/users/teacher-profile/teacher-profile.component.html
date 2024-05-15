@@ -119,8 +119,9 @@
                             <div class="col-md-4">
                                 <div class="card mb-4 shadow-sm">
                                     <div class="card-body">
-                                        <img src="{{item.urlImg}}" alt="{{item.name}}" class="w-100 rounded-top"
-                                            [routerLink]="['/course', item?.idCourse]">
+                                        <img src="{{imageCourseurl}}" alt="{{item.name}}" class="w-100 rounded-top"
+                                            [routerLink]="['/course', item?.idCourse]"
+                                            (change)="downloadImageCourse(item.idCourse)">
                                         <h5 class="card-title">{{item.name}}</h5>
                                         <ul class="list-unstyled mt-3 mb-4">
                                             <li><strong>Inicio:</strong> {{item.startDate}}</li>

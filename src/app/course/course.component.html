@@ -4,58 +4,55 @@
       <div class="row" id="info_course">
         <h1 id="name">{{courseInfo?.name}}</h1>
         <p id="description">{{courseInfo?.description}}</p>
-        
+
         <span>Creado por <span id="creator">Creador</span></span>
         <span>Inicio curso <span id="start_date">{{courseInfo?.startDate}}</span></span>
         <span>Fin curso <span id="finish_date">{{courseInfo?.finishDate}}</span></span>
-        <span id="container_len" class="d-flex"> 
+        <span id="container_len" class="d-flex">
           <div id="icon_world"></div>
           <span class="d-block">Español</span>
         </span>
-      </div> 
-      <div class="row" id="info_temario" style="display: flex; align-items: center;"> 
+      </div>
+      <div class="row" id="info_temario" style="display: flex; align-items: center;">
         <div class="col-9">
           <h2>Temas</h2>
-      </div>
-      <div class="col-3 d-flex justify-content-end">
+        </div>
+        <div class="col-3 d-flex justify-content-end">
           <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAgregarTema">+</button>
-      </div>
-      <ul id="listTask" class="list-unstyled">
-        @for(subject of subjects; track subject){
-            <li class="list-item">
-                <ul class="w-100">
-                    <li class="d-flex justify-content-between align-items-center">
-                        <div>{{subject.name}}</div>
-                        <div>
-                            <button type="button" class="btn btn-warning">Editar</button>
-                            <button type="button" class="btn btn-danger ms-2">Borrar</button>
-                        </div>
-                    </li>
-                    <li >
-                        <ul class="list-unstyled w-100">
-                            @for(lesson of subject.lessons; track lesson){
-                                <li class="d-flex justify-content-between align-items-center">
-                                    <div>{{lesson.name}}</div>
-                                </li>
-                            }
-                        </ul>
-                    </li>
+        </div>
+        <ul id="listTask" class="list-unstyled">
+          @for(subject of subjects; track subject){
+          <li class="list-item">
+            <ul class="w-100">
+              <li class="d-flex justify-content-between align-items-center">
+                <div>{{subject.name}}</div>
+                <div>
+                  <button type="button" class="btn btn-warning">Editar</button>
+                  <button type="button" class="btn btn-danger ms-2">Borrar</button>
+                </div>
+              </li>
+              <li>
+                <ul class="list-unstyled w-100">
+                  @for(lesson of subject.lessons; track lesson){
+                  <li class="d-flex justify-content-between align-items-center">
+                    <div style="background-color: #2d306b; width:98%;" id="lessons">
+                      <div >{{lesson.name}}    {{lesson.description}}    <a class="link" (click)="downloadImage(lesson)">Descargar</a></div>
+                    </div>
+                  </li>
+                  }
                 </ul>
-            </li>
-        }
-    </ul>
-    
-    
-    
-    
+              </li>
+            </ul>
+          </li>
+          }
+        </ul>
+      </div>
     </div>
-      </div> 
-      <div class="col-3" id="cont_info_course"> 
-        <app-payment [courseInfo]="courseInfo"></app-payment>
-      </div> 
-    
-    </div> 
-</div> 
+    <div class="col-3" id="cont_info_course">
+      <app-payment [courseInfo]="courseInfo"></app-payment>
+    </div>
+  </div>
+</div>
 <div class="modal fade" id="modalAgregarTema" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -71,13 +68,13 @@
           </div>
           <div class="mb-3">
             <label for="descripcionTema" class="form-label">Descripción del Tema</label>
-            <textarea class="form-control" id="descripcionTema" rows="3"  formControlName="description"></textarea>
+            <textarea class="form-control" id="descripcionTema" rows="3" formControlName="description"></textarea>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" (click)="postSubject()"  data-bs-dismiss="modal">Guardar</button>
+        <button type="button" class="btn btn-primary" (click)="postSubject()" data-bs-dismiss="modal">Guardar</button>
       </div>
     </div>
   </div>

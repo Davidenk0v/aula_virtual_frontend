@@ -37,8 +37,17 @@ export class CourseCardComponent {
    * @param user La id del usuario.
    */
   downloadImage(user: number) {
-    this.courseService.getProfileImage(user).subscribe((res: Blob | MediaSource) => {
-      this.imageUrl = URL.createObjectURL(res);
+    this.courseService.getProfileImage(user).subscribe({
+      next: (data: any) => {
+        console.info("data", data);
+        this.imageUrl = URL.createObjectURL(data);
+      }, error: (data: any) => {
+        console.info(data, "Error")
+      },
+      complete: () => {
+        console.info("Completo")
+        localStorage.removeItem("fileType");
+      }
     });
   }
 }

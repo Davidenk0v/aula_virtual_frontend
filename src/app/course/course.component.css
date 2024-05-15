@@ -1,6 +1,15 @@
 #course{
     padding-top: 3%;
 }
+
+.link {
+    color: rgb(151, 173, 196);
+}
+
+.link:hover {
+    color: rgb(97, 112, 128);
+}
+
 .rate {
     float: left;
     height: 46px;

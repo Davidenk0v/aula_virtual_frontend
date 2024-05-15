@@ -30,10 +30,6 @@
         </div>
     </div>
 
-    <button (click)="abrirModalFormat()">
-        test
-    </button>
-
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -118,8 +114,9 @@
                             <div class="col-md-4">
                                 <div class="card mb-4 shadow-sm">
                                     <div class="card-body">
-                                        <img src="https://via.placeholder.com/300" alt="" class="w-100 rounded-top"
-                                            [routerLink]="['/course', item?.idCourse]">
+                                        <img src="{{imageCourseurl}}" alt="" class="w-100 rounded-top"
+                                            [routerLink]="['/course', item?.idCourse]"
+                                            ()="downloadImageCourse($event)">
                                         <h5 class="card-title">{{item.name}}</h5>
                                         <ul class="list-unstyled mt-3 mb-4">
                                             <li><strong>Inicio:</strong> {{item.startDate}}</li>

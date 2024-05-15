@@ -6,7 +6,7 @@ INSERT INTO
         finish_date,
         last_modified_date,
         name,
-        pago,
+        price,
         start_date,
         url_img
     )
@@ -19,7 +19,7 @@ VALUES (
         'Web Development Fundamentals',
         199.99,
         '2024-06-01',
-        'https://www.example.com/web_dev_fundamentals.jpg'
+        'C:\\Users\\a925613\\Desktop\\Aula-Grupo-2-Back\\Media\\Course\\HTML and CSS Fundamentals\\Image\\3eae727b4e6e7a5c2b316f1a819dc7a5ffc8ab245c40f78d6b3107ad4514edc1.png'
     ),
     (
         NEXTVAL('course_entity_id_course_seq'),
@@ -30,7 +30,7 @@ VALUES (
         'Python Programming for Beginners',
         149.99,
         '2024-07-05',
-        'https://www.example.com/python_beginners.jpg'
+        'C:\\Users\\a925613\\Desktop\\Aula-Grupo-2-Back\\Media\\Default\\def-course.jpg'
     ),
     (
         NEXTVAL('course_entity_id_course_seq'),
@@ -41,7 +41,7 @@ VALUES (
         'Data Analysis with Excel',
         129.99,
         '2024-08-10',
-        'https://www.example.com/excel_data_analysis.jpg'
+        'C:\\Users\\a925613\\Desktop\\Aula-Grupo-2-Back\\Media\\Default\\def-course.jpg'
     ),
     (
         NEXTVAL('course_entity_id_course_seq'),
@@ -52,7 +52,7 @@ VALUES (
         'Adobe Photoshop for Beginners',
         199.99,
         '2024-09-15',
-        'https://www.example.com/photoshop_beginners.jpg'
+        'C:\\Users\\a925613\\Desktop\\Aula-Grupo-2-Back\\Media\\Default\\def-course.jpg'
     ),
     (
         NEXTVAL('course_entity_id_course_seq'),
@@ -63,7 +63,7 @@ VALUES (
         'Front-End Web Development',
         249.99,
         '2024-10-01',
-        'https://www.example.com/front_end_web_dev.jpg'
+        'C:\\Users\\a925613\\Desktop\\Aula-Grupo-2-Back\\Media\\Default\\def-course.jpg'
     ),
     (
         NEXTVAL('course_entity_id_course_seq'),
@@ -74,7 +74,7 @@ VALUES (
         'Machine Learning Fundamentals',
         299.99,
         '2024-11-15',
-        'https://www.example.com/machine_learning_fundamentals.jpg'
+        'C:\\Users\\a925613\\Desktop\\Aula-Grupo-2-Back\\Media\\Default\\def-course.jpg'
     ),
     (
         NEXTVAL('course_entity_id_course_seq'),
@@ -85,7 +85,7 @@ VALUES (
         'Data Visualization with Tableau',
         199.99,
         '2024-12-01',
-        'https://www.example.com/tableau_data_visualization.jpg'
+        'C:\\Users\\a925613\\Desktop\\Aula-Grupo-2-Back\\Media\\Default\\def-course.jpg'
     ),
     (
         NEXTVAL('course_entity_id_course_seq'),
@@ -96,7 +96,7 @@ VALUES (
         'Data Storytelling',
         149.99,
         '2025-01-10',
-        'https://www.example.com/data_storytelling.jpg'
+        'C:\\Users\\a925613\\Desktop\\Aula-Grupo-2-Back\\Media\\Default\\def-course.jpg'
     ),
     (
         NEXTVAL('course_entity_id_course_seq'),
@@ -107,7 +107,7 @@ VALUES (
         'Cybersecurity Fundamentals',
         249.99,
         '2025-02-15',
-        'https://www.example.com/cybersecurity_fundamentals.jpg'
+        'C:\\Users\\a925613\\Desktop\\Aula-Grupo-2-Back\\Media\\Default\\def-course.jpg'
     ),
     (
         NEXTVAL('course_entity_id_course_seq'),
@@ -118,5 +118,5 @@ VALUES (
         'Agile Project Management',
         199.99,
         '2025-03-01',
-        'https://www.example.com/agile_project_management.jpg'
+        'C:\\Users\\a925613\\Desktop\\Aula-Grupo-2-Back\\Media\\Default\\def-course.jpg'
     );

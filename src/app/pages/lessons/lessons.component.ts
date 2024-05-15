@@ -1,7 +1,7 @@
 import { Component  } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LessonPostService } from '../../services/lessons/lesson-post.service';
-import { lessonPostI } from '../../modelos/class.inteface';
+import { Lesson } from '../../interfaces/Lesson';
 
 @Component({
   selector: 'app-lessons',
@@ -24,7 +24,7 @@ export class LessonsComponent {
 
 
   post(){
-    this.service.postLessons(5,this.lesson.value as lessonPostI).subscribe({
+    this.service.postLessons(5,this.lesson.value as Lesson).subscribe({
       next: (data) => {
         console.info(data);
       },error:(data) => {

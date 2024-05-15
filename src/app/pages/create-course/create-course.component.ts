@@ -22,6 +22,8 @@ export class CreateCourseComponent {
   idCourse:number | undefined;
   constructor(private formBuilder:FormBuilder, private courseService:CourseService, private router:Router, private jwtService:JwtService) { }
 
+  payload: any;
+  imageUrl: any;
   emailTeacher:string = '';
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -41,7 +43,7 @@ export class CreateCourseComponent {
   addCourse(){
     if (this.newCourseForm.valid) {
       this.courseService
-        .addCourse(this.newCourseForm.value as CourseRequest, this.emailTeacher)
+        .addCourse(this.newCourseForm.value as CourseRequest, 1, this.payload)
         .subscribe({
           next: (userData) => {
             this.idCourse = userData
@@ -57,7 +59,6 @@ export class CreateCourseComponent {
             if (this.idCourse) {
               this.router.navigateByUrl('/courses/' + this.idCourse);
             }
-  
             this.newCourseForm.reset();
           },
         });
@@ -65,6 +66,47 @@ export class CreateCourseComponent {
       this.newCourseForm.markAllAsTouched();
       this.errorMessage = 'Porfavor rellene todos los campos';
       console.info(this.newCourseForm.value as CourseRequest)
+    }
+  }
+
+  /**
+   * Selecciona el archivo y valida si es admitido.
+   * @param event 
+   */
+  setFile(event: any) {
+    let temp = <File>event.target.files[0];
+    console.log("payload ", temp.name);
+    console.log('size', temp.size);
+    console.log('type', temp.type);
+    switch (temp.type) {
+      case "image/png":
+        this.payload = <File>event.target.files[0];
+        break;
+      case "image/jpeg":
+        this.payload = <File>event.target.files[0];
+        break;
+      case "image/jpg":
+        this.payload = <File>event.target.files[0];
+        break;
+      default:
+        this.abrirModalFormat();
+        break;
+    }
+  }
+
+  abrirModalFormat() {
+    const modal = document.getElementById('formaterror');
+    if (modal) {
+      modal.classList.add('show');
+      modal.style.display = 'block';
+    }
+  }
+
+  cerrarModalFormat() {
+    const modal = document.getElementById('formaterror');
+    if (modal) {
+      modal.classList.remove('show');
+      modal.style.display = 'none';
     }
   }
 
