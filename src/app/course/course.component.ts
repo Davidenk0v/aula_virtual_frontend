@@ -43,7 +43,7 @@ export class CourseComponent implements OnInit {
     private user: ProfileService
   ) {}
   courseId?: number;
-  courseInfo?: Course | undefined;
+  courseInfo??: Course;
   errorMessage?: string;
 
   currentDate = new Date().getFullYear() + "-0" + new Date().getMonth() + "-" + new Date().getUTCDate()  ; 
@@ -127,6 +127,7 @@ export class CourseComponent implements OnInit {
   toggleSubmenu() {
     this.submenuAbierto = !this.submenuAbierto;
   }
+
   postSubject() {
     console.info(this.courseId);
     if (this.courseId) {

@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
-import { LoginComponent } from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
-import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { CommonModule, DatePipe } from '@angular/common';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
 @Component({
   selector: 'app-root',
@@ -14,14 +12,13 @@ import { CommonModule, DatePipe } from '@angular/common';
   providers: [DatePipe],
   imports: [
     CommonModule, 
-    RouterOutlet, 
-    LoginComponent, 
-    RegisterComponent, 
+    RouterOutlet,
     HeaderComponent, 
     FooterComponent, 
     HttpClientModule,
-    RouterModule,
-    UserProfileComponent
+    // El que me daba fallo es esta linea:
+    ForgotPasswordComponent, 
+    RouterModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

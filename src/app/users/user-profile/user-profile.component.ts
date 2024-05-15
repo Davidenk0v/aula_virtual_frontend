@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { User } from '../../interfaces/User';
-import { Course } from '../../interfaces/Course';
 import { FormsModule } from '@angular/forms';
 import { CarouselComponentComponent } from '../../components/carousel-component/carousel-component.component';
 import { UserProfile } from '../../interfaces/Profile';
@@ -11,6 +9,8 @@ import { RouterLink } from '@angular/router';
 import { CreateCourseComponent } from '../../pages/create-course/create-course.component';
 import { DeleteCourseComponent } from '../../components/delete-course/delete-course.component';
 import { JwtService } from '../../services/jwt/jwt.service';
+import { Course } from '../../interfaces/Course';
+import { User } from '../../interfaces/User';
 
 @Component({
   selector: 'app-user-profile',
@@ -22,16 +22,17 @@ import { JwtService } from '../../services/jwt/jwt.service';
 export class UserProfileComponent {
   constructor(private courseService:CourseService, private userService:ProfileService, private jwtService:JwtService){}
   ngOnInit(): void {
+    this.idUser = this.jwtService.getIdFromToken();
     this.getCoursesTeacher();
-    this.getPerfilTeacher(this.username);
+    this.getPerfilUser(this.idUser);
   }
 
-  username:string = this.jwtService.getUsernameFromToken()
+  idUser:string='';
   haveCourses?:boolean = true
   idCourse?:number
   courseList?:Course[]
   editOn: boolean = false;
-  perfil? : UserProfile
+  perfil? : User
   popUpEdit : boolean = false;
 
 
@@ -70,7 +71,7 @@ export class UserProfileComponent {
     this.popUpEdit = isEdited;
     console.info(this.popUpEdit)
     this.cerrarModalPerfil();
-   // this.getPerfilTeacher();
+   this.getPerfilUser(this.idUser);
   }
 
   abrirModalPerfil() {
@@ -121,7 +122,7 @@ export class UserProfileComponent {
     }
   }
   getCoursesTeacher():void{
-    this.courseService.getAllCoursesTeacher(2).subscribe({
+    this.courseService.getAllCoursesTeacher(this.idUser).subscribe({
       next: (cita) => {
         console.info(cita)
         this.courseList = cita
@@ -138,10 +139,11 @@ export class UserProfileComponent {
     })
   }
 
-  getPerfilTeacher(username:string):void{
-    this.userService.getProfileByUsername(username).subscribe({
+  getPerfilUser(id:string):void{
+    this.userService.getProfileById(id).subscribe({
       next: (cita) => {
         console.info(cita)
+        this.perfil = cita;
       },
       error:(userData) => {
           console.log(userData)

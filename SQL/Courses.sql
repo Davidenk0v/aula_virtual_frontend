@@ -6,7 +6,7 @@ INSERT INTO
         finish_date,
         last_modified_date,
         name,
-        pago,
+        price,
         start_date,
         url_img
     )

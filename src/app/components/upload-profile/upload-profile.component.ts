@@ -3,6 +3,7 @@ import { ProfileService } from '../../services/profile.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User, UserEdit } from '../../interfaces/User';
 import { UserProfile } from '../../interfaces/Profile';
+import { JwtService } from '../../services/jwt/jwt.service';
 
 @Component({
   selector: 'app-upload-profile',
@@ -13,23 +14,26 @@ import { UserProfile } from '../../interfaces/Profile';
 })
 export class UploadProfileComponent implements OnInit{
 
-  constructor(private userService:ProfileService,private formBuid:FormBuilder){}
+  constructor(private userService:ProfileService,private formBuid:FormBuilder, private jwtService:JwtService){}
 
   @Output() profileEdited: EventEmitter<boolean> = new EventEmitter<boolean>();
   
   profile = this.formBuid.group({
+    username: [""],
     lastname: [""],
     firstname: [""],
     urlImg: [""]
   });
 
+  email:string = '';
+
   ngOnInit(): void {
-    
+    this.email = this.jwtService.getEmailFromToken();
   }
 
   update(){
     console.info(this.profile)
-    this.userService.updateProfile(2,this.profile.value as UserEdit).subscribe({
+    this.userService.updateProfile(this.email,this.profile.value as UserEdit).subscribe({
       next: (data) => {
         console.info(this.profile.value as User)
         console.info(data);
@@ -38,7 +42,7 @@ export class UploadProfileComponent implements OnInit{
       },
       complete:()=> {
         console.info("Completo")  
-        alert("Actualizado")      
+        sessionStorage.setItem('edit', 'Se ha editado el perfil correctamente')      
         this.cancelar();
       }
     });

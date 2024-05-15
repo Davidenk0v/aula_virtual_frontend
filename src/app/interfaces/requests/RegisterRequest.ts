@@ -8,4 +8,5 @@ export interface RegisterRequest {
     email?: string;
     address?: Address;
     password?: string;
+    rol?: [];
   }

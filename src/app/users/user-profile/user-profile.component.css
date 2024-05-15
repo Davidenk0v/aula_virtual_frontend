@@ -129,3 +129,143 @@ img {
     max-width: 20%; /* Set maximum width to 50% of its container */
     height: auto; /* Maintain aspect ratio */
   }
+
+  /* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container-fluid {
+    padding: 20px;
+}
+
+.titulo {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Estilos para las tarjetas de cursos */
+.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.card ul li {
+    margin-bottom: 5px;
+}
+
+/* Estilos para los botones */
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos para el contenedor de filtros */
+.filtros {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 20px; /* Ajuste de margen superior */
+    margin-left: -1px; /* Ajuste de margen izquierdo para alinear bordes */
+    margin-right: 20px; /* Ajuste de margen derecho para alinear bordes */
+    
+}
+
+/* Estilos para los checkboxes */
+.form-check-input {
+    margin-right: 8px;
+}
+/* Estilos para el botón "Modo Edición" */
+/* Estilos para el botón "Modo Edición" */
+.btn-block {
+    width: calc(100% - 20px); /* Ancho igual al div de filtros menos los márgenes */
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(3, 68, 124); /* Color de fondo verde */
+    color: #fff; /* Color de texto blanco */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Efectos de transición */
+}
+
+.btn-block:hover {
+    background-color: rgb(0, 84, 158); /* Color de fondo verde más oscuro al pasar el cursor */
+}
+@media (max-width: 768px) { /* Estilos para tabletas */
+    .filtros {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .btn-block {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 576px) { /* Estilos para dispositivos móviles */
+    .container-fluid {
+        padding: 10px;
+    }
+    .titulo {
+        font-size: 1.5rem;
+    }
+    .card {
+        margin-bottom: 10px;
+    }
+    .btn-block {
+        margin-bottom: 10px;
+    }
+}
+
+.btn-danger {
+    background-color: rgb(222, 22, 22);
+    border: none;
+  }
+/* Estilos personalizados para botones */
+.btn-custom-yellow {
+    background-color: #ffc107; /* Color amarillo */
+    color: #fff; /* Color de texto blanco */
+    border-color: #ffc107; /* Color de borde */
+}
+
+.btn-custom-yellow:hover {
+    background-color: #ffcd38; /* Color amarillo más claro al pasar el cursor */
+    border-color: #ffcd38; /* Color de borde al pasar el cursor */
+}
+
+.btn-custom-red {
+    background-color: #dc3545; /* Color rojo */
+    color: #fff; /* Color de texto blanco */
+    border-color: #dc3545; /* Color de borde */
+}
+
+.btn-custom-red:hover {
+    background-color: #c82333; /* Color rojo más oscuro al pasar el cursor */
+    border-color: #bd2130; /* Color de borde al pasar el cursor */
+}

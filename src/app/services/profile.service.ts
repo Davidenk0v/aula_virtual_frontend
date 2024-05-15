@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -33,7 +33,7 @@ export class ProfileService {
   }
 
 
-  updateProfile(id:number, profile:UserEdit):Observable<UserProfile>{
+  updateProfile(id:string, profile:UserEdit):Observable<UserProfile>{
     return this.http.put<Record<string, UserProfile>>(`${environment.api.urlApi}/users/${id}`,profile).pipe(
       map(response => response['Guardado']),
       catchError((error: HttpErrorResponse) => {

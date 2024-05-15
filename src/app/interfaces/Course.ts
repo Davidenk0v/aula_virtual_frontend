@@ -6,4 +6,5 @@ export interface Course {
     startDate: Date;
     finishDate: Date;
     price: number;
+    urlImg: string;
 }
