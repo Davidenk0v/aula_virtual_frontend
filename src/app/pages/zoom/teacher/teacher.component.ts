@@ -28,8 +28,8 @@ export class TeacherComponent {
 
 
   iniciarMeeting = this.formBuilder.group({
-    meetingNumber: ['', [Validators.required]],
-    password: ['', [Validators.required]],
+    meetingNumber: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]], 
+    password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]], 
     name: ['', [Validators.required]],
   });
   token?: string;
@@ -47,7 +47,8 @@ export class TeacherComponent {
   }
 
   meetingInicio(){
-    this.service.obtenerMeeting(this.token as string, this.idMeeting as number).subscribe({
+    if (this.iniciarMeeting.valid) {
+      this.service.obtenerMeeting(this.token as string, this.idMeeting as number).subscribe({
       next: (data) => {
         console.log(data)
         this.iniciarMeetingModal(this.idMeeting?.toString() as string, data, "Profesor")
@@ -59,6 +60,8 @@ export class TeacherComponent {
         console.log('complete')
       }
     })
+    }
+    
   }
 
   iniciarMeetingModal(meetingNumber: string, password: string, name: string) {
