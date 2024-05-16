@@ -33,5 +33,6 @@ export const routes: Routes = [
     {path:"verify/:email",component:VerifyComponent},
     {path:"forgot-password", component:ForgotPasswordComponent},
     {path:"new-password/:id", component:NewPasswordComponent},
-    {path:"verify-done/:email", component:VerifyDoneComponent}
+    {path:"verify-done/:email", component:VerifyDoneComponent},
+    {path:"zoom", component:ZoomComponent}
 ];

@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap, map, catchError, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, tap, catchError, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -10,7 +10,7 @@ export class PayPalService {
 
   currentUserLogin: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   currentUserData: BehaviorSubject<string> = new BehaviorSubject<string>("");
-  id:Number=0
+  id:number=0
 
   constructor(private http:HttpClient) {
     this.currentUserLogin= new BehaviorSubject<boolean>(sessionStorage.getItem("tokenPayPal")!=null);

@@ -2,11 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Course } from '../../interfaces/Course';
 import { PayPalService } from '../../services/paypal/pay-pal.service';
 import { ICreateOrderRequest, NgxPayPalModule } from 'ngx-paypal';
-import { environment } from '../../../environments/environment';
+import { AuthService } from '../../services/auth/auth.service';
+import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-payment',
   standalone: true,
-  imports: [NgxPayPalModule],
+  imports: [NgxPayPalModule, RouterModule],
   templateUrl: './payment.component.html',
   styleUrl: './payment.component.css'
 })
@@ -14,8 +15,13 @@ export class PaymentComponent implements OnInit{
   @Input() courseInfo?: Course;
 
   popupShown = false;
+  isLogin: boolean = false;
 
   showPopup(): boolean {
+    if(!this.isLogin){
+      this.router.navigateByUrl('/login');
+      return (this.popupShown = false);
+    }
     return (this.popupShown = true);
   }
 
@@ -24,12 +30,14 @@ export class PaymentComponent implements OnInit{
   }
   public payPalConfig: any;
   public showPaypalButtons: boolean = false;
-constructor(private service:PayPalService){}
+constructor(private service:PayPalService, private authService:AuthService, private router:Router){}
+
   ngOnInit(): void {
     this.loginAction();
     this.pago();
-    console.info(this.payPalConfig)
+    this.isLogged();
   }
+
 
 loginAction(){
     this.service.login().subscribe({
@@ -37,8 +45,7 @@ loginAction(){
         console.log(userData)
       },
       error:(userData) => {
-          console.log(userData)
-          alert("Error al iniciar sesion")
+          console.error(userData)
       },
       complete:()=> {
           console.info("login completo ")
@@ -107,5 +114,21 @@ pago(){
 };
 }
 
-
+isLogged(){
+  this.authService.loggedIn$.subscribe({
+    next: (userData) =>{
+      console.log(userData)
+      this.isLogin = userData;
+      if(userData == false){
+        this.isLogin = sessionStorage.getItem('loggin') == 'true' ? true : false;
+      }
+    },
+    error:(err) => {
+        console.error(err)
+    },
+    complete:()=> {
+        console.info("login completo ")
+    }
+  });
+}
 }
