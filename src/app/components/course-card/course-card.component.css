@@ -11,4 +11,11 @@
 
 .cardComp:hover {
     size: 120%;
+}.cardContainer {
+  width: 90%;
+  max-height: 90%;
+}
+
+img {
+  max-width: 40vh;
 }

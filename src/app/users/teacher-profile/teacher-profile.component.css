@@ -4,8 +4,9 @@
 }
 
 /* Estilos generales */
-body {
+.all-container {
     font-family: Arial, sans-serif;
+    position: none;
 }
 
 .container-fluid {

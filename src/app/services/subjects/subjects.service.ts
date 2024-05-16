@@ -29,10 +29,10 @@ export class SubjectsService {
   }
 
 
-  getCourseById(idSubject:number): Observable<Subject> {
-    return this.http.get<Record<string,Subject>>(`${environment.api.urlApi}/subjects/${idSubject}`)
+  editSubjectById(idSubject:number,subject:Subject): Observable<Subject> {
+    return this.http.put<Record<string,Subject>>(`${environment.api.urlApi}/subjects/${idSubject}`,subject)
     .pipe(
-      map(response => response['Se ha encontrado el tema ']),
+      map(response => response['Se ha modificado correctamente']),
       catchError((error: HttpErrorResponse) => {
         if (error.error instanceof ErrorEvent) {
           this.errorMessage = `Error: ${error.error.message}`;

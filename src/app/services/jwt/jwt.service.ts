@@ -43,4 +43,12 @@ getUsernameFromToken():any{
   }
 }
 
+getIdFromToken():any{
+  this.token = sessionStorage.getItem('token') ?? '';
+  if(this.token != ''){
+  const {sub} = jwtDecode(this.token) as JwtKeycloak;
+  return sub;
+  }
+}
+
 }

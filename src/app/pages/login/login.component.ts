@@ -63,14 +63,7 @@ export class LoginComponent {
           console.error(error);
         },
         complete: () => {
-          if (this.rememberMe) {
-            //Si el usuario marca el recuerdame se guardan los datos en el localstorage
-            localStorage.setItem("rememberMe", "true");
-            localStorage.setItem("username", this.loginForm.value.username ?? '');
-            localStorage.setItem("password", this.loginForm.value.password ?? '');
-          } else {
-            localStorage.setItem("rememberMe", "false");
-          }
+
           this.loginForm.reset();
         }
       });

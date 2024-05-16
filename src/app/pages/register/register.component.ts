@@ -1,5 +1,5 @@
 import { HttpClientModule, HttpHeaders} from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
 import { RegisterRequest } from '../../interfaces/requests/RegisterRequest';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -7,6 +7,7 @@ import { Address } from '../../interfaces/Address';
 import { SuccessMessageComponent } from '../../components/success-message/success-message.component';
 import { ErrorMessageComponent } from '../../components/error-message/error-message.component';
 import { AuthService } from '../../services/auth/auth.service';
+import { EmailService } from '../../services/emails/email.service';
 
 @Component({
   selector: 'app-register',
@@ -18,12 +19,11 @@ import { AuthService } from '../../services/auth/auth.service';
 export class RegisterComponent {
   address?: Address;
   userRegister?: RegisterRequest;
-
-
   errorMessage?:string;
   successMessage?:string;
+  @Input() role!:string;
 
-  constructor(private formBuilder:FormBuilder, private router:Router, private authService:AuthService){}
+  constructor(private formBuilder:FormBuilder, private router:Router, private authService:AuthService, private emailService:EmailService){}
 
 
   registerForm = this.formBuilder.group({
@@ -33,14 +33,13 @@ export class RegisterComponent {
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
     password2: ['', [Validators.required]],
+    roles: [[''], [Validators.required]],
   });
 
 
   register() {
     if(this.registerForm.valid){
-
-    console.log(this.userRegister);
-
+      this.registerForm.value.roles = [this.role];
     if(this.registerForm.value.password === this.registerForm.value.password2){
 
     if (this.registerForm.valid) {
@@ -55,9 +54,7 @@ export class RegisterComponent {
             console.error(errorData);
           },
           complete: () => {
-            localStorage.setItem("rememberMe", "true");
-            localStorage.setItem("username", this.registerForm.value.username ?? '');
-            localStorage.setItem("password", this.registerForm.value.password ?? '');
+            this.sendEmail()
             this.router.navigate(['/verify', this.registerForm.value.email]);
             this.registerForm.reset();
           },
@@ -72,4 +69,24 @@ export class RegisterComponent {
  this.errorMessage = "Debe completar todos los campos correctamente";
 }
 }
+
+sendEmail(){
+  this.emailService.sendVerifyEmail(this.registerForm.value.email as string).subscribe({
+    next: (userData) => {
+      console.info(userData)
+    },
+    error: (errorData) => {
+      this.errorMessage = errorData;
+      console.error(errorData);
+    },
+    complete: () => {
+      this.emailService.verifyEmail(this.registerForm.value.email ?? '')
+      this.router.navigate(['/verify', this.registerForm.value.email]);
+      this.registerForm.reset();
+    },
+  });
+}
+
+
+
 }

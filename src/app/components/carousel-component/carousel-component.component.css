@@ -1,14 +1,18 @@
 
 .carouselContainer {
     width: 100%;
+    min-height: 45vh;
     color: #D9D9D9;
     padding-top: 2%;
     padding-left: 1%;
-    padding-bottom: 2%;
     background-color: #e2e2e2;
     box-shadow: #17183B;
     border-radius: 20px;
     margin-bottom: 3%;
+}
+
+a {
+    text-decoration: none;
 }
 
 
@@ -16,6 +20,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    margin-left: 2%;
 
 }
 
@@ -40,3 +45,11 @@
     color: #D9D9D9;
     border-radius: 10px;
 }
+
+.carousel-item {
+    transition: opacity 0.5s ease-in-out; /* Transición de opacidad */
+  }
+
+  .carousel-item:not(.active) {
+    opacity: 0; /* Ocultar elementos que no están activos */
+  }

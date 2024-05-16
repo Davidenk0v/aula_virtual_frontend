@@ -21,20 +21,16 @@ import saveAs from 'file-saver';
 })
 export class TeacherProfileComponent implements OnInit {
 
-  constructor(private courseService: CourseService, private userService: ProfileService, private jwtService: JwtService) { }
-  email: string = '';
-  username: string = ''
-  teacher?: User;
-  editMessage?: string;
-
-  payload: any;
-  imageUrl: any;
-  imageCourseurl: any;
-
+  constructor(private courseService:CourseService, private userService:ProfileService, private jwtService:JwtService){}
+  email:string='';
+  username:string=''
+  teacher?:User;
+  editMessage?:string;
+  idTeacher:string='';
   ngOnInit(): void {
-    this.email = this.jwtService.getEmailFromToken();
-    this.getCoursesTeacher(this.email);
-    this.getPerfilTeacher(this.email)
+    this.idTeacher = this.jwtService.getIdFromToken();
+    this.getPerfilTeacher(this.idTeacher)
+    this.getCoursesTeacher(this.idTeacher);
     if (sessionStorage.getItem('edit')) {
       this.editMessage = sessionStorage.getItem('edit') ?? '';
       setTimeout(() => {
@@ -67,17 +63,17 @@ export class TeacherProfileComponent implements OnInit {
 
     if (this.idCourse) {
       this.courseService.deleteCourseById(this.idCourse).subscribe({
-        next: (data) => {
-          console.info(data);
-        }, error: (data) => {
-          console.info(data, "Error")
-        },
-        complete: () => {
-          console.info("Completo")
-          this.abrirModal();
-          this.getCoursesTeacher(this.email);
-        }
-      });
+      next: (data) => {
+        console.info(data);
+      },error:(data) => {
+        console.info(data, "Error")
+      },
+      complete:()=> {
+        console.info("Completo")  
+        this.abrirModal();
+        this.getCoursesTeacher(this.idTeacher);
+      }
+    });
     }
   }
 
@@ -89,7 +85,7 @@ export class TeacherProfileComponent implements OnInit {
     this.popUpEdit = isEdited;
     console.info(this.popUpEdit)
     this.cerrarModalPerfil();
-    this.getPerfilTeacher(this.username);
+    this.getPerfilTeacher(this.idTeacher);
   }
 
   abrirModalPerfil() {
@@ -106,7 +102,7 @@ export class TeacherProfileComponent implements OnInit {
     if (modal) {
       modal.classList.remove('show');
       modal.style.display = 'none';
-      this.getPerfilTeacher(this.email);
+      this.getPerfilTeacher(this.idTeacher);
     }
   }
 
@@ -141,17 +137,16 @@ export class TeacherProfileComponent implements OnInit {
     }
   }
 
-  getCoursesTeacher(email: string): void {
-    this.courseService.getAllCoursesTeacher(email).subscribe({
+  getCoursesTeacher(idTeacher:string):void{
+    this.courseService.getAllCoursesTeacher(idTeacher).subscribe({
       next: (cita) => {
-        console.info(cita)
         this.courseList = cita
 
       },
       error: (userData) => {
         this.haveCourses = false
-        console.log(userData)
-
+        console.error(userData)
+          
       },
       complete: () => {
         console.info("Completo")
@@ -159,8 +154,8 @@ export class TeacherProfileComponent implements OnInit {
     })
   }
 
-  getPerfilTeacher(email: string): void {
-    this.userService.getProfileByUsername(email).subscribe({
+  getPerfilTeacher(idTeacher:string):void{
+    this.userService.getProfileById(idTeacher).subscribe({
       next: (cita) => {
         this.teacher = cita;
       },

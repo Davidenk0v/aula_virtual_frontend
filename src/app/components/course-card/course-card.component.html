@@ -6,9 +6,12 @@
             <ul class="list-unstyled mt-3 mb-4">1
                 <li><strong>Inicio:</strong> {{courseInfo.startDate}}</li>
                 <li><strong>Fin:</strong> {{courseInfo.finishDate}}</li>
-                <li><strong>Precio:</strong> precio €</li>
+                @if (courseInfo.price == 0) {
+                  <li><strong>Gratis</strong></li>
+                  } @else {
+                  <li><strong>Precio:</strong> {{ courseInfo.price }} €</li>
+                  }
             </ul>
         </div> 
     </div>
 }
-    

@@ -12,20 +12,27 @@ import { TeacherProfileComponent } from './users/teacher-profile/teacher-profile
 import { VerifyComponent } from './pages/verify/verify.component';
 import { CreateLessonComponent } from './pages/create-lesson/create-lesson.component';
 import { EditLessonComponent } from './pages/edit-lesson/edit-lesson.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { NewPasswordComponent } from './pages/new-password/new-password.component';
+import { VerifyDoneComponent } from './pages/verify-done/verify-done.component';
+import { authGuard } from './guards/auth.guard';
+import { studentGuard } from './guards/student.guard';
+import { teacherGuard } from './guards/teacher.guard';
+import { ZoomComponent } from './pages/zoom/zoom/zoom.component';
 
 export const routes: Routes = [
-    { path: "", redirectTo: "/home", pathMatch: "full" },
-    { path: "login", component: LoginComponent },
-    { path: "register", component: RegisterComponent },
-    { path: "home", component: HomeComponent },
-    { path: "course/:id", component: CourseComponent },
-    { path: "create", component: CreateCourseComponent },
-    { path: "edit/:idCourse", component: EditCourseComponent },
-    { path: "search", component: SearchComponent },
-    { path: "all-courses", component: AllCoursesComponent },
-    { path: "student-profile", component: UserProfileComponent },
-    { path: "teacher-profile", component: TeacherProfileComponent },
-    { path: "verify/:email", component: VerifyComponent },
+    {path:"", redirectTo:"/home", pathMatch:"full"},
+    {path:"login", component:LoginComponent},
+    {path:"register", component:RegisterComponent},
+    {path: "home", component: HomeComponent},
+    {path: "course/:id", component: CourseComponent},
+    {path: "create", component: CreateCourseComponent},
+    {path: "edit/:idCourse", component: EditCourseComponent},
+    {path:"search", component:SearchComponent},
+    {path:"all-courses", component:AllCoursesComponent},
+    {path:"student-profile",component:UserProfileComponent},
+    {path:"teacher-profile",component:TeacherProfileComponent},
+    {path:"verify/:email",component:VerifyComponent},
     { path: "create-lessons/:idSubject", component: CreateLessonComponent },
     { path: "edit-lessons/:idLesson", component: EditLessonComponent }
 ];

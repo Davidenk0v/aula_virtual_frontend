@@ -136,55 +136,16 @@
                             </div>
                             }
 
-                        </div>
-                        }
-                        @if (haveCourses==false) {
-                        <h2>No tienes ningun curso crea uno</h2>
-                        }
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-12">
-                <div class="filtros mt-4">
-                    <h2 class="titulo">Filtrar por</h2>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Buscar..." aria-label="Buscar">
-                    </div>
-                    <div class="accordion" id="categoriasAccordion">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="categoriasHeading">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#categoriasCollapse" aria-expanded="true"
-                                    aria-controls="categoriasCollapse">
-                                    Categorias
-                                </button>
-                            </h2>
-                            <div id="categoriasCollapse" class="accordion-collapse collapse show"
-                                aria-labelledby="categoriasHeading">
-                                <div class="accordion-body">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="categoria1">
-                                        <label class="form-check-label" for="categoria1">
-                                            Tecnologia
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="categoria2">
-                                        <label class="form-check-label" for="categoria2">
-                                            Ciencias
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button class="btn btn-primary btn-block mt-3" routerLinkActive="router-link-active"
-                    [routerLink]="['/create']">Crear curso</button>
-                <button class="btn btn-primary btn-block mt-3" (click)="editMode()">Modo Edición</button>
-            </div>
-        </div>
-    </div>
+                      </div>
+                      }
+                      @if (haveCourses==false) {
+                      <h2>Aún no estás registrado en ningún curso</h2>
+                      }
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 
     <!-- Bootstrap y cualquier otro JS necesario -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>

@@ -46,32 +46,33 @@ export class CourseService {
   }
 
   getCourseById(idCourse: number): Observable<Course> {
-    return this.http.get<Record<string, Course>>(`${environment.api.urlApi}/courses/${idCourse}`)
+    
+    return this.http.get<Course>(`${environment.api.urlApi}/courses/${idCourse}`)
       .pipe(
-        map(response => response['Id encontrado ']),
-        catchError((error: HttpErrorResponse) => {
-          if (error.error instanceof ErrorEvent) {
-            this.errorMessage = `Error: ${error.error.message}`;
-          } else {
-            this.errorMessage = `Error code: ${error.status}, message: ${error.message}`;
+        map(response => {
+          const course = response; // Ajusta esto si la clave es diferente
+          if (!course) {
+            throw new Error('Course not found in response');
           }
-
-          return throwError(() => this.errorMessage);
+          return course;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          let errorMessage: string;
+          if (error.error instanceof ErrorEvent) {
+            errorMessage = `Error: ${error.error.message}`;
+          } else {
+            errorMessage = `Error code: ${error.status}, message: ${error.message}`;
+          }
+          console.error(errorMessage);
+          return throwError(() => errorMessage);
         })
       );
   }
+  
 
-  addCourse(credentials: CourseRequest, emailTeacher: any, payload: File): Observable<number> {
-    let formData: any;
-    if (payload) {
-      formData = new FormData();
-      formData.append('courseDTO', JSON.stringify(credentials));
-      formData.append('file', payload);
-    } else {
-      formData = credentials;
-    }
-    return this.http.post<Record<string, number>>(`${environment.api.urlApi}/courses/${emailTeacher}`, formData).pipe(
-      map(response => response['Curso subido ']),
+  addCourse(credentials: CourseRequest, idTeacher:string): Observable<Course> {
+    return this.http.post<Course>(`${environment.api.urlApi}/courses/${idTeacher}`, credentials).pipe(
+
       catchError((error: HttpErrorResponse) => {
         // Manejar errores de la solicitud
         let errorMessage = '';
