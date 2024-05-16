@@ -1,1 +1,9 @@
-<app-teacher></app-teacher>
+@if (role == "TEACHER") {
+ <app-teacher></app-teacher>   
+}
+@if (role == "STUDENT") {
+    <app-student></app-student>
+}
+
+
+
