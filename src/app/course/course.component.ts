@@ -134,12 +134,53 @@ export class CourseComponent {
 
 
 
-  toggleSubmenu() {
-    this.submenuAbierto = !this.submenuAbierto;
-  }
+    toggleSubmenu() {
+        this.submenuAbierto = !this.submenuAbierto;
+    }
 
-  postSubject() {
-    console.info(this.courseId);
+
+    //Metodo modal
+    abrirModal(id :number) {
+      console.info(id)
+      this.subjectId = id
+      const modal = document.getElementById('modalEditarTema');
+      if (modal) {
+        modal.classList.add('show');
+        modal.style.display = 'block';
+      }
+      
+    }
+    
+    cerrarModal() {
+      const modal = document.getElementById('modalEditarTema');
+      if (modal) {
+        modal.classList.remove('show');
+        modal.style.display = 'none';
+      }
+    }
+
+    abrirModalDelete(id :number) {
+      console.info(id)
+      this.subjectId = id
+      const modal = document.getElementById('alertModal');
+      if (modal) {
+        modal.classList.add('show');
+        modal.style.display = 'block';
+      }
+      
+    }
+    
+    cerrarModalDelete() {
+      const modal = document.getElementById('alertModal');
+      if (modal) {
+        modal.classList.remove('show');
+        modal.style.display = 'none';
+      }
+    }
+
+  //Service 
+  postSubject(){
+    console.info(this.courseId)
     if (this.courseId) {
       this.courseService
         .postSubject(this.subjectForm.value as Subject, this.courseId)

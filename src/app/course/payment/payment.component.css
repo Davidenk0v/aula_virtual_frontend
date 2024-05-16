@@ -64,22 +64,8 @@ a {
 .inputPopup {
     border-radius: 5px;
 }
-
-.buyConfirmBtn {
-    width: 40%;
-    background-color: rgb(0, 158, 0);
-    border-radius: 10px;
-    color: #e2e2e2;
-    box-shadow: #17183B;
-}
- 
-.buyConfirmBtn:hover {
-    background-color: rgb(0, 124, 0);
-    color: #D9D9D9;
-}
  
 .buyCancelBtn {
-    margin-left: 10%;
     width: 40%;
     background-color: #b81313;
     color: #D9D9D9;

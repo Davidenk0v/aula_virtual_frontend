@@ -16,6 +16,7 @@ import { VerifyDoneComponent } from './pages/verify-done/verify-done.component';
 import { authGuard } from './guards/auth.guard';
 import { studentGuard } from './guards/student.guard';
 import { teacherGuard } from './guards/teacher.guard';
+import { ZoomComponent } from './pages/zoom/zoom/zoom.component';
 
 export const routes: Routes = [
     {path:"", redirectTo:"/home", pathMatch:"full"},
