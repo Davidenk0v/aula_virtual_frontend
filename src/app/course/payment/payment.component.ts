@@ -1,11 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Course } from '../../interfaces/Course';
 import { CourseService } from '../../services/courses/course.service';
-import { ActivatedRoute } from '@angular/router';
 import { PayPalService } from '../../services/paypal/pay-pal.service';
 import { ICreateOrderRequest, NgxPayPalModule } from 'ngx-paypal';
 import { AuthService } from '../../services/auth/auth.service';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-payment',
   standalone: true,
@@ -13,10 +12,10 @@ import { Router, RouterModule } from '@angular/router';
   templateUrl: './payment.component.html',
   styleUrl: './payment.component.css'
 })
-export class PaymentComponent implements OnInit{
+export class PaymentComponent{
   @Input() courseInfo?: Course;
 
-  constructor(private activateRoute: ActivatedRoute, private courseService:CourseService) { }
+  constructor(private service:PayPalService, private authService:AuthService, private router:Router, private activateRoute: ActivatedRoute, private courseService:CourseService){}
   courseId?:number;
   imageUrl: any;
 
@@ -57,7 +56,6 @@ export class PaymentComponent implements OnInit{
   }
   public payPalConfig: any;
   public showPaypalButtons: boolean = false;
-constructor(private service:PayPalService, private authService:AuthService, private router:Router){}
 
   ngOnInit(): void {
     this.courseId = Number(this.activateRoute.snapshot.paramMap.get('id'));
