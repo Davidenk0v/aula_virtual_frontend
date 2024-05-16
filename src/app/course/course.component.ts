@@ -14,10 +14,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { SubjectsService } from '../services/subjects/subjects.service';
-import { Lesson } from '../interfaces/Lessons';
-import { LessonPostService } from '../services/lessons/lesson-post.service';
-import saveAs from 'file-saver';
-import { HttpResponse } from '@angular/common/http';
 import { JwtService } from '../services/jwt/jwt.service';
 import { ProfileService } from '../services/profile.service';
 import { AuthService } from '../services/auth/auth.service';
