@@ -1,1 +1,70 @@
-<p>student works!</p>
+<div class="container-fluid padre">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="left-panel" >
+                <h2 class="panel-title">Meetings en procesos</h2>
+                <div style="overflow-y: auto; max-height: 400px;">
+                    
+                @if (meetings) {
+                 @for (item of meetings; track $index) {
+                <div class="card" style="margin-top: 2%;">
+                    <div class="card-header d-flex align-items-center border-bottom">
+                      <div class="ms-3">
+                        <h6 class="mb-0 fs-sm">{{ item?.idMeeting }}</h6>
+                        <span class="text-muted fs-sm">{{ item?.nameTeacher }}</span>
+                      </div>
+                      <button class="btn text-muted ms-auto" type="btn"  data-bs-toggle="modal" data-bs-target="#opciones"(click)="mandarInicio(item.numberMeeting,item.password)"><img src="../../../../assets/img/tres-puntos.png" style="width: 20px;" alt=""></button>
+                    </div>
+                    <div class="card-body">
+                      
+                        {{ item?.numberMeeting }} 
+                    </div>
+                  </div>
+                }   
+                }@else {
+                    <div class="card">
+                        <h2>No hay Meetings en procesos</h2>
+                    </div>
+                }
+                </div>
+                
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="right-panel">
+                <div class="bottom-right-panel" style="text-align: center;">
+                    <h2>Calendario</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="opciones"tabindex="-1" aria-labelledby="opciones" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="opciones">Opciones</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex align-items-center justify-content-between">
+                    <button class="botones" type="button" (click)="iniciarMeetingModal()">
+                        <div class="icon-text text-center me-3 bg-primary pulsar"
+                            style="padding: 10px; border-radius: 15px;">
+                            <img src="../../../../assets/img/mas (1).png" alt="" style="width: 50px;">
+                            <p class="mb-0 text-dark fw-bold">Unirme</p>
+                        </div>
+                    </button>
+
+                
+
+                </div>
+              </div>
+              
+        </div>
+    </div>
+</div>
+

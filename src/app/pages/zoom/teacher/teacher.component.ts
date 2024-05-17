@@ -16,6 +16,7 @@ export class TeacherComponent {
   constructor(private router: Router,private service: ZoomService, private route: ActivatedRoute, private formBuilder: FormBuilder) { }
   meetings?: MeetingView[]
 
+  password?: string
   idMeeting?: number
   meeting = this.formBuilder.group({
     agenda: ['', [Validators.required]],
@@ -39,7 +40,8 @@ export class TeacherComponent {
   }
   navegarAZoom() {
     const { meetingNumber, password, name } = this.iniciarMeeting.value;
-    this.router.navigate(['/zoomVista', meetingNumber, password, name]);
+    this.subirBdMeeting(true,Number(meetingNumber),password as string)
+    this.router.navigate(['/zoomVista', meetingNumber, password, name,0]);
   }
 
   mandarInicio(id: number){
@@ -65,7 +67,9 @@ export class TeacherComponent {
   }
 
   iniciarMeetingModal(meetingNumber: string, password: string, name: string) {
-    this.router.navigate(['/zoomVista', meetingNumber, password, name]);
+    
+    this.subirBdMeeting(false,this.idMeeting as number,this.password as string)
+    this.router.navigate(['/zoomVista', meetingNumber, password, name,1]);
   }
 
   obtenerMeetings() {
@@ -84,10 +88,15 @@ export class TeacherComponent {
     })
   }
 
-  createMetting() {
-    this.service.createMeeting(this.meeting.value as MeetingCreating, this.token as string).subscribe({
+  subirBdMeeting(sucess:boolean,id: number,password: string){
+    this.service.createMeetingBd(sucess,"Profesor",id,password).subscribe({
       next: (data) => {
         console.log(data)
+        this.idMeeting = data.id
+        this.password = data.password
+
+        console.info(this.idMeeting)
+        console.info(this.password)
       },
       error: (error) => {
         console.log(error)
@@ -96,7 +105,25 @@ export class TeacherComponent {
         console.log('complete')
       }
     })
-    console.info(this.meeting.value as MeetingCreating)
+  }
+  
+
+  createMetting() {
+    this.service.createMeeting(this.meeting.value as MeetingCreating, this.token as string).subscribe({
+      next: (data) => {
+        console.log(data)
+        this.idMeeting = data.id
+        this.password = data.password
+      },
+      error: (error) => {
+        console.log(error)
+      },
+      complete: () => {
+        console.log('complete')
+        this.subirBdMeeting(false,this.idMeeting as number,this.password as string)
+        this.obtenerMeetings();
+      }
+    })
 
   }
 

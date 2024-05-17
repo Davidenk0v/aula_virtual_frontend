@@ -4,7 +4,7 @@ import { Observable, map, catchError, throwError, BehaviorSubject, tap } from 'r
 import { environment } from '../../../environments/environment';
 import { UserProfile } from '../../interfaces/Profile';
 import { UserEdit } from '../../interfaces/User';
-import { MeetingCreating, MeetingView } from '../../interfaces/Meeting';
+import { MeetingAlumn, MeetingCreating, MeetingView } from '../../interfaces/Meeting';
 import { Router } from '@angular/router';
 import axios from 'axios';
 @Injectable({
@@ -76,6 +76,22 @@ export class ZoomService {
      
   }
 
+  obtenerMeetingsBd():Observable<MeetingAlumn[]> {
+    
+    return this.http.get<MeetingAlumn[]>(`${environment.api.urlApi}/meetings/`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.error instanceof ErrorEvent) {
+          this.errorMessage = `Error: ${error.error.message}`;
+        } else {
+          this.errorMessage = `Error code: ${error.status}, message: ${error.message}`;
+        }
+
+        return throwError(() => this.errorMessage);
+      })
+    );
+     
+  }
+
   obtenerMeeting(token: string,id: number):Observable<string> {
     
     return this.http.get<string>(`${environment.zoom.urlServer}obtenerMeeting/${token}/${id}`).pipe(
@@ -92,6 +108,26 @@ export class ZoomService {
      
   }
 
+  createMeetingBd(iniciar: boolean,nameTeacher: string,numberMeeting: number,password: string):Observable<any>{
+    const meeting = {
+      process: iniciar,
+      nameTeacher:nameTeacher,
+      numberMeeting:numberMeeting,
+      password: password
+    }
+    console.info(meeting)
+    return this.http.post<any>(`${environment.api.urlApi}/meetings/`, meeting).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.error instanceof ErrorEvent) {
+          this.errorMessage = `Error: ${error.error.message}`;
+        } else {
+          this.errorMessage = `Error code: ${error.status}, message: ${error.message}`;
+        }
+
+        return throwError(() => this.errorMessage);
+      })
+    );;
+  }
   createMeeting(data: MeetingCreating, token: string): Observable<any> {
     const dato = {
       cuerpo: {

@@ -24,6 +24,6 @@ export const routes: Routes = [
     {path:"all-courses", component:AllCoursesComponent},
     {path:"profile",component:UserComponent},
     {path:"zoom",component:ZoomComponent},
-    { path: 'zoomVista/:meetingNumber/:password/:name', component: ZoomComponentVista }
+    { path: 'zoomVista/:meetingNumber/:password/:name/:role', component: ZoomComponentVista }
 
 ];

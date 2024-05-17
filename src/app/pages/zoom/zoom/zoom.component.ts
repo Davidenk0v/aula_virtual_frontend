@@ -10,6 +10,6 @@ import { StudentComponent } from "../student/student.component";
 })
 export class ZoomComponent {
 
-    role:string |  undefined = "TEACHER"
+    role:string |  undefined = "STUDENT"
     constructor(){}
 }

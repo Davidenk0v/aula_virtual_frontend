@@ -39,6 +39,7 @@ export class ZoomComponentVista implements OnInit {
     this.meetingNumber = String(this.route.snapshot.paramMap.get('meetingNumber'));
     this.passWord = String(this.route.snapshot.paramMap.get('password'));
     this.userName = String(this.route.snapshot.paramMap.get('name'));
+    this.role = Number(this.route.snapshot.paramMap.get('role'));
 
     console.info(this.meetingNumber, this.passWord, this.userName)
 

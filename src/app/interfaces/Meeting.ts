@@ -22,3 +22,13 @@ export interface MeetingView {
         timezone: string
         type: number
   }
+
+  export interface MeetingAlumn {
+      idMeeting: number
+      process: boolean
+      nameTeacher: string
+      numberMeeting: number
+      password: string
+    }
+    
+  
