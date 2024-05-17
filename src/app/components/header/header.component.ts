@@ -29,6 +29,8 @@ export class HeaderComponent {
 
   imageUrl: any;
 
+  id:string='';
+
   constructor(
     private service: SearchService,
     private router: Router,
@@ -41,7 +43,8 @@ export class HeaderComponent {
     this.loggedIn();
     this.getName();
     this.getRole()
-    this.downloadImage(1);
+    this.id = this.jwtService.getIdFromToken();
+    this.downloadImage(this.id);
   }
 
   private loggedIn() {
@@ -95,7 +98,7 @@ export class HeaderComponent {
      * Descarga el archivo desde la API.
      * @param user La id del usuario.
      */
-  downloadImage(user: number) {
+  downloadImage(user: string) {
     this.userService.getProfileImage(user).subscribe((res: Blob | MediaSource) => {
       this.imageUrl = URL.createObjectURL(res);
     });

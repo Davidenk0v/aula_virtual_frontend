@@ -34,7 +34,7 @@ export class TeacherProfileComponent implements OnInit{
         this.editMessage = '';
     }, 10000);
     }
-    this.downloadImage(1);
+    this.downloadImage(this.idTeacher);
   }
 
 
@@ -197,7 +197,7 @@ export class TeacherProfileComponent implements OnInit{
    */
   uploadImage(): void {
     // TODO se mantiene esta id numerica por el momento, sustituir por la id de busqueda preferida
-    this.userService.setProfileImage(1, this.payload).subscribe({
+    this.userService.setProfileImage(this.idTeacher, this.payload).subscribe({
       next: (cita) => {
         console.info(cita)
       },
@@ -216,7 +216,7 @@ export class TeacherProfileComponent implements OnInit{
    * Descarga el archivo desde la API.
    * @param user La id del usuario.
    */
-  downloadImage(user: number) {
+  downloadImage(user: string) {
     this.userService.getProfileImage(user).subscribe({
       next: (data: any) => {
         console.info("Imagen perfil", data);
@@ -271,7 +271,7 @@ export class TeacherProfileComponent implements OnInit{
   setDefaultImage() {
     console.log("Se ha pulsado el boton")
     // TODO se mantiene esta id numerica por el momento, sustituir por la id de busqueda preferida
-    this.userService.setDefaultProfileImage(1).subscribe({
+    this.userService.setDefaultProfileImage(this.idTeacher).subscribe({
       next: (cita: any) => {
         console.info(cita)
       },

@@ -26,7 +26,7 @@ export class UserProfileComponent {
     this.getCoursesTeacher();
     this.getPerfilUser(this.idUser);
     // TODO se mantiene esta id numerica por el momento, sustituir por la id de busqueda preferida
-    this.downloadImage(1);
+    this.downloadImage(this.idUser);
   }
 
   idUser: string = '';
@@ -190,7 +190,7 @@ export class UserProfileComponent {
    */
   uploadImage(): void {
     // TODO se mantiene esta id numerica por el momento, sustituir por la id de busqueda preferida
-    this.userService.setProfileImage(1, this.payload).subscribe({
+    this.userService.setProfileImage(this.idUser, this.payload).subscribe({
       next: (cita) => {
         console.info(cita)
 
@@ -211,7 +211,7 @@ export class UserProfileComponent {
    * Descarga el archivo desde la API.
    * @param user La id del usuario.
    */
-  downloadImage(user: number) {
+  downloadImage(user: string) {
     this.userService.getProfileImage(user).subscribe({
       next: (data: any) => {
         console.info("data", data);
@@ -264,7 +264,7 @@ export class UserProfileComponent {
   setDefaultImage() {
     console.log("Se ha pulsado el boton")
     // TODO se mantiene esta id numerica por el momento, sustituir por la id de busqueda preferida
-    this.userService.setDefaultProfileImage(1).subscribe({
+    this.userService.setDefaultProfileImage(this.idUser).subscribe({
       next: (cita: any) => {
         console.info(cita)
       },

@@ -44,7 +44,7 @@ export class ProfileService {
     )
   }
 
-  setProfileImage(user: number, payload: File) {
+  setProfileImage(user: string, payload: File) {
     const formData: FormData = new FormData();
     formData.append('file ', payload, payload.name);
     console.log("formData", formData);
@@ -60,7 +60,7 @@ export class ProfileService {
     )
   }
 
-  getProfileImage(user: number): any {
+  getProfileImage(user: string): any {
     return this.http.get(`${environment.api.urlApi}/users/file/${user}`, { responseType: 'blob' }).pipe(
       map(res => {
         localStorage.setItem("fileType", res.type);
@@ -77,7 +77,7 @@ export class ProfileService {
     );
   }
 
-  setDefaultProfileImage(user: number): any {
+  setDefaultProfileImage(user: string): any {
     return this.http.delete(`${environment.api.urlApi}/users/file/${user}`).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.error instanceof ErrorEvent) {
