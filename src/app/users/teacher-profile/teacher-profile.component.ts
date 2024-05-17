@@ -34,6 +34,7 @@ export class TeacherProfileComponent implements OnInit{
         this.editMessage = '';
     }, 10000);
     }
+    this.downloadImage(1);
   }
 
 
@@ -161,6 +162,131 @@ export class TeacherProfileComponent implements OnInit{
       }
     })
   }
+
+  payload: any;
+  imageUrl: any;
+  imageCourseurl: any;
+
+  /**
+   * Selecciona el archivo y valida si es admitido.
+   * @param event 
+   */
+  setFile(event: any) {
+    let temp = <File>event.target.files[0];
+    console.log("payload ", temp.name);
+    console.log('size', temp.size);
+    console.log('type', temp.type);
+    switch (temp.type) {
+      case "image/png":
+        this.payload = <File>event.target.files[0];
+        break;
+      case "image/jpeg":
+        this.payload = <File>event.target.files[0];
+        break;
+      case "image/jpg":
+        this.payload = <File>event.target.files[0];
+        break;
+      default:
+        this.abrirModalFormat();
+        break;
+    }
+  }
+
+  /**
+   * Envia el archivo a la API.
+   */
+  uploadImage(): void {
+    // TODO se mantiene esta id numerica por el momento, sustituir por la id de busqueda preferida
+    this.userService.setProfileImage(1, this.payload).subscribe({
+      next: (cita) => {
+        console.info(cita)
+      },
+      error: (error) => {
+        console.log(error)
+      },
+      complete: () => {
+        console.info("Completa subida imagen perfil")
+        window.location.reload();
+        //this.getPerfilTeacher(this.email)
+      }
+    });
+  }
+
+  /**
+   * Descarga el archivo desde la API.
+   * @param user La id del usuario.
+   */
+  downloadImage(user: number) {
+    this.userService.getProfileImage(user).subscribe({
+      next: (data: any) => {
+        console.info("Imagen perfil", data);
+        //saveAs(data, "save-me.txt");
+        this.imageUrl = URL.createObjectURL(data);
+      }, error: (data: any) => {
+        console.info(data, "Error")
+      },
+      complete: () => {
+        console.info("Completa descarga imagen perfil")
+        localStorage.removeItem("fileType");
+      }
+    });
+  }
+
+  /**
+   * Descarga el archivo desde la API.
+   * @param user La id del usuario.
+   */
+  downloadImageCourse(user: any) {
+    console.log("Loaded item: "+user.object.get("id"));
+    this.courseService.getProfileImage(user).subscribe({
+      next: (data: any) => {
+        console.info("Imagen curso", data);
+        this.imageCourseurl = URL.createObjectURL(data);
+      }, error: (data: any) => {
+        console.info(data, "Error")
+      },
+      complete: () => {
+        console.info("Completa descarga imagen curso")
+        localStorage.removeItem("fileType");
+      }
+    });
+  }
+
+  abrirModalFormat() {
+    const modal = document.getElementById('formaterror');
+    if (modal) {
+      modal.classList.add('show');
+      modal.style.display = 'block';
+    }
+  }
+
+  cerrarModalFormat() {
+    const modal = document.getElementById('formaterror');
+    if (modal) {
+      modal.classList.remove('show');
+      modal.style.display = 'none';
+    }
+  }
+
+  setDefaultImage() {
+    console.log("Se ha pulsado el boton")
+    // TODO se mantiene esta id numerica por el momento, sustituir por la id de busqueda preferida
+    this.userService.setDefaultProfileImage(1).subscribe({
+      next: (cita: any) => {
+        console.info(cita)
+      },
+      error: (error: any) => {
+        console.log(error)
+      },
+      complete: () => {
+        console.info("Completo borrar imagen perfil")
+        localStorage.removeItem("fileType");
+        window.location.reload();
+        //this.getPerfilTeacher(this.email)
+      }
+    });
+  }
+
   }
 
 
