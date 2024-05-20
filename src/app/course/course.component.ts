@@ -42,23 +42,23 @@ export class CourseComponent {
     private commentService: CommentService,
     private jwtService: JwtService,
     private user: ProfileService,
-    private authService:AuthService
-  ) {}
+    private authService: AuthService
+  ) { }
 
   courseId?: number;
   courseInfo?: Course;
   errorMessage?: string;
   nameUser = ""
-  idUser:string = ""
-  userData= {
+  idUser: string = ""
+  userData = {
   };
   submenuAbierto = false;
-  currentDate = new Date().getFullYear() + "-0" + new Date().getMonth() + "-" + new Date().getUTCDate()  ; 
+  currentDate = new Date().getFullYear() + "-0" + new Date().getMonth() + "-" + new Date().getUTCDate();
   newComment = ""
   coments?: any;
   subjectId?: number;
   payload: any;
-  imageUrl: any;loggeIn: boolean = false;
+  imageUrl: any; loggeIn: boolean = false;
   subjectForm = this.formBuild.group({
     name: ['', [Validators.required]],
     description: ['', [Validators.required]],
@@ -67,11 +67,15 @@ export class CourseComponent {
 
   getComents(courseId: number) {
     console.log(this.currentDate);
-    
+
     this.commentService.getAllComments(courseId).subscribe({
       next: (comments) => {
         this.coments = comments;
         console.log('Comments:', this.coments);
+        this.coments.forEach((comment: any) => {
+          console.log("Comentarios", comment);
+          this.downloadImage(comment.user.idUser, comment);
+        });
       },
       error: (error) => {
         console.error('Error fetching comments:', error);
@@ -79,31 +83,31 @@ export class CourseComponent {
     });
   }
 
-  
-  
+
+
   addNewComent(idCourse?: number) {
-    let comment: CommentI = { 
+    let comment: CommentI = {
       text: this.newComment,
-      date: this.currentDate, 
-      user: { 
+      date: this.currentDate,
+      user: {
         firstname: this.nameUser
       }
-      
+
     };
 
-    
+
     // EL "3" el id del usuario, hay que hayarlo para que el comentario sea del propio usuario
     this.commentService.postComment(idCourse!, this.idUser, comment)
-    .subscribe({
-      next: (cita) => {
-      },
-      error: (userData) => {
-        console.log(userData);
-      },
-      complete: () => {
-        this.coments.unshift(comment)
-      },
-    })
+      .subscribe({
+        next: (cita) => {
+        },
+        error: (userData) => {
+          console.log(userData);
+        },
+        complete: () => {
+          this.coments.unshift(comment)
+        },
+      })
   }
 
 
@@ -117,11 +121,11 @@ export class CourseComponent {
     this.isLogged()
   }
 
-  isLogged(){
+  isLogged() {
     this.authService.loggedIn$.subscribe({
       next: (logged) => {
         this.loggeIn = logged;
-        if(!this.loggeIn){
+        if (!this.loggeIn) {
           this.loggeIn = sessionStorage.getItem('loggin') == 'true' ? true : false;
         }
       },
@@ -141,44 +145,44 @@ export class CourseComponent {
   }
 
 
-    //Metodo modal
-    abrirModal(id :number) {
-      console.info(id)
-      this.subjectId = id
-      const modal = document.getElementById('modalEditarTema');
-      if (modal) {
-        modal.classList.add('show');
-        modal.style.display = 'block';
-      }
-      
-    }
-    
-    cerrarModal() {
-      const modal = document.getElementById('modalEditarTema');
-      if (modal) {
-        modal.classList.remove('show');
-        modal.style.display = 'none';
-      }
+  //Metodo modal
+  abrirModal(id: number) {
+    console.info(id)
+    this.subjectId = id
+    const modal = document.getElementById('modalEditarTema');
+    if (modal) {
+      modal.classList.add('show');
+      modal.style.display = 'block';
     }
 
-    abrirModalDelete(id :number) {
-      console.info(id)
-      this.subjectId = id
-      const modal = document.getElementById('alertModal');
-      if (modal) {
-        modal.classList.add('show');
-        modal.style.display = 'block';
-      }
-      
+  }
+
+  cerrarModal() {
+    const modal = document.getElementById('modalEditarTema');
+    if (modal) {
+      modal.classList.remove('show');
+      modal.style.display = 'none';
     }
-    
-    cerrarModalDelete() {
-      const modal = document.getElementById('alertModal');
-      if (modal) {
-        modal.classList.remove('show');
-        modal.style.display = 'none';
-      }
+  }
+
+  abrirModalDelete(id: number) {
+    console.info(id)
+    this.subjectId = id
+    const modal = document.getElementById('alertModal');
+    if (modal) {
+      modal.classList.add('show');
+      modal.style.display = 'block';
     }
+
+  }
+
+  cerrarModalDelete() {
+    const modal = document.getElementById('alertModal');
+    if (modal) {
+      modal.classList.remove('show');
+      modal.style.display = 'none';
+    }
+  }
 
   //Service 
   postSubject() {
@@ -211,7 +215,7 @@ export class CourseComponent {
     this.subjectService.getSubjectsByCourseId(courseId).subscribe({
       next: (cita) => {
         this.subjects = cita;
-        
+
       },
       error: (userData) => {
         console.log(userData)
@@ -238,5 +242,25 @@ export class CourseComponent {
       },
     });
   }
-  
+
+  /**
+   * Descarga el archivo desde la API.
+   * @param user La id del usuario.
+   */
+  downloadImage(user: number, comment: any) {
+    this.commentService.getProfileImage(user).subscribe({
+      next: (data: any) => {
+        console.info("Imagen perfil", data);
+        //saveAs(data, "save-me.txt");
+        comment.user.imageUrl = URL.createObjectURL(data);
+      }, error: (data: any) => {
+        console.info(data, "Error")
+      },
+      complete: () => {
+        console.info("Completa descarga imagen perfil")
+        localStorage.removeItem("fileType");
+      }
+    });
+  }
+
 }
