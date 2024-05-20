@@ -87,7 +87,7 @@
         <button style="border: none; border-radius: 5px; background-color: #21234D; color: #CECECE;" (click)="addNewComent(courseId)">Añadir comentario</button>
       </div>
     }
-      @for (coment of coments; track coments) {
+      @for (coment of coments; track coment.idComment) {
       <div class="container text-body">
         <div class="row d-flex justify-content-left">
           <div class="col-md-11 col-lg-9 col-xl-7">
@@ -104,9 +104,21 @@
                   <div class="">
                     <h5>{{ coment.user.firstname }}</h5>
                     <p class="small">{{ coment.date }}</p>
-                    <p>
-                      {{ coment.text }}
-                    </p>
+                    @if (!isEditingAComment && coment.idComment == clickedComment) {
+                    
+                      <p>
+                        <textarea type="text" style="width: 100%;" [(ngModel)]="editedComment"></textarea>
+                      </p>
+                      <button class="btn btn-secondary mx-1" (click)="confirmCommentChange(coment.idComment, editedComment)">Confirmar</button>
+                      <button class="btn btn-secondary mx-2 px-3" (click)="toggleEdit(coment.idComment)">Cancelar</button>
+                    } @else {
+                      <p>
+                        {{ coment.text }}
+                      </p>
+                      @if (getUsername() == coment.user.username) {
+                          <button class="btn btn-secondary" (click)="toggleEdit(coment.idComment)">editar</button>
+                        }
+                    }
                   </div>
                 </div>
               </div>

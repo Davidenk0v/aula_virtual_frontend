@@ -3,5 +3,6 @@ export interface CommentI {
   date: string;
   user: {
       firstname: string;
+      username: string;
   }
 }

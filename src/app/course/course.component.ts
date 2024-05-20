@@ -57,6 +57,7 @@ export class CourseComponent {
   coments?: any;
   subjectId?: number;
   loggeIn: boolean = false;
+  isEditingAComment?: boolean = false;
   subjectForm = this.formBuild.group({
     name: ['', [Validators.required]],
     description: ['', [Validators.required]],
@@ -64,11 +65,10 @@ export class CourseComponent {
 
 
   getComents(courseId: number) {
-    console.log(this.currentDate);
-    
     this.commentService.getAllComments(courseId).subscribe({
       next: (comments) => {
         this.coments = comments;
+        this.coments.sort((a: any, b: any) => a.idComment - b.idComment);
         console.log('Comments:', this.coments);
       },
       error: (error) => {
@@ -77,20 +77,21 @@ export class CourseComponent {
     });
   }
 
-  
+  getUsername(): string{ 
+    return this.jwtService.getUsernameFromToken()
+  }
   
   addNewComent(idCourse?: number) {
     let comment: CommentI = { 
       text: this.newComment,
       date: this.currentDate, 
       user: { 
-        firstname: this.nameUser
+        firstname: this.nameUser,
+        username: this.jwtService.getEmailFromToken()
       }
       
     };
 
-    
-    // EL "3" el id del usuario, hay que hayarlo para que el comentario sea del propio usuario
     this.commentService.postComment(idCourse!, this.idUser, comment)
     .subscribe({
       next: (cita) => {
@@ -102,6 +103,35 @@ export class CourseComponent {
         this.coments.unshift(comment)
       },
     })
+  }
+
+  clickedComment = 0
+  editedComment = ""
+
+  toggleEdit(id: number) {
+    this.clickedComment = id
+    this.isEditingAComment = !this.isEditingAComment
+    this.editedComment = this.coments[id - 1].text
+  }
+
+
+  confirmCommentChange(id: number, newComment: string) {
+    this.coments[id - 1].text = newComment
+    this.commentService.editComment(this.coments[id-1], id).subscribe({
+      next: (data) => {
+        console.info(data);
+      },
+      error: (userData) => {
+        console.log(userData);
+      },
+      complete: () => {
+        console.info('Completo');
+        if (this.coments.IdComment) {
+          this.getSubjects(this.coments.IdComment);
+        }
+      },
+    })
+    this.toggleEdit(id)
   }
 
 
