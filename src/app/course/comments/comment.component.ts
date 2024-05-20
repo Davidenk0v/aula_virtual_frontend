@@ -80,17 +80,18 @@ export class CommentComponent {
         username: this.jwtService.getEmailFromToken(),
       },
     };
-
-    this.commentService.postComment(idCourse!, this.idUser, comment).subscribe({
-      next: (cita: any) => {},
-      error: (userData: any) => {
-        console.log(userData);
-      },
-      complete: () => {
-        this.coments.unshift(comment);
-      },
-    });
-  }
+    if(comment.text != '' && comment.text != null){
+      this.commentService.postComment(idCourse!, this.idUser, comment).subscribe({
+        next: (cita: any) => {},
+        error: (userData: any) => {
+          console.log(userData);
+        },
+        complete: () => {
+          this.coments.unshift(comment);
+        },
+      });
+    }
+    }
 
   toggleEdit(id: number) {
     this.clickedComment = id;
