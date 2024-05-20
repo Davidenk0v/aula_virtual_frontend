@@ -68,6 +68,7 @@ export class ZoomComponentVista implements OnInit {
     
     let meetingSDKElement = this.document.getElementById('meetingSDKElement');
 
+    console.info(this.passWord)
     this.ngZone.runOutsideAngular(() => {
       if (meetingSDKElement) {
          this.client.init({
@@ -78,7 +79,7 @@ export class ZoomComponentVista implements OnInit {
               isResizable: true,
               viewSizes:{
                 default:{
-                  width: 900,
+                  width: 1200,
                   height: 400
                 } 
               }
@@ -87,6 +88,7 @@ export class ZoomComponentVista implements OnInit {
           patchJsMedia: true}).then(() => {
             this.client.on('connection-change', (payload) => {
               if (payload.state === 'Closed') {
+                
                 this.router.navigate(['/home']);
                
               }

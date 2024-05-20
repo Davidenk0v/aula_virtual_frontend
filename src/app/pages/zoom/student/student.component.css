@@ -3,6 +3,7 @@
     border-radius: 10px;
 }
 
+
 .modal-header {
     border-bottom: none;
     padding-bottom: 0;
@@ -135,3 +136,6 @@
     border-color: #0056b3;
 }
 
+.div{
+    padding-bottom: 15.6%;
+}

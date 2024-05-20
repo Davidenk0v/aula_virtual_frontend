@@ -40,7 +40,7 @@ export class TeacherComponent {
   }
   navegarAZoom() {
     const { meetingNumber, password, name } = this.iniciarMeeting.value;
-    this.subirBdMeeting(true,Number(meetingNumber),password as string)
+    this.subirBdMeeting(Number(meetingNumber),password as string)
     this.router.navigate(['/zoomVista', meetingNumber, password, name,0]);
   }
 
@@ -49,11 +49,12 @@ export class TeacherComponent {
   }
 
   meetingInicio(){
-    if (this.iniciarMeeting.valid) {
       this.service.obtenerMeeting(this.token as string, this.idMeeting as number).subscribe({
       next: (data) => {
         console.log(data)
+        this.password = data
         this.iniciarMeetingModal(this.idMeeting?.toString() as string, data, "Profesor")
+        
       },
       error: (error) => {
         console.log(error)
@@ -62,13 +63,13 @@ export class TeacherComponent {
         console.log('complete')
       }
     })
-    }
+    
     
   }
 
   iniciarMeetingModal(meetingNumber: string, password: string, name: string) {
     
-    this.subirBdMeeting(false,this.idMeeting as number,this.password as string)
+    this.subirBdMeeting(this.idMeeting as number,this.password as string)
     this.router.navigate(['/zoomVista', meetingNumber, password, name,1]);
   }
 
@@ -88,8 +89,8 @@ export class TeacherComponent {
     })
   }
 
-  subirBdMeeting(sucess:boolean,id: number,password: string){
-    this.service.createMeetingBd(sucess,"Profesor",id,password).subscribe({
+  subirBdMeeting(id: number,password: string){
+    this.service.createMeetingBd("Profesor",id,password).subscribe({
       next: (data) => {
         console.log(data)
         this.idMeeting = data.id
@@ -120,7 +121,6 @@ export class TeacherComponent {
       },
       complete: () => {
         console.log('complete')
-        this.subirBdMeeting(false,this.idMeeting as number,this.password as string)
         this.obtenerMeetings();
       }
     })
