@@ -5,8 +5,8 @@ import { HttpClient, HttpHandler } from '@angular/common/http';
 import { ReactiveFormsModule, Validators, FormBuilder } from '@angular/forms';
 import { TestModule } from '../lessons/lessons.component.spec';
 import { of } from 'rxjs';
-import { lessonPostI } from '../../modelos/class.inteface';
 import { LessonPostService } from '../../services/lessons/lesson-post.service';
+import { Lesson } from '../../interfaces/Lesson';
 
 describe('LessonsEditComponent', () => {
   let component: LessonsEditComponent;
@@ -35,7 +35,7 @@ describe('LessonsEditComponent', () => {
   });
 
   it('should post lessons', () => {
-    const lesson: lessonPostI = {
+    const lesson: Lesson = {
       name: 'Test',
       contenido: 'testeando',
       description: 'descripcion test'
@@ -44,7 +44,7 @@ describe('LessonsEditComponent', () => {
     spyOn(service, 'putLessons').and.returnValue(of(lesson));
 
     component.lesson.setValue(lesson);
-    component.post();
+    component.editLesson();
 
     expect(service.putLessons).toHaveBeenCalledWith(5, lesson);
   });
