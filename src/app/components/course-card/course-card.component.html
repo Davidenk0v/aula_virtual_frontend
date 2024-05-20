@@ -3,7 +3,8 @@
         <div class="card-body" [routerLink]="['/course', courseInfo.idCourse]">
             <img src="{{ imageUrl }}" alt="img" class="rounded-top img-fluid imgCard">
             <h5 class="card-title">{{courseInfo.name}}</h5>
-            <ul class="list-unstyled mt-3 mb-4">1
+            <ul class="list-unstyled mt-3 mb-4">
+                <li><strong>Inicio:</strong> {{courseInfo.description}}</li>
                 <li><strong>Inicio:</strong> {{courseInfo.startDate}}</li>
                 <li><strong>Fin:</strong> {{courseInfo.finishDate}}</li>
                 @if (courseInfo.price == 0) {
