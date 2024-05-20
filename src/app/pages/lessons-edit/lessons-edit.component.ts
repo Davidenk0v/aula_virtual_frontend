@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LessonPostService } from '../../services/lessons/lesson-post.service';
-import { lessonPostI } from '../../modelos/class.inteface';
+import { Lesson } from '../../interfaces/Lesson';
+
 
 @Component({
   selector: 'app-lessons-edit',
@@ -22,8 +23,8 @@ export class LessonsEditComponent {
   constructor(private formBuilder:FormBuilder,private service:LessonPostService){}
 
 
-  post(){
-    this.service.putLessons(5,this.lesson.value as lessonPostI).subscribe({
+  editLesson(){
+    this.service.putLessons(5,this.lesson.value as Lesson).subscribe({
       next: (data) => {
         console.info(data);
       },error:(data) => {

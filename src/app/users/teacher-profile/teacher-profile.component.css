@@ -1,6 +1,7 @@
 /* Estilos generales */
-body {
+.all-container {
     font-family: Arial, sans-serif;
+    position: none;
 }
 
 .container-fluid {
@@ -137,3 +138,8 @@ body {
     background-color: #c82333; /* Color rojo más oscuro al pasar el cursor */
     border-color: #bd2130; /* Color de borde al pasar el cursor */
 }
+
+img {
+    max-width: 20%; /* Set maximum width to 50% of its container */
+    height: auto; /* Maintain aspect ratio */
+  }

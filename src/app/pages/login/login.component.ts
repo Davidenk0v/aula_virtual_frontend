@@ -2,11 +2,10 @@ import { HttpClientModule, HttpClient} from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule , Router } from '@angular/router';
-import { LoginService } from '../../services/auth/login.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { LoginRequest } from '../../interfaces/LoginRequest';
 import { SuccessMessageComponent } from '../../components/success-message/success-message.component';
 import { ErrorMessageComponent } from '../../components/error-message/error-message.component';
-import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -28,68 +27,48 @@ export class LoginComponent {
   });
 
   private rememberMe: boolean = false;
+  userLoggedIn:boolean = false;
 
   constructor(private http: HttpClient, 
     private router: Router, 
     private formBuilder:FormBuilder, 
-    private loginService: LoginService, 
     private authService: AuthService) {
+  }
+
+  ngOnInit(): void {
+    this.authService.loggedIn$.subscribe((loggedIn)=> {
+      if(loggedIn){
+          this.userLoggedIn = true;
+      }else {
+          this.userLoggedIn = false;
+      }
+    })
+    
   }
 
   /**
    * Metodo que si el recuerdame esta en true recoge los valores del localstorage.
    */
-  ngOnInit(): void {
-      this.authService.isLoggedIn$.subscribe({
-        next: (isLoggedIn) => {
-          if (isLoggedIn) {
-            console.log(isLoggedIn)
-            this.isUserLogged = true;
-            if(this.isUserLogged){
-              this.username = this.authService.getUsername();
-              console.log(this.username);
-            }
-          }
-        }
-      });
-  }
-
-  keycloakLogin() {
-    this.authService.login();
-  }
-
-
-
-
-
-
-
+  
   onLogin() {
     if(this.loginForm.valid){
-      this.loginService.login(this.loginForm.value as LoginRequest).subscribe({
+      this.authService.login(this.loginForm.value as LoginRequest).subscribe({
         next: (data) => {
           this.router.navigateByUrl('/home');
-          console.log(this.loginForm.value);
+          sessionStorage.setItem('token', data.access_token)
+          sessionStorage.removeItem("verify")
         },
         error: (error) => {
           this.errorMessage = error;
           console.error(error);
         },
         complete: () => {
-          console.log("Completado");
-          if (this.rememberMe) {
-            //Si el usuario marca el recuerdame se guardan los datos en el localstorage
-            localStorage.setItem("rememberMe", "true");
-            localStorage.setItem("username", this.loginForm.value.username ?? '');
-            localStorage.setItem("password", this.loginForm.value.password ?? '');
-          } else {
-            localStorage.setItem("rememberMe", "false");
-          }
-          
+
           this.loginForm.reset();
         }
       });
     }else{
+      this.errorMessage = "Debe rellenar todos los campos"
       this.loginForm.markAllAsTouched();
     } 
   }

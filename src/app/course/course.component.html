@@ -2,135 +2,183 @@
   <div class="row">
     <div class="col-9" id="cont_info_course">
       <div class="row" id="info_course">
-        <h1 id="name">{{courseInfo?.name}}</h1>
-        <p id="description">{{courseInfo?.description}}</p>
-        
+        <h1 id="name">{{ courseInfo?.name }}</h1>
+        <p id="description">{{ courseInfo?.description }}</p>
+
         <span>Creado por <span id="creator">Creador</span></span>
-        <span>Inicio curso <span id="start_date">{{courseInfo?.startDate}}</span></span>
-        <span>Fin curso <span id="finish_date">{{courseInfo?.finishDate}}</span></span>
-        <span id="container_len" class="d-flex"> 
+        <span
+          >Inicio curso
+          <span id="start_date">{{ courseInfo?.startDate }}</span></span
+        >
+        <span
+          >Fin curso
+          <span id="finish_date">{{ courseInfo?.finishDate }}</span></span
+        >
+        <span id="container_len" class="d-flex">
           <div id="icon_world"></div>
           <span class="d-block">Español</span>
         </span>
-      </div> 
-      <div class="row" id="info_temario" style="display: flex; align-items: center;"> 
+      </div>
+      <div
+        class="row"
+        id="info_temario"
+        style="display: flex; align-items: center"
+      >
         <div class="col-9">
           <h2>Temas</h2>
-      </div>
-      <div class="col-3 d-flex justify-content-end">
-          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAgregarTema">+</button>
-      </div>
-      <ul id="listTask" class="list-unstyled">
-        @for(subject of subjects; track subject){
-            <li class="list-item">
-                <ul class="w-100">
-                    <li class="d-flex justify-content-between align-items-center">
-                        <div>{{subject.name}}</div>
-                        <div>
-                            <button type="button" class="btn btn-warning" (click)="abrirModal(subject.idSubject)">Editar</button>
-                            <button type="button" class="btn btn-danger ms-2" (click)="abrirModalDelete(subject.idSubject)">Borrar</button>
-                        </div>
-                    </li>
-                    <li >
-                        <ul class="list-unstyled w-100">
-                            @for(lesson of subject.lessons; track lesson){
-                                <li class="d-flex justify-content-between align-items-center">
-                                    <div>{{lesson.name}}</div>
-                                </li>
-                            }
-                        </ul>
-                    </li>
+        </div>
+        <div class="col-3 d-flex justify-content-end">
+          <button
+            class="btn btn-success"
+            data-bs-toggle="modal"
+            data-bs-target="#modalAgregarTema"
+          >
+            +
+          </button>
+        </div>
+        <ul id="listTask" class="list-unstyled">
+          @for(subject of subjects; track subject){
+          <li class="list-item">
+            <ul class="w-100">
+              <li class="d-flex justify-content-between align-items-center">
+                <div>{{ subject.name }}</div>
+                <div>
+                  <button type="button" class="btn btn-warning">Editar</button>
+                  <button type="button" class="btn btn-danger ms-2">
+                    Borrar
+                  </button>
+                </div>
+              </li>
+              <li>
+                <ul class="list-unstyled w-100">
+                  @for(lesson of subject.lessons; track lesson){
+                  <li class="d-flex justify-content-between align-items-center">
+                    <div>{{ lesson.name }}</div>
+                  </li>
+                  }
                 </ul>
-            </li>
-        }
-    </ul>
-    
-    
-    
-    
+              </li>
+            </ul>
+          </li>
+          }
+        </ul>
+      </div>
     </div>
-      </div> 
-      <div class="col-3" id="cont_info_course"> 
-        <app-payment [courseInfo]="courseInfo"></app-payment>
-      </div> 
-    
-    </div> 
-</div> 
-
-<!-- Modal agregar Tema -->
-<div class="modal fade" id="modalAgregarTema" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Añadir Tema</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="subjectForm">
-          <div class="mb-3">
-            <label for="nombreTema" class="form-label">Nombre del Tema</label>
-            <input type="text" class="form-control" id="nombreTema" formControlName="name">
-          </div>
-          <div class="mb-3">
-            <label for="descripcionTema" class="form-label">Descripción del Tema</label>
-            <textarea class="form-control" id="descripcionTema" rows="3"  formControlName="description"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" (click)="postSubject()"  data-bs-dismiss="modal">Guardar</button>
-      </div>
+    <div class="col-3" id="cont_info_course">
+      <app-payment [courseInfo]="courseInfo"></app-payment>
     </div>
   </div>
-</div>
-
-<!-- Modal editar Tema -->
-
-<div class="modal fade" id="modalEditarTema" tabindex="-1" aria-labelledby="modal" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modal">Editar Tema</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cerrarModal()"></button>
+  <div class="my-3">
+    <h3>Comentarios:</h3>
+    <div
+      class="container"
+      style="
+        background-color: #bdbdbd;
+        margin-left: -1%;
+        padding: 1% 2% 1% 2%;
+        width: 77%;
+        border-radius: 15px;
+      "
+    >
+    @if(loggeIn){
+      <div class="container my-3">
+        <span style="font-weight: bold; font-size: x-large;">Añadir comentario:</span>
+        <input class="mx-2" style="border-radius: 5px; border: none;" type="text" [(ngModel)]="newComment" />
+        <button style="border: none; border-radius: 5px; background-color: #21234D; color: #CECECE;" (click)="addNewComent(courseId)">Añadir comentario</button>
       </div>
-      <div class="modal-body">
-        <form [formGroup]="subjectForm">
-          <div class="mb-3">
-            <label for="nombreTema" class="form-label">Nombre del Tema</label>
-            <input type="text" class="form-control" id="nombreTema" formControlName="name">
+    }
+      @for (coment of coments; track coments) {
+      <div class="container text-body">
+        <div class="row d-flex justify-content-left">
+          <div class="col-md-11 col-lg-9 col-xl-7">
+            <div class="d-flex flex-start mb-4">
+              <img
+                class="rounded-circle shadow-1-strong me-3"
+                src="../../assets/gato.jpg"
+                alt="avatar"
+                width="65"
+                height="65"
+              />
+              <div class="card w-100" style="background-color: #dddddd">
+                <div class="card-body p-4">
+                  <div class="">
+                    <h5>{{ coment.user.firstname }}</h5>
+                    <p class="small">{{ coment.date }}</p>
+                    <p>
+                      {{ coment.text }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="mb-3">
-            <label for="descripcionTema" class="form-label">Descripción del Tema</label>
-            <textarea class="form-control" id="descripcionTema" rows="3"  formControlName="description"></textarea>
-          </div>
-        </form>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cerrarModal()">Cancelar</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="editSubject()">Guardar Cambios</button>
-      </div>
+
+      }
     </div>
   </div>
-</div>
-
-
-
-<div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div
+    class="modal fade"
+    id="modalAgregarTema"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
       <div class="modal-content">
-          <div class="modal-header">
-              <h1 class="modal-title" id="alertModalLabel">Alerta</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cerrarModal()"></button>
-          </div>
-          <div class="modal-body">
-              ¿Estás seguro de que quieres borrar este curso?
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cerrarModal()">Cancelar</button>
-              <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
-                  (click)="deleteSubject()">Borrar</button>
-          </div>
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Añadir Tema</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="subjectForm">
+            <div class="mb-3">
+              <label for="nombreTema" class="form-label">Nombre del Tema</label>
+              <input
+                type="text"
+                class="form-control"
+                id="nombreTema"
+                formControlName="name"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="descripcionTema" class="form-label"
+                >Descripción del Tema</label
+              >
+              <textarea
+                class="form-control"
+                id="descripcionTema"
+                rows="3"
+                formControlName="description"
+              ></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cancelar
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="postSubject()"
+            data-bs-dismiss="modal"
+          >
+            Guardar
+          </button>
+        </div>
       </div>
+    </div>
   </div>
 </div>
+

@@ -1,13 +1,13 @@
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HttpHeaders} from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
-import { RegisterRequest } from '../../interfaces/RegisterRequest';
-import { RegisterService } from '../../services/auth/register.service';
+import { RegisterRequest } from '../../interfaces/requests/RegisterRequest';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Address } from '../../interfaces/Address';
 import { SuccessMessageComponent } from '../../components/success-message/success-message.component';
 import { ErrorMessageComponent } from '../../components/error-message/error-message.component';
-import { User } from '../../interfaces/User';
+import { AuthService } from '../../services/auth/auth.service';
+import { EmailService } from '../../services/emails/email.service';
 
 @Component({
   selector: 'app-register',
@@ -19,72 +19,43 @@ import { User } from '../../interfaces/User';
 export class RegisterComponent {
   address?: Address;
   userRegister?: RegisterRequest;
-
-
   errorMessage?:string;
   successMessage?:string;
+  @Input() role!:string;
 
-  constructor(private formBuilder:FormBuilder, private router:Router, private registerService:RegisterService){}
+  constructor(private formBuilder:FormBuilder, private router:Router, private authService:AuthService, private emailService:EmailService){}
 
 
   registerForm = this.formBuilder.group({
-    firstName: ['', [Validators.required]],
-    lastName: ['', [Validators.required]],
+    firstname: ['', [Validators.required]],
+    lastname: ['', [Validators.required]],
     username: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
     password2: ['', [Validators.required]],
-    street: ['', [Validators.required]],
-    city: ['', [Validators.required]],
-    number: ['', [Validators.required]],
-    country: ['', [Validators.required]],
-    postalCode: ['', [Validators.required]],
+    roles: [[''], [Validators.required]],
   });
-
-private prepareRequest():RegisterRequest{
-  this.address = {
-    id: 0,
-    street: this.registerForm.value.street ??'',
-    city: this.registerForm.value.city ??'',
-    number: this.registerForm.value.number ??'',
-    country: this.registerForm.value.country ??'',
-    postalCode: this.registerForm.value.postalCode ??'',
-  };
-
-  this.userRegister = {
-    firstname: this.registerForm.value.firstName ??'',
-    lastname: this.registerForm.value.lastName ??'',
-    username: this.registerForm.value.username ??'',
-    email: this.registerForm.value.email ??'',
-    password: this.registerForm.value.password ??'',
-    address: this.address
-  };
-
-  return this.userRegister;
-}
 
 
   register() {
     if(this.registerForm.valid){
-
-    this.prepareRequest();
-
-    console.log(this.userRegister);
-
+      this.registerForm.value.roles = [this.role];
     if(this.registerForm.value.password === this.registerForm.value.password2){
 
     if (this.registerForm.valid) {
 
-      this.registerService
-        .register(this.prepareRequest())
+      this.authService
+        .register(this.registerForm.value as RegisterRequest)
         .subscribe({
           next: (userData) => {
           },
           error: (errorData) => {
             this.errorMessage = errorData;
+            console.error(errorData);
           },
           complete: () => {
-            this.router.navigateByUrl('/home');
+            this.sendEmail()
+            this.router.navigate(['/verify', this.registerForm.value.email]);
             this.registerForm.reset();
           },
         });
@@ -98,4 +69,24 @@ private prepareRequest():RegisterRequest{
  this.errorMessage = "Debe completar todos los campos correctamente";
 }
 }
+
+sendEmail(){
+  this.emailService.sendVerifyEmail(this.registerForm.value.email as string).subscribe({
+    next: (userData) => {
+      console.info(userData)
+    },
+    error: (errorData) => {
+      this.errorMessage = errorData;
+      console.error(errorData);
+    },
+    complete: () => {
+      this.emailService.verifyEmail(this.registerForm.value.email ?? '')
+      this.router.navigate(['/verify', this.registerForm.value.email]);
+      this.registerForm.reset();
+    },
+  });
+}
+
+
+
 }

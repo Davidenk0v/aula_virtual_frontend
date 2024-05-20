@@ -5,12 +5,13 @@ export interface User {
   lastname: string;
   email: string;
   emailVerified: boolean;
-
+  idUser: number
 
 }
 
 
 export interface UserEdit {
+  username: string;
   lastname: string
   firstname: string
   urlImg: string

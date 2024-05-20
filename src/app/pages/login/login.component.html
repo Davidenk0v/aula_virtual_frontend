@@ -22,11 +22,11 @@
                 <input type="checkbox" name="remember">
                 <label for="remember" class="form-check-label">Recuérdame</label>
                 <!-- ¿Añadir metodo para hacer peticion para recuperar contraseña? -->
-                <a href="#" class="enlace ms-auto">¿Olvidaste la contraseña?</a>
+                <a routerLink="/forgot-password" class="enlace ms-auto">¿Olvidaste la contraseña?</a>
             </div>
             <!-- Boton de inicio de sesion usando metodo. -->
             <div class="text-center">
-                <button class="boton-login btn btn-primary p-2 text-center align-center mb-2" (click)="keycloakLogin()">Iniciar sesión</button>
+                <button class="boton-login btn btn-primary p-2 text-center align-center mb-2" (click)="onLogin()">Iniciar sesión</button>
             </div>
             <!-- link para registrarse. -->
             <p class="text-center">

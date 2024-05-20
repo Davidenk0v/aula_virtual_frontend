@@ -1,8 +1,7 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Course } from '../interfaces/Course';
 import { User, UserEdit } from '../interfaces/User';
 import { UserProfile } from '../interfaces/Profile';
 
@@ -14,11 +13,10 @@ export class ProfileService {
   constructor(private http: HttpClient) { }
 
   errorMessage?:string;
-  getProfileById(idProfile:number): Observable<UserProfile> {
-    return this.http.get<Record<string, UserProfile>>(`${environment.api.urlApi}/users/${idProfile}`)
-    .pipe(
-      map(response => response['Guardado']),
-      catchError((error: HttpErrorResponse) => {
+
+  getProfileById(id:string): Observable<User> {
+    return this.http.get<User>(`${environment.api.urlApi}/users/${id}`)
+    .pipe(catchError((error: HttpErrorResponse) => {
         if (error.error instanceof ErrorEvent) {
           this.errorMessage = `Error: ${error.error.message}`;
         } else {
@@ -31,7 +29,7 @@ export class ProfileService {
   }
 
 
-  updateProfile(id:number, profile:UserEdit):Observable<UserProfile>{
+  updateProfile(id:string, profile:UserEdit):Observable<UserProfile>{
     return this.http.put<Record<string, UserProfile>>(`${environment.api.urlApi}/users/${id}`,profile).pipe(
       map(response => response['Guardado']),
       catchError((error: HttpErrorResponse) => {
