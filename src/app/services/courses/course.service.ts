@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Course } from '../../interfaces/Course';
 import { environment } from '../../../environments/environment';
@@ -14,6 +14,14 @@ export class CourseService {
   constructor(private http: HttpClient) { }
 
   errorMessage?:string;
+
+  headers_object = new HttpHeaders()
+  .set("Authorization", "Bearer " + sessionStorage.getItem('token'))
+  .set("Access-Control-Allow-Origin", "*")
+
+  httpOptions = {
+    headers: this.headers_object
+  };
 
   getAllCoursesInPages(currentPage:number): Observable<Course[]> {
     return this.http.get<Course[]>(`${environment.api.urlApi}/courses/pages?page=${currentPage}`)
@@ -52,7 +60,7 @@ export class CourseService {
         map(response => {
           const course = response; // Ajusta esto si la clave es diferente
           if (!course) {
-            throw new Error('Course not found in response');
+            throw new Error('No se encontraron cursos');
           }
           return course;
         }),

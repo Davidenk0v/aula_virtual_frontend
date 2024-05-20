@@ -22,7 +22,7 @@ import { ZoomComponentVista } from './zoom/zoom/zoom.component';
 export const routes: Routes = [
     {path:"", redirectTo:"/home", pathMatch:"full"},
     {path:"login", component:LoginComponent, canActivate: [authGuard]},
-    {path:"register", component:RegisterComponent},
+    {path:"register", component:RegisterComponent, canActivate: [authGuard]},
     {path: "home", component: HomeComponent},
     {path: "course/:id", component: CourseComponent},
     {path: "create", component: CreateCourseComponent, canActivate: [teacherGuard]},

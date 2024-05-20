@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ZoomService } from '../../../services/zoom/zoom.service';
-import { MeetingAlumn, MeetingView } from '../../../interfaces/Meeting';
+import { MeetingAlumn } from '../../../interfaces/Meeting';
 import { Router } from '@angular/router';
 
 @Component({

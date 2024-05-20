@@ -63,12 +63,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "aula-virtual-frontend:build:production",
-              "proxyConfig": "proxy.conf.json"
+              "buildTarget": "aula-virtual-frontend:build:production"
             },
             "development": {
-              "buildTarget": "aula-virtual-frontend:build:development",
-              "proxyConfig": "proxy.conf.json"
+              "buildTarget": "aula-virtual-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"

@@ -14,6 +14,15 @@ export class ProfileService {
 
   errorMessage?:string;
 
+  
+  headers_object = new HttpHeaders()
+  .set("Authorization", "Bearer " + sessionStorage.getItem('token'))
+  .set("Access-Control-Allow-Origin", "*")
+
+  httpOptions = {
+    headers: this.headers_object
+  };
+
   getProfileById(id:string): Observable<User> {
     return this.http.get<User>(`${environment.api.urlApi}/users/${id}`)
     .pipe(catchError((error: HttpErrorResponse) => {
