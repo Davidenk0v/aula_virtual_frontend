@@ -6,7 +6,6 @@ import { UserProfile } from '../../interfaces/Profile';
 import { UserEdit } from '../../interfaces/User';
 import { MeetingAlumn, MeetingCreating, MeetingView } from '../../interfaces/Meeting';
 import { Router } from '@angular/router';
-import axios from 'axios';
 @Injectable({
   providedIn: 'root'
 })

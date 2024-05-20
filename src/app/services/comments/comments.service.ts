@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { CommentI } from '../../interfaces/Comment';
 import { environment } from '../../../environments/environment';
 
@@ -20,6 +20,24 @@ export class CommentService {
 
   getAllComments(idCourse?: number): Observable<Comment[]> {
     return this.http.get<Comment[]>(`${environment.api.urlApi}/comment/${idCourse}/course`)
+  }
+
+  editComment(credentials: CommentI,idComment :number): Observable<any> {
+    return this.http.put<any>(`${environment.api.urlApi}/comment/${idComment}`, credentials).pipe(
+      catchError((error: HttpErrorResponse) => {
+        // Manejar errores de la solicitud
+        let errorMessage = '';
+  
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Error: ${error.error.message}`;
+        } else {
+          errorMessage = `Error code: ${error.status}, message: ${error.message}`;
+        }
+  
+        // Devolver un observable de error con el mensaje de error
+        return throwError(() => errorMessage);
+      })
+    );
   }
 
 
