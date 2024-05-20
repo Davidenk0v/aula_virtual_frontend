@@ -7,6 +7,8 @@ import { CommentService } from '../services/comments/comments.service';
 import { CommentI } from '../interfaces/Comment';
 import { ListTaskComponent } from './list-task/list-task.component';
 import { Subject } from '../interfaces/Subject';
+import { Router } from '@angular/router';
+
 import {
   FormBuilder,
   FormsModule,
@@ -41,7 +43,8 @@ export class CourseComponent {
     private commentService: CommentService,
     private jwtService: JwtService,
     private user: ProfileService,
-    private authService:AuthService
+    private authService:AuthService,
+    private router: Router
   ) {}
 
   courseId?: number;
@@ -61,7 +64,7 @@ export class CourseComponent {
     name: ['', [Validators.required]],
     description: ['', [Validators.required]],
   });
-
+  
 
   getComents(courseId: number) {
     console.log(this.currentDate);
@@ -133,10 +136,11 @@ export class CourseComponent {
   }
 
 
+  openedSubmenus: {[subjectId: number]: boolean } = {};
 
-    toggleSubmenu() {
-        this.submenuAbierto = !this.submenuAbierto;
-    }
+  toggleSubmenu(subject: any) {
+    this.openedSubmenus[subject.idSubject] = !this.openedSubmenus[subject.idSubject];
+  }
 
 
     //Metodo modal
@@ -233,5 +237,35 @@ export class CourseComponent {
       },
     });
   }
-  
+  showCreateTarea(idSubject:number){
+    this.router.navigate(['/COMPOENTEBRAY', idSubject]); 
+  }
+
+  showEditarSubject(idSubject:number){
+    this.router.navigate(['/COMPOENTEBRAY', idSubject]); 
+  }
+  deleteSubject(idSubject:number){
+    
+    if (this.courseId) {
+      this.subjectService
+        .deleteSubjectById(this.courseId)
+        .subscribe({
+          next: (cita) => {
+            console.info(cita);
+          },
+          error: (userData) => {
+            console.log(userData);
+          },
+          complete: () => {
+            console.info('Completo');
+            if (this.courseId) {
+              this.getSubjects(this.courseId);
+            }
+          },
+        });
+    }
+  }
+
+
 }
+
