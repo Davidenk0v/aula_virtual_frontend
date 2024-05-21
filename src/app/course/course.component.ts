@@ -272,7 +272,9 @@ export class CourseComponent {
   }
 
   showCreateTarea(idSubject:number){
-    this.router.navigateByUrl('/create-lessons/' + idSubject); 
+    this.router.navigate(['/create-lessons/' + idSubject]); 
+    //this.router.navigate(['/create-lessons/' + idSubject + this.courseId]); 
+
   }
 
   showEditarSubject(idSubject:number){
@@ -287,7 +289,7 @@ export class CourseComponent {
     
     if (this.courseId) {
       this.subjectService
-        .deleteSubjectById(this.courseId)
+        .deleteSubjectById(idSubject)
         .subscribe({
           next: (cita) => {
             console.info(cita);

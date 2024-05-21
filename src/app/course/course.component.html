@@ -40,13 +40,13 @@
           @for(subject of subjects; track subject){
           <li class="list-item">
             <ul class="w-100">
-              <li class="d-flex justify-content-between align-items-center" (click)="toggleSubmenu(subject)">
-                <div>{{ subject.name }}</div>
-                <div class="contTema">
-                  <button type="button" class="btn btn-success mx-2" (click)="showCreateTarea(subject.idSubject)">Crear tarea</button>
-                  <button type="button" class="btn btn-warning" (click)="showEditarSubject(subject.idSubject)">Editar tema</button>
-                  <button type="button" class="btn btn-danger ms-2" (click)="deleteSubject(subject.idSubject)">Borrar tema</button>
-                </div>
+              <li class="d-flex justify-content-between align-items-center cont" > 
+                  <div (click)="toggleSubmenu(subject)">{{ subject.name }}</div>
+                  <div class="contTema">
+                    <button type="button" class="btn btn-success mx-2" (click)="showCreateTarea(subject.idSubject)">Crear tarea</button>
+                    <button type="button" class="btn btn-warning" (click)="showEditarSubject(subject.idSubject)">Editar tema</button>
+                    <button type="button" class="btn btn-danger ms-2" (click)="deleteSubject(subject.idSubject)">Borrar tema</button>
+                  </div>  
               </li>
               <div>{{ subject.description }}</div>
               <li>
@@ -57,7 +57,7 @@
                       <div>{{ lesson.name }}</div>
                       <div>{{ lesson.description }}</div>
                       <a class="link" (click)="downloadFile(lesson)">Descargar</a>
-                      <div >
+                      <div>
                         <button type="button" class="btn btn-warning" (click)="showEditarLesson(lesson.idLesson)">Editar tarea</button>
                         <button type="button" class="btn btn-danger ms-2" (click)="deleteLesson(lesson.idLesson)">Borrar tarea</button> 
                       </div>

@@ -1,32 +1,39 @@
 import { Component, OnInit } from '@angular/core';
 import { ErrorMessageComponent } from '../../components/error-message/error-message.component';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {  FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LessonPostService } from '../../services/lessons/lesson-post.service';
 import { Lesson } from '../../interfaces/Lessons';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-lesson',
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule, ErrorMessageComponent],
   templateUrl: './create-lesson.component.html',
-  styleUrl: './create-lesson.component.css'
+  styleUrl: './create-lesson.component.css',
+  providers: [FormBuilder] // Provide FormBuilder explicitly
 })
 export class CreateLessonComponent implements OnInit {
 
   errorMessage?: string;
-
+  idCourse!:number;
   idSubject!: number;
   idLesson!: number;
   router: any;
-  constructor(private formBuilder: FormBuilder, private lessonsPostComponent: LessonPostService, private activateRoute: ActivatedRoute) { }
+  constructor(
+    private formBuilder: FormBuilder, 
+    private lessonsPostComponent: LessonPostService, 
+    private activateRoute: ActivatedRoute,
+    private routerr: Router
+  ) { }
 
   payload: any;
 
   ngOnInit(): void {
     this.idSubject = Number(this.activateRoute.snapshot.paramMap.get('idSubject'));
+    this.idCourse = Number(this.activateRoute.snapshot.paramMap.get('courseId'));
+ 
     console.log("idSubject", this.idSubject);
-
   }
 
   // Este objeto es el que luego se mandrá a la base de datos
@@ -146,4 +153,7 @@ export class CreateLessonComponent implements OnInit {
     }
   }
 
+  volverACurso(){
+    this.routerr.navigateByUrl("/course" + this.idCourse);
+  }
 }
