@@ -57,16 +57,24 @@ export class AuthService {
   }
 
 
-  logout(){
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("loggin");
-    this.loggedInSubject.next(false);
-    this.router.navigateByUrl('/login')
+  logoutUser(idUser:string):Observable<any>{
+    return this.http.get<any>(`${environment.api.urlHost}auth/logout/${idUser}`)
+    .pipe(tap((response) => {
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("loggin");
+      this.loggedInSubject.next(false);
+      this.router.navigateByUrl('/login')
+    }),
+    map((response)=> response),
+    catchError(this.handleError)
+    );
   }
 
   isLoggedIn(): boolean {
     return this.loggedInSubject.value;
   }
+
+
 
 
   private handleError(error:HttpErrorResponse){
@@ -81,4 +89,6 @@ export class AuthService {
     }
     return throwError(()=> new Error("Algo falló. Por favor intentelo de nuevo"));
   }
+
+
 }

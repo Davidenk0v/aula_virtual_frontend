@@ -69,8 +69,18 @@ export class HeaderComponent {
   }
 
   logout(){
-    this.authService.logout();
-    this.name = ''
+    console.log(this.jwtService.getIdFromToken())
+    this.authService.logoutUser(this.jwtService.getIdFromToken()).subscribe({
+      next: (data) => {
+        console.info(data);
+      },error:(error) => {
+        console.info(error)
+      },
+      complete:()=> {
+        this.name = '';
+      }
+    });
+
   }
 
 

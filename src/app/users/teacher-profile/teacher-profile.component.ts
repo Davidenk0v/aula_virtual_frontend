@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Course } from '../../interfaces/Course';
 import { CourseService } from '../../services/courses/course.service';
 import { ProfileService } from '../../services/profile.service';
-import { UserProfile } from '../../interfaces/Profile';
 import { UploadProfileComponent } from "../../components/upload-profile/upload-profile.component";
 import { RouterLink } from '@angular/router';
 import { CreateCourseComponent } from "../../pages/create-course/create-course.component";
@@ -133,7 +132,7 @@ export class TeacherProfileComponent implements OnInit{
   }
 
   getCoursesTeacher(idTeacher:string):void{
-    this.courseService.getAllCoursesTeacher(idTeacher).subscribe({
+    this.courseService.getAllCoursesByUser(idTeacher).subscribe({
       next: (cita) => {
         this.courseList = cita
   

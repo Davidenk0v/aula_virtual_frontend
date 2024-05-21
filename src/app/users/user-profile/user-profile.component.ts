@@ -122,7 +122,7 @@ export class UserProfileComponent {
     }
   }
   getCoursesTeacher():void{
-    this.courseService.getAllCoursesTeacher(this.idUser).subscribe({
+    this.courseService.getAllCoursesByUser(this.idUser).subscribe({
       next: (cita) => {
         console.info(cita)
         this.courseList = cita

@@ -169,8 +169,8 @@ export class CourseService {
     );
   }
 
-  getAllCoursesTeacher(email:string): Observable<Course[]> {
-    return this.http.get<Course[]>(`${environment.api.urlApi}/users/listaTeacher/${email}`)
+  getAllCoursesByUser(idUser:string): Observable<Course[]> {
+    return this.http.get<Course[]>(`${environment.api.urlApi}/courses/user/${idUser}`)
     .pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.error instanceof ErrorEvent) {
