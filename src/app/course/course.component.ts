@@ -19,6 +19,9 @@ import { SubjectsService } from '../services/subjects/subjects.service';
 import { JwtService } from '../services/jwt/jwt.service';
 import { ProfileService } from '../services/profile.service';
 import { AuthService } from '../services/auth/auth.service';
+import { LessonPostService } from '../services/lessons/lesson-post.service';
+import { Lesson } from '../interfaces/Lessons';
+import FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-course',
@@ -45,7 +48,8 @@ export class CourseComponent {
     private jwtService: JwtService,
     private user: ProfileService,
     private authService:AuthService,
-    private router: Router
+    private router: Router,
+    private lessonService: LessonPostService
   ) {}
 
   courseId?: number;
@@ -268,11 +272,16 @@ export class CourseComponent {
   }
 
   showCreateTarea(idSubject:number){
-    this.router.navigate(['/COMPOENTEBRAY', idSubject]); 
+    this.router.navigateByUrl('/create-lessons/' + idSubject); 
   }
 
   showEditarSubject(idSubject:number){
-    this.router.navigate(['/COMPOENTEBRAY', idSubject]); 
+    const modal = document.getElementById('editarSubject');
+    if (modal) {
+      this.subjectId = idSubject;
+      modal.classList.add('show');
+      modal.style.display = 'block';
+    }
   }
   deleteSubject(idSubject:number){
     
@@ -296,6 +305,74 @@ export class CourseComponent {
     }
   }
 
+  showEditarLesson(idLesson:number){
+    this.router.navigateByUrl('/edit-lessons/' + idLesson); 
+  }
+
+  deleteLesson(idLesson:number){
+    this.lessonService.deleteLessons(idLesson).subscribe({
+      next: (cita) => {
+        console.info(cita);
+      },
+      error: (userData) => {
+        console.log(userData);
+      },
+      complete: () => {
+        console.info('Completo');
+        if (this.courseId) {
+          this.getSubjects(this.courseId);
+        }
+      },
+    });
+  }
+
+  cerrarModalFormatEditSubject() {
+    if (this.subjectId) {
+      this.subjectService
+        .editSubjectById(this.subjectId, this.subjectForm.value as Subject)
+        .subscribe({
+          next: (cita) => {
+            console.info(cita);
+          },
+          error: (userData) => {
+            console.log(userData);
+          },
+          complete: () => {
+            console.info('Completo');
+            if (this.courseId) {
+              this.getSubjects(this.courseId);
+              const modal = document.getElementById('editarSubject');
+            if (modal) {
+              modal.classList.remove('show');
+              modal.style.display = 'none';
+            }
+            }
+          },
+        });
+    }
+  }
+
+  /**
+ * Descarga el archivo desde la API.
+ * @param leccion La id del usuario.
+ */
+  downloadFile(leccion: Lesson) {
+    this.lessonService.getFile(leccion.idLesson).subscribe({
+      next: (data: any) => {
+        console.info("data", data);
+        const mimeType = localStorage.getItem("fileType");
+          const parts = mimeType!.split('/');
+          const fileType = parts[1];
+          FileSaver.saveAs(data, leccion.name + "." + fileType);
+      }, error: (data: any) => {
+        console.info(data, "Error")
+      },
+      complete: () => {
+        console.info("Completo")
+        localStorage.removeItem("fileType");
+      }
+    });
+  }
 
 }
 
