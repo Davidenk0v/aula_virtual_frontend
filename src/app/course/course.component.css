@@ -109,3 +109,12 @@ li{
 .list-item:hover {
     background-color: #1A1D3D;
 }
+
+.conntli{
+    border: 1px solid white;
+    padding: 10px;
+    border-radius: 5px; 
+}
+.contTema{
+    margin-right: 9px;
+}
