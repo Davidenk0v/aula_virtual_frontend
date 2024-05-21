@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Course } from '../../interfaces/Course';
+import { CourseService } from '../../services/courses/course.service';
 import { PayPalService } from '../../services/paypal/pay-pal.service';
 import { ICreateOrderRequest, NgxPayPalModule } from 'ngx-paypal';
 import { AuthService } from '../../services/auth/auth.service';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-payment',
   standalone: true,
@@ -11,8 +12,33 @@ import { Router, RouterModule } from '@angular/router';
   templateUrl: './payment.component.html',
   styleUrl: './payment.component.css'
 })
-export class PaymentComponent implements OnInit{
+export class PaymentComponent{
   @Input() courseInfo?: Course;
+
+  constructor(private service:PayPalService, private authService:AuthService, private router:Router, private activateRoute: ActivatedRoute, private courseService:CourseService){}
+  courseId?:number;
+  imageUrl: any;
+
+
+  /**
+   * Descarga el archivo desde la API.
+   * @param user La id del usuario.
+   */
+  downloadImage(user: number) {
+    this.courseService.getProfileImage(user).subscribe({
+      next: (data: any) => {
+        console.info("data", data);
+        this.imageUrl = URL.createObjectURL(data);
+      }, error: (data: any) => {
+        console.info(data, "Error")
+      },
+      complete: () => {
+        console.info("Completo")
+        localStorage.removeItem("fileType");
+      }
+    });
+  }
+
 
   popupShown = false;
   isLogin: boolean = false;
@@ -30,9 +56,10 @@ export class PaymentComponent implements OnInit{
   }
   public payPalConfig: any;
   public showPaypalButtons: boolean = false;
-constructor(private service:PayPalService, private authService:AuthService, private router:Router){}
 
   ngOnInit(): void {
+    this.courseId = Number(this.activateRoute.snapshot.paramMap.get('id'));
+    this.downloadImage(this.courseId);
     this.loginAction();
     this.pago();
     this.isLogged();

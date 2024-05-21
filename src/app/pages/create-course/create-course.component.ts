@@ -30,6 +30,9 @@ export class CreateCourseComponent {
     private categoryService:CategoryService
   ) { }
 
+  payload: any;
+  imageUrl: any;
+  emailTeacher:string = '';
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
@@ -85,5 +88,46 @@ export class CreateCourseComponent {
       }
     });
   } 
+
+  /**
+   * Selecciona el archivo y valida si es admitido.
+   * @param event 
+   */
+  setFile(event: any) {
+    let temp = <File>event.target.files[0];
+    console.log("payload ", temp.name);
+    console.log('size', temp.size);
+    console.log('type', temp.type);
+    switch (temp.type) {
+      case "image/png":
+        this.payload = <File>event.target.files[0];
+        break;
+      case "image/jpeg":
+        this.payload = <File>event.target.files[0];
+        break;
+      case "image/jpg":
+        this.payload = <File>event.target.files[0];
+        break;
+      default:
+        this.abrirModalFormat();
+        break;
+    }
+  }
+
+  abrirModalFormat() {
+    const modal = document.getElementById('formaterror');
+    if (modal) {
+      modal.classList.add('show');
+      modal.style.display = 'block';
+    }
+  }
+
+  cerrarModalFormat() {
+    const modal = document.getElementById('formaterror');
+    if (modal) {
+      modal.classList.remove('show');
+      modal.style.display = 'none';
+    }
+  }
 
 }

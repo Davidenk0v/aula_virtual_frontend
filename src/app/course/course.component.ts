@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PaymentComponent } from './payment/payment.component';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Course } from '../interfaces/Course';
 import { CourseService } from '../services/courses/course.service';
 import { ListTaskComponent } from './list-task/list-task.component';
 import { Subject } from '../interfaces/Subject';
+import { Router } from '@angular/router';
+
 import {
   FormBuilder,
   FormsModule,
@@ -16,6 +18,10 @@ import { JwtService } from '../services/jwt/jwt.service';
 import { ProfileService } from '../services/profile.service';
 import { AuthService } from '../services/auth/auth.service';
 import { CommentComponent } from './comments/comment.component';
+import { LessonPostService } from '../services/lessons/lesson-post.service';
+import { Lesson } from '../interfaces/Lessons';
+import FileSaver from 'file-saver';
+
 @Component({
   selector: 'app-course',
   standalone: true,
@@ -40,24 +46,28 @@ export class CourseComponent {
     private formBuild: FormBuilder,
     private jwtService: JwtService,
     private user: ProfileService,
-    private authService:AuthService
+    private authService:AuthService,
+    private router: Router,
+    private lessonService: LessonPostService
   ) {}
 
   courseId?: number;
   courseInfo?: Course;
   errorMessage?: string;
   nameUser = ""
-  idUser:string = ""
-  userData= {
+  idUser: string = ""
+  userData = {
   };
   submenuAbierto = false;
   
   subjectId?: number;
+  payload: any;
+  imageUrl: any; loggeIn: boolean = false;
   subjectForm = this.formBuild.group({
     name: ['', [Validators.required]],
     description: ['', [Validators.required]],
   });
-
+  
 
 
 
@@ -69,56 +79,75 @@ export class CourseComponent {
     this.getSubjects(this.courseId);
     this.nameUser = this.jwtService.getNameFromToken();
     this.idUser = this.jwtService.getIdFromToken()
+    this.isLogged()
+  }
+
+  isLogged() {
+    this.authService.loggedIn$.subscribe({
+      next: (logged) => {
+        this.loggeIn = logged;
+        if (!this.loggeIn) {
+          this.loggeIn = sessionStorage.getItem('loggin') == 'true' ? true : false;
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching comments:', error);
+      },
+      complete: () => {
+        console.info('Request completed');
+      },
+    });
   }
 
 
+  openedSubmenus: {[subjectId: number]: boolean } = {};
 
-    toggleSubmenu() {
-        this.submenuAbierto = !this.submenuAbierto;
-    }
+  toggleSubmenu(subject: any) {
+    this.openedSubmenus[subject.idSubject] = !this.openedSubmenus[subject.idSubject];
+  }
 
 
-    //Metodo modal
-    abrirModal(id :number) {
-      console.info(id)
-      this.subjectId = id
-      const modal = document.getElementById('modalEditarTema');
-      if (modal) {
-        modal.classList.add('show');
-        modal.style.display = 'block';
-      }
-      
-    }
-    
-    cerrarModal() {
-      const modal = document.getElementById('modalEditarTema');
-      if (modal) {
-        modal.classList.remove('show');
-        modal.style.display = 'none';
-      }
+  //Metodo modal
+  abrirModal(id: number) {
+    console.info(id)
+    this.subjectId = id
+    const modal = document.getElementById('modalEditarTema');
+    if (modal) {
+      modal.classList.add('show');
+      modal.style.display = 'block';
     }
 
-    abrirModalDelete(id :number) {
-      console.info(id)
-      this.subjectId = id
-      const modal = document.getElementById('alertModal');
-      if (modal) {
-        modal.classList.add('show');
-        modal.style.display = 'block';
-      }
-      
+  }
+
+  cerrarModal() {
+    const modal = document.getElementById('modalEditarTema');
+    if (modal) {
+      modal.classList.remove('show');
+      modal.style.display = 'none';
     }
-    
-    cerrarModalDelete() {
-      const modal = document.getElementById('alertModal');
-      if (modal) {
-        modal.classList.remove('show');
-        modal.style.display = 'none';
-      }
+  }
+
+  abrirModalDelete(id: number) {
+    console.info(id)
+    this.subjectId = id
+    const modal = document.getElementById('alertModal');
+    if (modal) {
+      modal.classList.add('show');
+      modal.style.display = 'block';
     }
+
+  }
+
+  cerrarModalDelete() {
+    const modal = document.getElementById('alertModal');
+    if (modal) {
+      modal.classList.remove('show');
+      modal.style.display = 'none';
+    }
+  }
 
   //Service 
-  postSubject(){
+  postSubject() {
     console.info(this.courseId)
     if (this.courseId) {
       this.courseService
@@ -141,22 +170,25 @@ export class CourseComponent {
   }
 
   subjectIdEdit(id: number) {
-    this.subjectId = id;
+    this.subjectId = id
   }
 
   getSubjects(courseId: number) {
     this.subjectService.getSubjectsByCourseId(courseId).subscribe({
       next: (cita) => {
         this.subjects = cita;
-        
+
       },
-      error: (userData) => {        
-        console.log(userData);
+      error: (userData) => {
+        console.log(userData)
+
       },
       complete: () => {
-        console.info('Completo');
-      },
-    });
+        console.info("Completo")
+      }
+    })
+
+
   }
 
   getCourseInfo(courseId: number) {
@@ -172,5 +204,131 @@ export class CourseComponent {
       },
     });
   }
-  
+
+  /**
+   * Descarga el archivo desde la API.
+   * @param user La id del usuario.
+   */
+  downloadImage(user: number, comment: any) {
+    this.commentService.getProfileImage(user).subscribe({
+      next: (data: any) => {
+        console.info("Imagen perfil", data);
+        //saveAs(data, "save-me.txt");
+        comment.user.imageUrl = URL.createObjectURL(data);
+      }, error: (data: any) => {
+        console.info(data, "Error")
+      },
+      complete: () => {
+        console.info("Completa descarga imagen perfil")
+        localStorage.removeItem("fileType");
+      }
+    });
+  }
+
+  showCreateTarea(idSubject:number){
+    this.router.navigateByUrl('/create-lessons/' + idSubject); 
+  }
+
+  showEditarSubject(idSubject:number){
+    const modal = document.getElementById('editarSubject');
+    if (modal) {
+      this.subjectId = idSubject;
+      modal.classList.add('show');
+      modal.style.display = 'block';
+    }
+  }
+  deleteSubject(idSubject:number){
+    
+    if (this.courseId) {
+      this.subjectService
+        .deleteSubjectById(this.courseId)
+        .subscribe({
+          next: (cita) => {
+            console.info(cita);
+          },
+          error: (userData) => {
+            console.log(userData);
+          },
+          complete: () => {
+            console.info('Completo');
+            if (this.courseId) {
+              this.getSubjects(this.courseId);
+            }
+          },
+        });
+    }
+  }
+
+  showEditarLesson(idLesson:number){
+    this.router.navigateByUrl('/edit-lessons/' + idLesson); 
+  }
+
+  deleteLesson(idLesson:number){
+    this.lessonService.deleteLessons(idLesson).subscribe({
+      next: (cita) => {
+        console.info(cita);
+      },
+      error: (userData) => {
+        console.log(userData);
+      },
+      complete: () => {
+        console.info('Completo');
+        if (this.courseId) {
+          this.getSubjects(this.courseId);
+        }
+      },
+    });
+  }
+
+  cerrarModalFormatEditSubject() {
+    if (this.subjectId) {
+      this.subjectService
+        .editSubjectById(this.subjectId, this.subjectForm.value as Subject)
+        .subscribe({
+          next: (cita) => {
+            console.info(cita);
+          },
+          error: (userData) => {
+            console.log(userData);
+          },
+          complete: () => {
+            console.info('Completo');
+            if (this.courseId) {
+              this.getSubjects(this.courseId);
+              const modal = document.getElementById('editarSubject');
+            if (modal) {
+              modal.classList.remove('show');
+              modal.style.display = 'none';
+            }
+            }
+          },
+        });
+    }
+  }
+
+  /**
+ * Descarga el archivo desde la API.
+ * @param leccion La id del usuario.
+ */
+  downloadFile(leccion: Lesson) {
+    this.lessonService.getFile(leccion.idLesson).subscribe({
+      next: (data: any) => {
+        console.info("data", data);
+        const mimeType = localStorage.getItem("fileType");
+          const parts = mimeType!.split('/');
+          const fileType = parts[1];
+          FileSaver.saveAs(data, leccion.contenido + "." + fileType);
+          // Version que guarda el nombre de la bbdd
+          //FileSaver.saveAs(data, leccion.contenido);
+      }, error: (data: any) => {
+        console.info(data, "Error")
+      },
+      complete: () => {
+        console.info("Completo")
+        localStorage.removeItem("fileType");
+      }
+    });
+  }
+
 }
+

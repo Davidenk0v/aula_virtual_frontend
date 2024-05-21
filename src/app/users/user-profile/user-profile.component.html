@@ -1,115 +1,140 @@
 <body>
-  <!-- Modal -->
-  <div class="modal fade" id="miModal" tabindex="-1" aria-labelledby="miModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-          <div class="modal-body">
-            <app-upload-profile (profileEdited)="onProfileEdited($event)"></app-upload-profile>
-          </div>
+    <!-- Modal -->
+    <div class="modal fade" id="miModal" tabindex="-1" aria-labelledby="miModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <app-upload-profile (profileEdited)="onProfileEdited($event)"></app-upload-profile>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-    
-    
+
+
+    <div class="modal fade" id="formaterror" tabindex="-1" aria-labelledby="formaterror" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title" id="formaterror">Error</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        (click)="cerrarModalFormat()"></button>
+                </div>
+                <div class="modal-body">
+                    Formato no admitido, solo se admiten jpeg, jpg y png.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        (click)="cerrarModalFormat()">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title" id="successModalLabel">Éxito</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Curso borrado con éxito.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        (click)="cerrarModal()">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
 
-  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h1 class="modal-title" id="successModalLabel">Éxito</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                  Curso borrado con éxito.
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                      (click)="cerrarModal()">Aceptar</button>
-              </div>
-          </div>
-      </div>
-  </div>
+    <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title" id="alertModalLabel">Alerta</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que quieres borrar este curso?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                        (click)="borrar()">Borrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
 
-  <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h1 class="modal-title" id="alertModalLabel">Alerta</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                  ¿Estás seguro de que quieres borrar este curso?
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
-                      (click)="borrar()">Borrar</button>
-              </div>
-          </div>
-      </div>
-  </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-9 col-md-8 col-sm-12">
+                <div class="container mt-4">
+                    <!-- Perfil del profesor -->
+                    <div class="perfil-profesor">
+                        <h1 class="titulo">Perfil del Alumno</h1>
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-body">
+                                <img src="{{ imageUrl }}" alt="Foto de perfil" class="w-100 rounded pfp" width="20" height="20">
+                                    <div>
+                                        <input type="file" name="file" (change)="setFile($event)" />
+                                        <input type="button" name="button" (click)="uploadImage()" value="Ok"/>
+                                    </div>
+                                    <div>
+                                        <input type="button" name="button" (click)="setDefaultImage()" value="Borrar imagen"/>
+                                    </div>
+                                <h5 class="card-title">{{perfil?.firstname}} {{perfil?.lastname}}</h5>
+                                <ul class="list-unstyled mt-3 mb-4">
+                                    <li><strong>Nombre de usuario:</strong> {{perfil?.username}}</li>
+                                    <li><strong>Email:</strong> {{perfil?.email}}</li>
+                                </ul>
+                                @if(editOn){
+                                <button class="btn btn-custom-yellow btn-block mb-2" (click)="pupUpEditProfile()">Editar
+                                    perfil</button>
+                                <button class="btn btn-custom-red btn-block">Borrar cuenta</button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Cursos del profesor -->
+                    <div class="cursos-profesor mt-4">
+                        <h1 class="titulo">Cursos del Profesor</h1>
 
+                        @if (haveCourses==true) {
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+                            <!-- Curso 1 -->
+                            @for (item of courseList; track $index) {
+                            <div class="col-md-4">
+                                <div class="card mb-4 shadow-sm">
+                                    <div class="card-body">
+                                        <img src="{{imageCourseurl}}" alt="" class="w-100 rounded-top"
+                                            [routerLink]="['/course', item?.idCourse]"
+                                            ()="downloadImageCourse($event)">
+                                        <h5 class="card-title">{{item.name}}</h5>
+                                        <ul class="list-unstyled mt-3 mb-4">
+                                            <li><strong>Inicio:</strong> {{item.startDate}}</li>
+                                            <li><strong>Fin:</strong> {{item.finishDate}}</li>
+                                            <li><strong>Precio:</strong> {{item.price}}</li>
+                                        </ul>
+                                        @if(editOn){
+                                        <button class="btn btn-custom-yellow btn-block mb-2"
+                                            [routerLink]="['/edit', item.idCourse]">Editar</button>
+                                        <button class="btn btn-custom-red btn-block" data-bs-toggle="modal"
+                                            (click)="cambiarIdCourse(item.idCourse)"
+                                            data-bs-target="#alertModal">Borrar</button>
+                                        }
 
-
-
-  <div class="container-fluid">
-      <div class="row">
-          <div class="col-lg-9 col-md-8 col-sm-12">
-              <div class="container mt-4">
-                  <!-- Perfil del profesor -->
-                  <div class="perfil-profesor">
-                      <h1 class="titulo">Perfil del Alumno</h1>
-                      <div class="card mb-4 shadow-sm">
-                          <div class="card-body">
-                              <img src="../../../assets/gato.jpg" alt="Foto de perfil" class="w-100 rounded-top" width="20" height="20">
-                              <h5 class="card-title">{{perfil?.firstname}} {{perfil?.lastname}}</h5>
-                              <ul class="list-unstyled mt-3 mb-4">
-                                  <li><strong>Nombre de usuario:</strong> {{perfil?.username}}</li>
-                                  <li><strong>Email:</strong> {{perfil?.email}}</li>
-                              </ul>
-                              <button class="btn btn-custom-yellow btn-block mb-2" (click)="pupUpEditProfile()">Editar
-                                  perfil</button>
-                              <button class="btn btn-custom-red btn-block">Borrar cuenta</button>
-    
-                          </div>
-                      </div>
-                  </div>
-                  <!-- Cursos del profesor -->
-                  <div class="cursos-profesor mt-4">
-                      <h1 class="titulo">Tus cursos</h1>
-
-                      @if (haveCourses==true) {
-                      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-                          <!-- Curso 1 -->
-                          @for (item of courseList; track $index) {
-                          <div class="col-md-4">
-                              <div class="card mb-4 shadow-sm">
-                                  <div class="card-body" [routerLink]="['/course', item?.idCourse]" style="cursor: pointer">
-                                      <img src="https://via.placeholder.com/300" alt="" class="w-100 rounded-top">
-                                      <h5 class="card-title">{{item.name}}</h5>
-                                      <ul class="list-unstyled mt-3 mb-4">
-                                          <li><strong>Inicio:</strong> {{item.startDate}}</li>
-                                          <li><strong>Fin:</strong> {{item.finishDate}}</li>
-                                          <li><strong>Precio:</strong> {{item.price}}</li>
-                                      </ul>
-                                      @if(editOn){
-                                      <button class="btn btn-custom-yellow btn-block mb-2"
-                                          [routerLink]="['/edit', item.idCourse]">Editar</button>
-                                      <button class="btn btn-custom-red btn-block" data-bs-toggle="modal"
-                                          (click)="cambiarIdCourse(item.idCourse)"
-                                          data-bs-target="#alertModal">Borrar</button>
-                                      }
-
-                                  </div>
-                              </div>
-                          </div>
-                          }
+                                    </div>
+                                </div>
+                            </div>
+                            }
 
                       </div>
                       }
@@ -122,6 +147,6 @@
       </div>
   </div>
 
-  <!-- Bootstrap y cualquier otro JS necesario -->
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap y cualquier otro JS necesario -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </body>

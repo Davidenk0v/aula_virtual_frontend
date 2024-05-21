@@ -1,3 +1,22 @@
+.imgCard {
+    max-width: 100%;
+}
+
+.cardComp {
+    min-height: 55vh;
+    padding-top: 5%;
+    max-width: 50vh;
+    height: 60vh;
+}
+
+.cardComp:hover {
+    background-color: #c1bce7bb;
+    border: 1px solid #a0a0aaec;
+    width: 46vh;
+    height: 58vh;
+    max-width: 60vh;
+}
+
 .cardContainer {
   width: 90%;
   max-height: 90%;

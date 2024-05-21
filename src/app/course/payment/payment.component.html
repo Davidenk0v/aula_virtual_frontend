@@ -1,49 +1,13 @@
-<div class="row info_compra">
-    <div id="contImg">
-      <img
-        src="https://www.xteach.es/wp-content/uploads/2021/10/herramientas-para-crear-cursos-online-scaled.jpg"
-        alt="enlace del curso"
-      />
-      <div id="price">Precio: {{ courseInfo?.price }}€</div>
-    </div>
-    <div class="btnBuy m-5">
-      <button class="buyButton">
-        <a (click)="showPopup()">Comprar ahora</a>
-      </button>
-    </div>
-  </div>
-  
-   
-   
-  
-  <div class="popup-overlay">
-    @if (popupShown) {
-  
-    <div class="popup">
-      <div class="container center-container">
-        <h2 class="text-center">{{ courseInfo?.name }}</h2>
-        <p>
-          {{ courseInfo?.description }}
-        </p>
-        <p class="text-center">
-          Fecha de inicio del curso: {{ courseInfo?.startDate }}
-        </p>
-        <p class="text-center">
-          Fecha de finalización del curso: {{ courseInfo?.finishDate }}
-        </p>
-        <p class="text-center">Coste del curso: {{ courseInfo?.price }} €</p>
-        <div class="text-center">
-  
-            <ngx-paypal [config]="payPalConfig">
-            </ngx-paypal>
-          
-  
-          <button class="btn buyCancelBtn" (click)="closePopup()">
-            Cancelar
-          </button>
-        </div>
-      </div>
-    </div>
-    }
-  </div>
-  
+<div class="row" id="info_compra">  
+
+    <span id="contImg">
+      <img src="{{ imageUrl }}" class="img-fluid" alt="enlace del curso"> 
+        <span id="price">Precio: {{courseInfo?.price}}€</span>
+    </span> 
+    <span > 
+
+    </span> 
+    <span id="btnBuy">
+    </span>
+    <input type="button" value="Comprar ahora">
+</div>

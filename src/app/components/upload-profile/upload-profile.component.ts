@@ -1,8 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import { User, UserEdit } from '../../interfaces/User';
-import { UserProfile } from '../../interfaces/Profile';
 import { JwtService } from '../../services/jwt/jwt.service';
 
 @Component({

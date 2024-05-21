@@ -34,7 +34,7 @@ export class ProfileService {
 
         return throwError(() => this.errorMessage);
       })
-    );
+      );
   }
 
 
@@ -52,4 +52,51 @@ export class ProfileService {
       })
     )
   }
+
+  setProfileImage(user: string, payload: File) {
+    const formData: FormData = new FormData();
+    formData.append('file ', payload, payload.name);
+    console.log("formData", formData);
+    return this.http.post(`${environment.api.urlApi}/users/file/${user}`, formData, { responseType: 'text' }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.error instanceof ErrorEvent) {
+          this.errorMessage = `Error: ${error.error.message}`;
+        } else {
+          this.errorMessage = `Error code: ${error.status}, message: ${error.message}`;
+        }
+        return throwError(() => this.errorMessage);
+      })
+    )
+  }
+
+  getProfileImage(user: string): any {
+    return this.http.get(`${environment.api.urlApi}/users/file/${user}`, { responseType: 'blob' }).pipe(
+      map(res => {
+        localStorage.setItem("fileType", res.type);
+        return res;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        if (error.error instanceof ErrorEvent) {
+          this.errorMessage = `Error: ${error.error.message}`;
+        } else {
+          this.errorMessage = `Error code: ${error.status}, message: ${error.message}`;
+        }
+        return throwError(() => this.errorMessage);
+      })
+    );
+  }
+
+  setDefaultProfileImage(user: string): any {
+    return this.http.delete(`${environment.api.urlApi}/users/file/${user}`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.error instanceof ErrorEvent) {
+          this.errorMessage = `Error: ${error.error.message}`;
+        } else {
+          this.errorMessage = `Error code: ${error.status}, message: ${error.message}`;
+        }
+        return throwError(() => this.errorMessage);
+      })
+    )
+  }
+
 }

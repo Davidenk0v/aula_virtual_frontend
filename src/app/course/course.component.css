@@ -1,6 +1,15 @@
 #course{
     padding-top: 3%;
 }
+
+.link {
+    color: rgb(151, 173, 196);
+}
+
+.link:hover {
+    color: rgb(97, 112, 128);
+}
+
 .rate {
     float: left;
     height: 46px;
@@ -99,4 +108,13 @@ li{
 
 .list-item:hover {
     background-color: #1A1D3D;
+}
+
+.conntli{
+    border: 1px solid white;
+    padding: 10px;
+    border-radius: 5px; 
+}
+.contTema{
+    margin-right: 9px;
 }

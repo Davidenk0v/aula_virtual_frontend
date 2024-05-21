@@ -20,50 +20,56 @@ import { User } from '../../interfaces/User';
   styleUrl: './user-profile.component.css'
 })
 export class UserProfileComponent {
-  constructor(private courseService:CourseService, private userService:ProfileService, private jwtService:JwtService){}
+  constructor(private courseService: CourseService, private userService: ProfileService, private jwtService: JwtService) { }
   ngOnInit(): void {
     this.idUser = this.jwtService.getIdFromToken();
     this.getCoursesTeacher();
     this.getPerfilUser(this.idUser);
+    // TODO se mantiene esta id numerica por el momento, sustituir por la id de busqueda preferida
+    this.downloadImage(this.idUser);
   }
 
-  idUser:string='';
-  haveCourses?:boolean = true
-  idCourse?:number
-  courseList?:Course[]
+  idUser: string = '';
+  haveCourses?: boolean = true
+  idCourse?: number
+  courseList?: Course[]
   editOn: boolean = false;
-  perfil? : User
-  popUpEdit : boolean = false;
+  perfil?: User
+  popUpEdit: boolean = false;
+
+  payload: any;
+  imageUrl: any;
+  imageCourseurl:any;
 
 
-  popUpDelete : boolean = false;
+  popUpDelete: boolean = false;
   onEnter(event: KeyboardEvent) {
     // Verifica si la tecla presionada es "Enter" (código 13)
     if (event.key === "Enter") {
       // Ejecuta la lógica que deseas cuando se presiona "Enter"
-      
+
     }
   }
 
-  borrar(){
-    
+  borrar() {
+
     if (this.idCourse) {
       this.courseService.deleteCourseById(this.idCourse).subscribe({
-      next: (data) => {
-        console.info(data);
-      },error:(data) => {
-        console.info(data, "Error")
-      },
-      complete:()=> {
-        console.info("Completo")  
-        this.abrirModal();
-        this.getCoursesTeacher();
-      }
-    });
+        next: (data) => {
+          console.info(data);
+        }, error: (data) => {
+          console.info(data, "Error")
+        },
+        complete: () => {
+          console.info("Completo")
+          this.abrirModal();
+          this.getCoursesTeacher();
+        }
+      });
     }
   }
 
-  cambiarIdCourse(course: number){
+  cambiarIdCourse(course: number) {
     this.idCourse = course
     console.info(this.idCourse)
   }
@@ -90,7 +96,6 @@ export class UserProfileComponent {
       modal.style.display = 'none';
     }
   }
-  
 
   abrirModal() {
     const modal = document.getElementById('successModal');
@@ -99,7 +104,7 @@ export class UserProfileComponent {
       modal.style.display = 'block';
     }
   }
-  
+
   cerrarModal() {
     const modal = document.getElementById('successModal');
     if (modal) {
@@ -107,17 +112,17 @@ export class UserProfileComponent {
       modal.style.display = 'none';
     }
   }
-  
-  
-  
-  editMode(): void{
+
+
+
+  editMode(): void {
     this.editOn = !this.editOn
-    
+
   }
 
-  pupUpEditProfile(): void{
+  pupUpEditProfile(): void {
     this.popUpEdit = !this.popUpEdit
-    if (this.popUpEdit==true) {
+    if (this.popUpEdit == true) {
       this.abrirModalPerfil();
     }
   }
@@ -126,14 +131,14 @@ export class UserProfileComponent {
       next: (cita) => {
         console.info(cita)
         this.courseList = cita
-  
+
       },
-      error:(userData) => {
+      error: (userData) => {
         this.haveCourses = false
         console.log(userData)
-          
+
       },
-      complete:()=> {
+      complete: () => {
         console.info("Completo")
       }
     })
@@ -145,13 +150,134 @@ export class UserProfileComponent {
         console.info(cita)
         this.perfil = cita;
       },
-      error:(userData) => {
-          console.log(userData)
-          
+      error: (userData) => {
+        console.log(userData)
+
       },
-      complete:()=> {
+      complete: () => {
         console.info("Completo")
       }
     })
   }
+
+  /**
+   * Selecciona el archivo y valida si es admitido.
+   * @param event 
+   */
+  setFile(event: any) {
+    let temp = <File>event.target.files[0];
+    console.log("payload ", temp.name);
+    console.log('size', temp.size);
+    console.log('type', temp.type);
+    switch (temp.type) {
+      case "image/png":
+        this.payload = <File>event.target.files[0];
+        break;
+      case "image/jpeg":
+        this.payload = <File>event.target.files[0];
+        break;
+      case "image/jpg":
+        this.payload = <File>event.target.files[0];
+        break;
+      default:
+        this.abrirModalFormat();
+        break;
+    }
+  }
+
+  /**
+   * Envia el archivo a la API.
+   */
+  uploadImage(): void {
+    // TODO se mantiene esta id numerica por el momento, sustituir por la id de busqueda preferida
+    this.userService.setProfileImage(this.idUser, this.payload).subscribe({
+      next: (cita) => {
+        console.info(cita)
+
+      },
+      error: (userData) => {
+        this.haveCourses = false
+        console.log(userData)
+      },
+      complete: () => {
+        console.info("Completo")
+        window.location.reload();
+        //this.getPerfilTeacher(this.email)
+      }
+    });
+  }
+
+  /**
+   * Descarga el archivo desde la API.
+   * @param user La id del usuario.
+   */
+  downloadImage(user: string) {
+    this.userService.getProfileImage(user).subscribe({
+      next: (data: any) => {
+        console.info("data", data);
+        this.imageUrl = URL.createObjectURL(data);
+      }, error: (data: any) => {
+        console.info(data, "Error")
+      },
+      complete: () => {
+        console.info("Completa descarga imagen curso")
+        localStorage.removeItem("fileType");
+      }
+    });
+  }
+
+  /**
+   * Descarga el archivo desde la API.
+   * @param user La id del usuario.
+   */
+  downloadImageCourse(user: number) {
+    this.courseService.getProfileImage(user).subscribe({
+      next: (data: any) => {
+        console.info("data", data);
+        this.imageCourseurl = URL.createObjectURL(data);
+      }, error: (data: any) => {
+        console.info(data, "Error")
+      },
+      complete: () => {
+        console.info("Completa descarga imagen curso")
+        localStorage.removeItem("fileType");
+      }
+    });
+  }
+
+  abrirModalFormat() {
+    const modal = document.getElementById('formaterror');
+    if (modal) {
+      modal.classList.add('show');
+      modal.style.display = 'block';
+    }
+  }
+
+  cerrarModalFormat() {
+    const modal = document.getElementById('formaterror');
+    if (modal) {
+      modal.classList.remove('show');
+      modal.style.display = 'none';
+    }
+  }
+
+  setDefaultImage() {
+    console.log("Se ha pulsado el boton")
+    // TODO se mantiene esta id numerica por el momento, sustituir por la id de busqueda preferida
+    this.userService.setDefaultProfileImage(this.idUser).subscribe({
+      next: (cita: any) => {
+        console.info(cita)
+      },
+      error: (error: any) => {
+        console.log(error)
+      },
+      complete: () => {
+        console.info("Completo")
+        window.location.reload();
+        localStorage.removeItem("fileType");
+        //this.getPerfilTeacher(this.email)
+      }
+    });
+  }
+
 }
