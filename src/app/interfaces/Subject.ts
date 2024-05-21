@@ -1,4 +1,4 @@
-import { Lesson } from "./Lessons"
+import { Lesson } from './Lesson';
 
 export interface Subject {
   idSubject: number

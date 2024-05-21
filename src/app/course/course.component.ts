@@ -15,12 +15,12 @@ import {
 } from '@angular/forms';
 import { SubjectsService } from '../services/subjects/subjects.service';
 import { JwtService } from '../services/jwt/jwt.service';
-import { ProfileService } from '../services/profile.service';
 import { AuthService } from '../services/auth/auth.service';
 import { CommentComponent } from './comments/comment.component';
 import { LessonPostService } from '../services/lessons/lesson-post.service';
-import { Lesson } from '../interfaces/Lessons';
+import { Lesson } from '../interfaces/Lesson';
 import FileSaver from 'file-saver';
+import { CommentService } from '../services/comments/comments.service';
 
 @Component({
   selector: 'app-course',
@@ -45,7 +45,7 @@ export class CourseComponent {
     private courseService: CourseService,
     private formBuild: FormBuilder,
     private jwtService: JwtService,
-    private user: ProfileService,
+    private commentService: CommentService,
     private authService:AuthService,
     private router: Router,
     private lessonService: LessonPostService
