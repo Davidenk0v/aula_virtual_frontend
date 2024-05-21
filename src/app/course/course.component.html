@@ -43,8 +43,8 @@
               <li class="d-flex justify-content-between align-items-center">
                 <div>{{ subject.name }}</div>
                 <div>
-                  <button type="button" class="btn btn-warning">Editar</button>
-                  <button type="button" class="btn btn-danger ms-2">
+                  <button type="button" class="btn btn-warning" (click)="abrirModal(subject.idSubject)">Editar</button>
+                  <button type="button" class="btn btn-danger ms-2" (click)="abrirModalDelete(subject.idSubject)">
                     Borrar
                   </button>
                 </div>
