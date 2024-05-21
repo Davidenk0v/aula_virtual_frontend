@@ -363,7 +363,9 @@ export class CourseComponent {
         const mimeType = localStorage.getItem("fileType");
           const parts = mimeType!.split('/');
           const fileType = parts[1];
-          FileSaver.saveAs(data, leccion.name + "." + fileType);
+          FileSaver.saveAs(data, leccion.contenido + "." + fileType);
+          // Version que guarda el nombre de la bbdd
+          //FileSaver.saveAs(data, leccion.contenido);
       }, error: (data: any) => {
         console.info(data, "Error")
       },
