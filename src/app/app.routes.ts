@@ -21,6 +21,7 @@ import { teacherGuard } from './guards/teacher.guard';
 import { ZoomComponent } from './pages/zoom/zoom/zoom.component';
 import { ZoomComponentVista } from './zoom/zoom/zoom.component';
 import { CourseViewComponent } from './pages/course-view/course-view.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 export const routes: Routes = [
     {path:"", redirectTo:"/home", pathMatch:"full"},
@@ -37,6 +38,8 @@ export const routes: Routes = [
     {path:"verify/:email",component:VerifyComponent},
     { path: "create-lessons/:idSubject", component: CreateLessonComponent },
     { path: "edit-lessons/:idLesson", component: EditLessonComponent },
-    { path: 'zoomVista/:meetingNumber/:password/:name/:role', component: ZoomComponentVista }
+    { path: 'zoomVista/:meetingNumber/:password/:name/:role', component: ZoomComponentVista },
+    { path: 'profile', component: ProfileComponent },
+
 
 ];

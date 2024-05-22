@@ -26,8 +26,6 @@ export class FilterNavbarComponent {
 
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
     this.getCategories()
   }
 
@@ -65,15 +63,5 @@ export class FilterNavbarComponent {
         }
 
   }
-
-  // onEnter(event: KeyboardEvent) {
-  //   console.log(this.word)
-  //   // Verifica si la tecla presionada es "Enter" (código 13)
-  //   if (event.key === "Enter") {
-  //     // Ejecuta la lógica que deseas cuando se presiona "Enter"
-  //     this.searchCourses(this.word!)
-
-  //     }
-  //   }
   }
 

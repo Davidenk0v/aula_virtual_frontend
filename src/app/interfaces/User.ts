@@ -1,8 +1,8 @@
 
 export interface User {
   username: string;
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   email: string;
   emailVerified: boolean;
   idUser: number
