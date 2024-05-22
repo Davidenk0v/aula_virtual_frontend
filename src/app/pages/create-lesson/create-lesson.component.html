@@ -19,14 +19,19 @@
                 <div>
                     <input type="file" name="file" (change)="setFile($event)" />
                 </div>
-                <br>
-                <button type="button" class="btn btn-block btn-success" (click)="addLesson()">Crear Tarea</button>
-                <button 
-                    type="button" 
-                    class="btn btn-primary volver" 
-                    data-bs-dismiss="modal" 
-                    (click)="volverACurso()"
-                >Volver a curso </button>
+                <div class="contBtns">
+                    <div>
+                        <button 
+                        type="button" 
+                        class="btn btn-primary" 
+                        data-bs-dismiss="modal" 
+                        (click)="volverACurso()"
+                        >Volver a curso </button>
+                    </div>
+                   <div>
+                        <button type="button" class="btn btn-block btn-success" (click)="addLesson()">Crear Tarea</button>
+                   </div>
+                </div> 
             </form>
         </div>
     </div>

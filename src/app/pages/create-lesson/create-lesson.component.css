@@ -36,10 +36,10 @@
   
   .btn-success {
     border-radius: 10px;
-  }
-
-  .volver{ 
-    position: relative;
-    left: 60%;
-  }
+  } 
   
+  .contBtns{
+    margin-top: 3%; 
+    display: flex;
+    justify-content: space-between;
+  }
