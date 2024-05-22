@@ -1,62 +1,104 @@
 <div class="my-3">
-    <h3>Comentarios:</h3>
-    <div
-      class="container"
-      style="
-        background-color: #bdbdbd;
-        margin-left: -1%;
-        padding: 1% 2% 1% 2%;
-        width: 77%;
-        border-radius: 15px;
-      "
-    >
+  <h3>Comentarios:</h3>
+  <div
+    class="container"
+    style="
+      background-color: #bdbdbd;
+      margin-left: -1%;
+      padding: 1% 2% 1% 2%;
+      width: 77%;
+      border-radius: 15px;
+    "
+  >
     @if(loggeIn){
-      <div class="container my-3">
-        <span style="font-weight: bold; font-size: x-large;">Añadir comentario:</span>
-        <input class="mx-2" style="border-radius: 5px; border: none;" type="text" [(ngModel)]="newComment" />
-        <button style="border: none; border-radius: 5px; background-color: #21234D; color: #CECECE;" (click)="addNewComent(courseId)">Añadir comentario</button>
-      </div>
-    }
-      @for (coment of coments; track coment.idComment) {
-      <div class="container text-body">
-        <div class="row d-flex justify-content-left">
-          <div class="col-md-11 col-lg-9 col-xl-7">
-            <div class="d-flex flex-start mb-4">
-              <img
-                class="rounded-circle shadow-1-strong me-3"
-                src="../../assets/gato.jpg"
-                alt="avatar"
-                width="65"
-                height="65"
-              />
-              <div class="card w-100" style="background-color: #dddddd">
-                <div class="card-body p-4">
-                  <div class="">
-                    <h5>{{ coment.user.firstname }}</h5>
-                    <p class="small">{{ coment.date }}</p>
-                    @if (!isEditingAComment && coment.idComment == clickedComment) {
-                    
-                      <p>
-                        <textarea type="text" style="width: 100%;" [(ngModel)]="editedComment"></textarea>
-                      </p>
-                      <button class="btn btn-success mx-1" (click)="confirmCommentChange(coment.idComment, editedComment)">Confirmar</button>
-                      <button class="btn btn-danger mx-2 px-3" (click)="toggleEdit(coment.idComment)">Cancelar</button>
-                    } @else {
-                      <p>
-                        {{ coment.text }}
-                      </p>
-                      @if (getUsername() == coment.user.username) {
-                          <button class="btn btn-warning" (click)="toggleEdit(coment.idComment)">editar</button>
-                        }
-                    }
-                  </div>
+    <div class="container my-3">
+      <span style="font-weight: bold; font-size: x-large"
+        >Añadir comentario:</span
+      >
+      <input
+        class="mx-2"
+        style="border-radius: 5px; border: none"
+        type="text"
+        [(ngModel)]="newComment"
+      />
+      <button
+        style="
+          border: none;
+          border-radius: 5px;
+          background-color: #21234d;
+          color: #cecece;
+        "
+        (click)="addNewComent(courseId)"
+      >
+        Añadir comentario
+      </button>
+    </div>
+    } @for (coment of coments; track $index) {
+    <div class="container text-body">
+      <div class="row d-flex justify-content-left">
+        <div class="col-md-11 col-lg-9 col-xl-7">
+          <div class="d-flex flex-start mb-4">
+            <img
+              class="rounded-circle shadow-1-strong me-3"
+              src="../../assets/gato.jpg"
+              alt="avatar"
+              width="65"
+              height="65"
+            />
+            <div class="card w-100" style="background-color: #dddddd">
+              <div class="card-body p-4">
+                <div class="">
+                  <h5>{{ coment.user.firstname }}</h5>
+                  <p class="small">{{ coment.date }}</p>
+                  @if (!isEditingAComment && coment.idComment == clickedComment)
+                  {
+                  <p>
+                    <textarea
+                      type="text"
+                      style="width: 100%"
+                      [(ngModel)]="editedComment"
+                    ></textarea>
+                  </p>
+                  <button
+                    class="btn btn-success mx-1"
+                    (click)="
+                      confirmCommentChange(coment.idComment, editedComment)
+                    "
+                  >
+                    Confirmar
+                  </button>
+                  <button
+                    class="btn btn-danger mx-2 px-3"
+                    (click)="toggleEdit($index)"
+                  >
+                    Cancelar
+                  </button>
+                  } @else {
+                  <p>
+                    {{ coment.text }}
+                  </p>
+                  @if (getUsername() == coment.user.username) {
+                  <button
+                    class="btn btn-warning"
+                    (click)="toggleEdit(coments[$index].idComment)"
+                  >
+                    Editar
+                  </button>
+                  <button
+                    class="btn btn-danger mx-2"
+                    (click)="deleteComment(coment.idComment)"
+                  >
+                    Borrar
+                  </button>
+                  } }
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      }
     </div>
+
+    }
   </div>
+</div>

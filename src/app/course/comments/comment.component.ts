@@ -52,13 +52,15 @@ export class CommentComponent {
     this.nameUser = this.jwtService.getNameFromToken();
     this.idUser = this.jwtService.getIdFromToken();
     this.isLogged();
+    console.log(this.coments);
+
   }
 
   getComents(courseId: number) {
     this.commentService.getAllComments(courseId).subscribe({
       next: (comments: any) => {
         this.coments = comments;
-        this.coments.sort((a: any, b: any) => b.idComment - a.idComment);
+        this.coments.sort((a: any, b: any) => a.idComment - b.idComment);
         console.log('Comments:', this.coments);
       },
       error: (error: Error) => {
@@ -93,13 +95,18 @@ export class CommentComponent {
   }
 
   toggleEdit(id: number) {
+    
     this.clickedComment = id;
+    
     this.isEditingAComment = !this.isEditingAComment;
-    this.editedComment = this.coments[id - 1].text;
+    this.editedComment = this.coments[id].text;
+    console.log( this.coments[id].idComment);
+    
   }
 
   confirmCommentChange(id: number, newComment: string) {
     this.coments[id - 1].text = newComment;
+    
     this.commentService.editComment(this.coments[id - 1], id).subscribe({
       next: (data: any) => {
         console.info(data);
@@ -109,15 +116,24 @@ export class CommentComponent {
       },
       complete: () => {
         console.info('Completo');
-        if (this.coments.IdComment) {
-          this.getSubjects(this.coments.IdComment);
-        }
       },
     });
     this.toggleEdit(id);
   }
-  getSubjects(IdComment: any) {
-    throw new Error('Method not implemented.');
+
+  deleteComment(id: number){
+    this.commentService.deleteComment(id).subscribe({
+        next: (data: any) => {
+          console.info(data);
+        },
+        error: (userData: any) => {
+          console.log(userData);
+        },
+        complete: () => {
+          console.info('Completo');
+        },
+      });
+      this.coments[id]
   }
 
   isLogged() {
