@@ -236,8 +236,20 @@
         <div class="modal-footer">
           <h1 class="modal-title" id="editarSubject">¿Seguro que quieres eliminar el tema?</h1> 
 
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
-              (click)="deleteSubject()">Aceptar</button>
+          <button 
+          type="button" 
+            class="btn btn-danger" 
+            data-bs-dismiss="modal"
+            (click)="deleteSubject()"
+            >Aceptar</button>
+          
+            <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            (click)="cerrarModalFormatDeleteSubject()"
+          >Cancelar</button>
+            
       </div>  
       </div>
     </div> 
@@ -252,8 +264,19 @@
         <div class="modal-footer">
           <h1 class="modal-title" id="editarSubject">¿Seguro que quieres eliminar la tarea?</h1> 
 
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
-              (click)="deleteLesson()">Aceptar</button>
+          <button 
+            type="button" 
+            class="btn btn-danger" 
+            data-bs-dismiss="modal"
+            (click)="deleteLesson()"
+            >Aceptar</button>
+
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            (click)="cerrarModalFormatDeleteLesson()"
+          >Cancelar</button>
       </div>  
       </div>
     </div> 

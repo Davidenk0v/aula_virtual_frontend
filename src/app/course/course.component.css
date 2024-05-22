@@ -137,3 +137,8 @@ li{
     height: 50px;
     width: 50px;
 }
+ 
+.modal-header{
+    background-color: rgb(0, 255, 21);
+    color: rgb(250, 246, 0);
+}
