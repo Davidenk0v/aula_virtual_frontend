@@ -33,7 +33,7 @@
             data-bs-toggle="modal"
             data-bs-target="#modalAgregarTema"
           >
-            +
+            Crear Tema
           </button>
         </div>
         <ul id="listTask" class="list-unstyled">
@@ -45,7 +45,7 @@
                   <div class="contTema">
                     <button type="button" class="btn btn-success mx-2" (click)="showCreateTarea(subject.idSubject)">Crear tarea</button>
                     <button type="button" class="btn btn-warning" (click)="showEditarSubject(subject.idSubject)">Editar tema</button>
-                    <button type="button" class="btn btn-danger ms-2" (click)="deleteSubject(subject.idSubject)">Borrar tema</button>
+                    <button type="button" class="btn btn-danger ms-2" (click)="showModalDelete(subject.idSubject)">Borrar tema</button>
                   </div>  
               </li>
               <div (click)="toggleSubmenu(subject)" >{{ subject.description }}</div>
@@ -54,11 +54,11 @@
                   <ul class="list-unstyled w-100">
                     @for(lesson of subject.lessons; track lesson){
                     <li class="d-flex justify-content-between align-items-center conntli" >
-                      <div>{{ lesson.name }}</div> 
+                      <div (click)="showLesson(lesson.idLesson)">{{ lesson.name }}</div> 
                       <div><a class="link" (click)="downloadFile(lesson)">Descargar</a></div>
                       <div>
                         <button type="button" class="btn btn-warning" (click)="showEditarLesson(lesson.idLesson)">Editar tarea</button>
-                        <button type="button" class="btn ms-2 btn-danger" (click)="deleteLesson(lesson.idLesson)">Borrar tarea</button> 
+                        <button type="button" class="btn ms-2 btn-danger" (click)="showDeleteLesson(lesson.idLesson)">Borrar tarea</button> 
                       </div>
                     </li>
                     }
@@ -226,5 +226,36 @@
         </div>
     </div>
   </div>
-</div>
+
+  <div class="modal fade" id="modalDeleteSubject" tabindex="-1" aria-labelledby="deleteSubject" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cerrarModalFormatDeleteSubject()"></button> 
+        </div>  
+        <div class="modal-footer">
+          <h1 class="modal-title" id="editarSubject">¿Seguro que quieres eliminar el tema?</h1> 
+
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+              (click)="deleteSubject()">Aceptar</button>
+      </div>  
+      </div>
+    </div> 
+  </div>
+
+  <div class="modal fade" id="modalDeleteLesson" tabindex="-1" aria-labelledby="modalDeleteLesson" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cerrarModalFormatDeleteLesson()"></button> 
+        </div>  
+        <div class="modal-footer">
+          <h1 class="modal-title" id="editarSubject">¿Seguro que quieres eliminar la tarea?</h1> 
+
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+              (click)="deleteLesson()">Aceptar</button>
+      </div>  
+      </div>
+    </div> 
+  </div>
 

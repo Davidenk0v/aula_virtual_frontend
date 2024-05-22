@@ -127,3 +127,13 @@ li{
     color: white;
     border: 1px solid white;
 }
+
+.alerta-tema{
+    display: block;
+    height: 100px;
+    width: 300px;
+}
+.alerta-tema > svg{
+    height: 50px;
+    width: 50px;
+}

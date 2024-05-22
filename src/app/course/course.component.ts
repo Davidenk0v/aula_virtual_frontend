@@ -283,11 +283,12 @@ export class CourseComponent {
       modal.style.display = 'block';
     }
   }
-  deleteSubject(idSubject:number){
+  deleteSubject(){
     
-    if (this.courseId) {
+    if (this.subjectId) {
+      const id = this.subjectId;
       this.subjectService
-        .deleteSubjectById(idSubject)
+        .deleteSubjectById(id)
         .subscribe({
           next: (cita) => {
             console.info(cita);
@@ -300,6 +301,7 @@ export class CourseComponent {
             if (this.courseId) {
               this.getSubjects(this.courseId);
             }
+            this.cerrarModalFormatDeleteSubject();
           },
         });
     }
@@ -309,21 +311,29 @@ export class CourseComponent {
     this.router.navigateByUrl('/edit-lessons/' + idLesson); 
   }
 
-  deleteLesson(idLesson:number){
-    this.lessonService.deleteLessons(idLesson).subscribe({
-      next: (cita) => {
-        console.info(cita);
-      },
-      error: (userData) => {
-        console.log(userData);
-      },
-      complete: () => {
-        console.info('Completo');
-        if (this.courseId) {
-          this.getSubjects(this.courseId);
-        }
-      },
-    });
+  deleteLesson(){
+    if (this.subjectId) {
+      this.lessonService.deleteLessons(this.subjectId).subscribe({
+        next: (cita) => {
+          console.info(cita);
+        },
+        error: (userData) => {
+          console.log(userData);
+        },
+        complete: () => {
+          console.info('Completo');
+          if (this.courseId) {
+            this.getSubjects(this.courseId);
+          }
+
+          const modal = document.getElementById('modalDeleteLesson');
+            if (modal) {
+              modal.classList.remove('show');
+              modal.style.display = 'none';
+            }
+        },
+      });
+    } 
   }
 
   cerrarModalFormatEditSubject() {
@@ -378,6 +388,43 @@ export class CourseComponent {
   showLesson(idLesson:number){
     const idCourse = this.courseId;
     this.router.navigate([`/lesson/${idCourse}/${idLesson}`]);  
+  }
+
+  //modalDeleteSubject
+  showModalDelete(idSubject:number){
+    const modelDelete = document.getElementById("modalDeleteSubject");
+
+    if (modelDelete) {
+      this.subjectId = idSubject;
+      modelDelete.classList.add('show');
+      modelDelete.style.display = 'block';
+    }
+  }
+  cerrarModalFormatDeleteSubject(){
+    const modal = document.getElementById('modalDeleteSubject');
+    if (modal) {
+      modal.classList.remove('show');
+      modal.style.display = 'none';
+    }
+  }
+
+  //LESSON  
+  cerrarModalFormatDeleteLesson(){
+    const modal = document.getElementById('modalDeleteLesson');
+    if (modal) {
+      modal.classList.remove('show');
+      modal.style.display = 'none';
+    }
+  }
+
+  showDeleteLesson(idSubject:number){
+    const modelDelete = document.getElementById("modalDeleteLesson");
+
+    if (modelDelete) {
+      this.subjectId = idSubject;
+      modelDelete.classList.add('show');
+      modelDelete.style.display = 'block';
+    }
   }
 }
 
