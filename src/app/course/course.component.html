@@ -24,7 +24,7 @@
         id="info_temario"
         style="display: flex; align-items: center"
       >
-        <div class="col-9">
+        <div class="col-9" >
           <h2>Temas</h2>
         </div>
         <div class="col-3 d-flex justify-content-end">
@@ -45,21 +45,20 @@
                   <div class="contTema">
                     <button type="button" class="btn btn-success mx-2" (click)="showCreateTarea(subject.idSubject)">Crear tarea</button>
                     <button type="button" class="btn btn-warning" (click)="showEditarSubject(subject.idSubject)">Editar tema</button>
-                    <button type="button" class="btn btn-danger ms-2" (click)="deleteSubject(subject.idSubject)">Borrar tema</button>
+                    <button type="button" class="btn btnBorrar ms-2" (click)="deleteSubject(subject.idSubject)">Borrar tema</button>
                   </div>  
               </li>
-              <div>{{ subject.description }}</div>
+              <div (click)="toggleSubmenu(subject)" >{{ subject.description }}</div>
               <li>
                 @if (openedSubmenus[subject.idSubject]) {
                   <ul class="list-unstyled w-100">
                     @for(lesson of subject.lessons; track lesson){
-                    <li class="d-flex justify-content-between align-items-center conntli">
-                      <div>{{ lesson.name }}</div>
-                      <div>{{ lesson.description }}</div>
-                      <a class="link" (click)="downloadFile(lesson)">Descargar</a>
+                    <li class="d-flex justify-content-between align-items-center conntli" (click)="showLesson(lesson.idLesson)">
+                      <div>{{ lesson.name }}</div> 
+                      <div><a class="link" (click)="downloadFile(lesson)">Descargar</a></div>
                       <div>
                         <button type="button" class="btn btn-warning" (click)="showEditarLesson(lesson.idLesson)">Editar tarea</button>
-                        <button type="button" class="btn btn-danger ms-2" (click)="deleteLesson(lesson.idLesson)">Borrar tarea</button> 
+                        <button type="button" class="btn ms-2 btnBorrar" (click)="deleteLesson(lesson.idLesson)">Borrar tarea</button> 
                       </div>
                     </li>
                     }

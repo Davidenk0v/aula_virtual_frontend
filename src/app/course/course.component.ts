@@ -272,9 +272,7 @@ export class CourseComponent {
   }
 
   showCreateTarea(idSubject:number){
-    this.router.navigate(['/create-lessons/' + idSubject]); 
-    //this.router.navigate(['/create-lessons/' + idSubject + this.courseId]); 
-
+    this.router.navigate([`/create-lessons/${this.courseId}/${idSubject}`]);  
   }
 
   showEditarSubject(idSubject:number){
@@ -377,6 +375,9 @@ export class CourseComponent {
       }
     });
   }
-
+  showLesson(idLesson:number){
+    const idCourse = this.courseId;
+    this.router.navigate([`/lesson/${idCourse}/${idLesson}`]);  
+  }
 }
 

@@ -57,11 +57,7 @@ export class CreateLessonComponent implements OnInit {
           },
           complete: () => {
             this.newLessonForm.reset();
-            if (this.payload) {
-              this.getLastId(this.idSubject)
-            } else {
-              this.router.navigateByUrl('/subject/' + this.idSubject);
-            }
+            this.getLastId(this.idSubject);
           },
         })
   }
@@ -79,8 +75,12 @@ export class CreateLessonComponent implements OnInit {
         console.log(error)
       },
       complete: () => {
-        console.info("completada peticion ID")
-        this.uploadFile();
+        console.info("completada peticion ID") 
+        if (this.payload) {
+          this.uploadFile();
+        } else {
+          this.router.navigate([`/lesson/${this.idCourse}/${this.idLesson}`]);
+        }
       }
     });
   }
@@ -132,7 +132,7 @@ export class CreateLessonComponent implements OnInit {
       },
       complete: () => {
         console.info("Completa subida imagen perfil")
-        this.router.navigateByUrl('/subject/' + this.idSubject);
+        this.router.navigateByUrl('/lesson/' + this.idLesson);
       }
     });
   }
@@ -153,7 +153,7 @@ export class CreateLessonComponent implements OnInit {
     }
   }
 
-  volverACurso(){
-    this.routerr.navigateByUrl("/course" + this.idCourse);
+  volverACurso(){ 
+    this.routerr.navigate(['/course/' +  this.idCourse]); 
   }
 }

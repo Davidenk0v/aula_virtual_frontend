@@ -94,4 +94,19 @@ export class LessonPostService {
     );
   }
 
+
+  getLesson(idLesson: number) {
+    return this.http.get<any>(`${environment.api.urlApi}/lessons/${idLesson}`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.error instanceof ErrorEvent) {
+          this.errorMessage = `Error: ${error.error.message}`;
+        } else {
+          this.errorMessage = `Error code: ${error.status}, message: ${error.message}`;
+        }
+        return throwError(() => this.errorMessage);
+      })
+    )
+  }
+
+  
 }

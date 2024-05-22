@@ -19,6 +19,7 @@ import { authGuard } from './guards/auth.guard';
 import { studentGuard } from './guards/student.guard';
 import { teacherGuard } from './guards/teacher.guard';
 import { ZoomComponent } from './pages/zoom/zoom/zoom.component';
+import { LessonComponent } from './pages/lesson/lesson.component';
 
 export const routes: Routes = [
     {path:"", redirectTo:"/home", pathMatch:"full"},
@@ -33,6 +34,8 @@ export const routes: Routes = [
     {path:"student-profile",component:UserProfileComponent},
     {path:"teacher-profile",component:TeacherProfileComponent},
     {path:"verify/:email",component:VerifyComponent},
-    { path: "create-lessons/:idSubject", component: CreateLessonComponent },
-    { path: "edit-lessons/:idLesson", component: EditLessonComponent }
+    {path: "create-lessons/:courseId/:idSubject", component: CreateLessonComponent },
+    {path: "edit-lessons/:idLesson", component: EditLessonComponent },
+    {path: "lesson/:idCourse/:idLesson", component: LessonComponent},
+
 ];
