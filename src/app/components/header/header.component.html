@@ -1,32 +1,54 @@
-<nav class="navbar navbar-expand-lg navbar-dark navbarBackground">
-  <div class="container px-4">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <div class="navbar-nav me-auto mb-2 mb-lg-0">
-        @if(!logged){
-        <a routerLink="/login" class="nav-link">Iniciar sesión</a>
-        <a routerLink="/register" class="nav-link">Registrarse</a>
-        }@else {
-        @if(role == 'student'){
-        <a routerLink="/student-profile" class="nav-link">
-          {{name}}
-        </a>
-        }@else {
-          <img src="{{ imageUrl }}" alt="Foto de perfil" class="mx-auto img-fluid rounded-circle m-l-none pfp">
-        <a routerLink="/teacher-profile" class="nav-link">
-          {{name}}
-        </a>
-        }
-        <button (click)="logout()" class="nav-link">Cerrar sesión</button>
-        }
-      </div>
-    </div>
+<header class="antialiased">
+  <nav class="bg-blue-950 border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+      <div class="flex flex-wrap justify-between items-center">
+          <div class="flex justify-start items-center">
+              <button aria-expanded="true" aria-controls="sidebar" class="p-2 mr-2 text-gray-600 rounded-lg cursor-pointer lg:hidden hover:text-gray-900 hover:bg-gray-100 focus:bg-gray-100 dark:focus:bg-gray-700 focus:ring-2 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                <svg class="w-[18px] h-[18px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/></svg>
+                <span class="sr-only">Toggle sidebar</span>
+              </button>
+              <a routerLink="/home" class="flex mr-4">
+                <img src="https://flowbite.s3.amazonaws.com/logo.svg" class="mr-3 h-8" alt="FlowBite Logo" />
+                <span class="text-white self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Aula virtual</span>
+              </a>
+            </div>
+          <div class="flex items-center lg:order-2">
+            @if(!logged){
+                <a routerLink="/login" class="hidden sm:inline-flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-s px-3 py-1.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Login</a>
+                <a routerLink="/register" class="hidden sm:inline-flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-s px-3 py-1.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Register</a>
+            }
+              <button id="toggleSidebarMobileSearch" type="button" class="p-2 text-gray-500 rounded-lg lg:hidden hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                  <span class="sr-only">Search</span>
+                  <!-- Search icon -->
+                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                    </svg>
+              </button>
 
-    <a routerLink="/home" class="navbar-brand">
-      <span class="logoTitle">Atos V.School</span>
-    </a>
-    <span class="navbar-brand searchContainer">
-      <input type="text" class="searchBar form-control" placeholder="Buscar" [(ngModel)]="mensaje"
-        (keyup)="onEnter($event)">
-    </span>
-  </div>
-</nav>
+              <!-- Dropdown menu -->
+              @if(logged){
+                  <button type="button" class="flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="dropdown">
+                      <span class="sr-only">Open user menu</span>
+                      <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
+                  </button>
+              }
+              <!-- Dropdown menu -->
+              <div class="hidden z-50 my-4 w-56 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown">
+                  <div class="py-3 px-4">
+                      <span class="block text-sm font-semibold text-gray-900 dark:text-white">{{name}}</span>
+                      <span class="block text-sm text-gray-500 truncate dark:text-gray-400">{{email}}</span>
+                  </div>
+                  <ul class="py-1 text-gray-500 dark:text-gray-400" aria-labelledby="dropdown">
+                      <li>
+                          <a routerLink="/profile" class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">Mi perfil</a>
+                      </li>
+                  </ul>
+                  <ul class="py-1 text-gray-500 dark:text-gray-400" aria-labelledby="dropdown">
+                      <li>
+                          <a href="#" class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Cerrar sesión</a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+  </nav>
+</header>

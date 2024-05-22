@@ -1,32 +1,19 @@
-<div class="container">
-  <div class="row">
-      <div class="col-md-12">
-        <app-img-move></app-img-move>
-      </div>
-  </div>
+<app-carousel-component></app-carousel-component>
 
-  <div class="row my-4">
-      <div class="col-md-12">
-          <h3 class="text-center">Cursos más populares</h3>
-          <div class="text-center">
-                    <app-carousel-component></app-carousel-component>
-          </div>
-      </div>
-  </div>
-
-  <div class="row my-4">
-      <div class="col-md-12">
-          <h3 class="text-center">Nuevos cursos</h3>
-          <div class="text-center">
-                        <app-carousel-component></app-carousel-component>
-
-          </div>
-      </div>
-  </div>
-
-  <div class="row my-4">
-      <div class="col-md-12 text-center">
-          <a href="/all-courses" class="btn btn-primary">Ver todos los cursos</a>
-      </div>
-  </div>
+<h1 class="m-2 text-center text-3xl font-extrabold dark:text-white">Recien llegados<span class="bg-blue-100 text-blue-800 text-2xl font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">NEW</span></h1>
+@if(courses | async; as courseList){
+    <div class="flex flex-row justify-center">
+        @for(course of courseList; track course.idCourse){
+            <app-course-card [courseInfo]="course" class="m-5"></app-course-card>
+        }
+    </div>
+}
+<h1 class="m-2 text-center text-3xl font-extrabold dark:text-white">Mejor valorados<span class="bg-blue-100 text-blue-800 text-2xl font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">TOP</span></h1>
+@if(courses | async; as courseList){
+<div class="flex flex-row justify-center">
+    @for(course of courseList; track course.idCourse){
+        <app-course-card [courseInfo]="course" class="m-5"></app-course-card>
+    }
 </div>
+}
+<app-more-courses></app-more-courses>

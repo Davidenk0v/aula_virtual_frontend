@@ -51,6 +51,7 @@ export class LoginComponent {
    */
   
   onLogin() {
+    console.log(this.loginForm.value)
     if(this.loginForm.valid){
       this.authService.login(this.loginForm.value as LoginRequest).subscribe({
         next: (data) => {

@@ -1,45 +1,14 @@
-<div class="container-fluid">
-        <div class="row">
-            <div class="col-md-9">
-                <div class="container ms-4 row">
-                    <h1 class="titulo">Todos los cursos</h1>
-                    <hr>
-                    @if(courses){
-                        @for (course of courses; track course.idCourse) {
-                            <div class="col-md-4">
-                                <app-course-card [courseInfo]="course" class=""></app-course-card>
-                            </div>
-                        }
-                    }
-                </div>
+<h1 class="text-center mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Todos los <span class="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600">cursos</span></h1>
+<app-filter-navbar (searchData)="onCoursesSearch($event)"></app-filter-navbar>
+<div class="flex flex-wrap m-5">
+    <div class="flex flex-wrap">
+        @for(course of coursesSearch; track course.idCourse){
+            <div class="m-5">
+                <app-course-card [courseInfo]="course"></app-course-card>
             </div>
-            <div class="col-md-3">
-                <div class="filtros">
-                    <h2>Filtrar por</h2>
-                    <div class="accordion" id="categoriasAccordion">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="categoriasHeading">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#categoriasCollapse" aria-expanded="true" aria-controls="categoriasCollapse">
-                                    Filtrar por categorias
-                                </button>
-                            </h2>
-                            <div id="categoriasCollapse" class="accordion-collapse collapse show" aria-labelledby="categoriasHeading">
-                                <div class="accordion-body">
-                                    @for (category of categories; track category.id) {
-                                        <div class="form-check">
-
-                                                <input class="form-check-input" type="checkbox" value="" id="categoria1">
-                                                <label class="form-check-label" for="categoria1">
-                                                    {{category.category}}
-                                                </label>
-                                   
-                                        </div>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        }
     </div>
+</div>
+
+
+

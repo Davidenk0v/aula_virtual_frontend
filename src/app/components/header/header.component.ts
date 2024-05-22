@@ -26,7 +26,7 @@ export class HeaderComponent {
   mensaje: string = "";
   name: string = "";
   role?: string;
-
+  email?: string;
   imageUrl: any;
 
   id:string='';
@@ -40,6 +40,7 @@ export class HeaderComponent {
   ) { }
 
   ngOnInit(): void {
+    this.email = this.jwtService.getEmailFromToken()
     this.loggedIn();
     this.getName();
     this.getRole()

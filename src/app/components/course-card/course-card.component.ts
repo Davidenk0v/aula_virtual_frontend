@@ -2,11 +2,12 @@ import { Component, Input } from '@angular/core';
 import { Course } from '../../interfaces/Course';
 import { RouterLink } from '@angular/router';
 import { CourseService } from '../../services/courses/course.service';
+import { CourseViewComponent } from '../../pages/course-view/course-view.component';
 
 @Component({
   selector: 'app-course-card',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, CourseViewComponent],
   templateUrl:'./course-card.component.html',
   styleUrl: './course-card.component.css'
 })

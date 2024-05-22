@@ -12,9 +12,9 @@ export class SearchService {
   stringSearch: string = ""
   constructor(private http: HttpClient) { }
 
-  verDatos(): Observable<Course[]> {
-    return this.http.get<Record<string, Course[]>>(`${environment.api.urlApi}/courses/lista/${this.stringSearch}`).pipe(
-      map(response => response['Cursos'])
+  searchCourse(word:string): Observable<Course[]> {
+    return this.http.get<Record<string, Course[]>>(`${environment.api.urlApi}/courses/lista/${word}`).pipe(
+      map(response => response['data'])
     );
   }
   

@@ -5,7 +5,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule, DatePipe } from '@angular/common';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
-
+import { initFlowbite } from 'flowbite';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -26,5 +26,9 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 
 export class AppComponent {
   title = 'aula-virtual-frontend';
+
+  ngOnInit(): void {
+    initFlowbite();
+  }
   
 }
