@@ -20,6 +20,7 @@
         style="border-radius: 5px; border: none"
         type="text"
         [(ngModel)]="newComment"
+        placeholder="Escriba aqui..."
       />
       <button
         style="
@@ -61,15 +62,13 @@
                   </p>
                   <button
                     class="btn btn-success mx-1"
-                    (click)="
-                      confirmCommentChange(coment.idComment, editedComment)
-                    "
+                    (click)="confirmCommentChange($index, editedComment)"
                   >
                     Confirmar
                   </button>
                   <button
                     class="btn btn-danger mx-2 px-3"
-                    (click)="toggleEdit($index)"
+                    (click)="toggleEdit(coments[$index].idComment, $index)"
                   >
                     Cancelar
                   </button>
@@ -80,13 +79,13 @@
                   @if (getUsername() == coment.user.username) {
                   <button
                     class="btn btn-warning"
-                    (click)="toggleEdit(coments[$index].idComment)"
+                    (click)="toggleEdit(coments[$index].idComment, $index)"
                   >
                     Editar
                   </button>
                   <button
                     class="btn btn-danger mx-2"
-                    (click)="deleteComment(coment.idComment)"
+                    (click)="deleteComment(coment.idComment, $index)"
                   >
                     Borrar
                   </button>

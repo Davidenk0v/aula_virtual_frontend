@@ -53,7 +53,6 @@ export class CommentComponent {
     this.idUser = this.jwtService.getIdFromToken();
     this.isLogged();
     console.log(this.coments);
-
   }
 
   getComents(courseId: number) {
@@ -83,6 +82,8 @@ export class CommentComponent {
       },
     };
 
+    this.newComment = ""
+
     this.commentService.postComment(idCourse!, this.idUser, comment).subscribe({
       next: (cita: any) => {},
       error: (userData: any) => {
@@ -94,20 +95,22 @@ export class CommentComponent {
     });
   }
 
-  toggleEdit(id: number) {
-    
+  toggleEdit(id: number, indexInComment: number) {
     this.clickedComment = id;
     
     this.isEditingAComment = !this.isEditingAComment;
-    this.editedComment = this.coments[id].text;
-    console.log( this.coments[id].idComment);
-    
+    this.editedComment = this.coments[indexInComment].text;
+    console.log(this.coments[indexInComment].idComment);
   }
 
   confirmCommentChange(id: number, newComment: string) {
-    this.coments[id - 1].text = newComment;
-    
-    this.commentService.editComment(this.coments[id - 1], id).subscribe({
+    console.log(id);
+    console.log(this.coments[id].text);
+
+    this.coments[id].text = newComment;
+    const idComment = this.coments[id].idComment;
+
+    this.commentService.editComment(this.coments[id], idComment).subscribe({
       next: (data: any) => {
         console.info(data);
       },
@@ -118,22 +121,23 @@ export class CommentComponent {
         console.info('Completo');
       },
     });
-    this.toggleEdit(id);
+    this.toggleEdit(this.coments[id].idComment, id);
   }
 
-  deleteComment(id: number){
+  deleteComment(id: number, indexInComment: number) {
     this.commentService.deleteComment(id).subscribe({
-        next: (data: any) => {
-          console.info(data);
-        },
-        error: (userData: any) => {
-          console.log(userData);
-        },
-        complete: () => {
-          console.info('Completo');
-        },
-      });
-      this.coments[id]
+      next: (data: any) => {
+        
+        console.info(data);
+        this.getComents(this.courseId!)
+      },
+      error: (userData: any) => {
+        console.log(userData);
+      },
+      complete: () => {
+        console.info('Completo');
+      },
+    });
   }
 
   isLogged() {
@@ -141,8 +145,7 @@ export class CommentComponent {
       next: (logged: any) => {
         this.loggeIn = logged;
         if (!this.loggeIn) {
-          this.loggeIn =
-            sessionStorage.getItem('loggin') == 'true';
+          this.loggeIn = sessionStorage.getItem('loggin') == 'true';
         }
       },
       error: (error: Error) => {
