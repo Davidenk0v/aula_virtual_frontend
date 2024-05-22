@@ -40,8 +40,8 @@
           @for(subject of subjects; track subject){
           <li class="list-item">
             <ul class="w-100">
-              <li class="d-flex justify-content-between align-items-center cont" > 
-                  <div (click)="toggleSubmenu(subject)">{{ subject.name }}</div>
+              <li class="d-flex justify-content-between align-items-center cont" (click)="toggleSubmenu(subject)"> 
+                  <div >{{ subject.name }}</div>
                   <div class="contTema">
                     <button type="button" class="btn btn-success mx-2" (click)="showCreateTarea(subject.idSubject)">Crear tarea</button>
                     <button type="button" class="btn btn-warning" (click)="showEditarSubject(subject.idSubject)">Editar tema</button>
