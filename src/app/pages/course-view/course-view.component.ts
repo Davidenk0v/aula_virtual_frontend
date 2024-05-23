@@ -16,6 +16,8 @@ import { SuccessMessageComponent } from '../../components/success-message/succes
 import { CreateLessonComponent } from '../create-lesson/create-lesson.component';
 import { LessonsAccordionComponent } from '../../components/courses/subject-accordion/subject-accordion.component';
 import { CommentComponent } from '../../course/comments/comment.component';
+import { jwtDecode } from 'jwt-decode';
+import { JwtService } from '../../services/jwt/jwt.service';
 
 @Component({
   selector: 'app-course-view',
@@ -32,10 +34,12 @@ export class CourseViewComponent {
   successMessage?: string;
   loggeIn:boolean = false;
   categories?:Category[];
+  role?:string;
   public payPalConfig: any;
 
   constructor(
-    private activateRoute: ActivatedRoute, 
+    private activateRoute: ActivatedRoute,
+    private jwtService:JwtService, 
     private authService:AuthService, 
     private courseService:CourseService,
     private paypalService:PayPalService,
@@ -46,11 +50,17 @@ export class CourseViewComponent {
 
   ngOnInit(): void {
     this.courseId = Number(this.activateRoute.snapshot.paramMap.get('id'));
+    this.role = this.jwtService.getRoleFromToken();
     this.loginAction();
     this.getCategories();
     this.pago();
     this.isLogged();
     this.getCourseInfo(this.courseId)
+  }
+
+  isTeacher():boolean{
+    if(!this.role) return false;
+    return this.role!.includes('teacher_class_room')
   }
 
   editCourseForm = this.formBuilder.group({
