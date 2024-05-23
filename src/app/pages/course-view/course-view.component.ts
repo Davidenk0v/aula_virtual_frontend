@@ -13,11 +13,12 @@ import { CourseRequest } from '../../interfaces/requests/CourseRequest';
 import { CategoryService } from '../../services/categories/category.service';
 import { Category } from '../../interfaces/Category';
 import { SuccessMessageComponent } from '../../components/success-message/success-message.component';
+import { CreateLessonComponent } from '../create-lesson/create-lesson.component';
 
 @Component({
   selector: 'app-course-view',
   standalone: true,
-  imports: [RouterModule, ErrorMessageComponent, ReactiveFormsModule, SuccessMessageComponent],
+  imports: [RouterModule, ErrorMessageComponent, ReactiveFormsModule, SuccessMessageComponent, CreateLessonComponent],
   templateUrl: './course-view.component.html',
   styleUrl: './course-view.component.css'
 })

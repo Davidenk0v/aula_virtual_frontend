@@ -1,46 +1,21 @@
-<div class="container my-5">
+<div class="container">
     <div class="card">
         <div class="card-body">
             <h2 class="card-title text-center mb-4">Crear Nueva Tarea</h2>
-            <form [formGroup]="newLessonForm">
-                <div class="form-group">
-                    @if(errorMessage){
-                    <app-error-message [message]="errorMessage"></app-error-message>
-                    }
-                    <label for="courseName">Nombre de la tarea</label>
-                    <input type="text" formControlName="name" id="courseName" class="form-control"
-                        placeholder="Ingrese el nombre de la tarea">
-                </div>
-                <div class="form-group">
-                    <label for="courseDescription">Descripción</label>
-                    <textarea formControlName="description" id="courseDescription" class="form-control"
-                        placeholder="Ingrese la descripción de la tarea"></textarea>
-                </div>
-                <div>
-                    <input type="file" name="file" (change)="setFile($event)" />
-                </div>
-                <br>
-                <button type="button" class="btn btn-block btn-success" (click)="addLesson()">Crear Tarea</button>
-            </form>
-        </div>
-    </div>
-</div>
 
-<div class="modal fade" id="formaterror" tabindex="-1" aria-labelledby="formaterror" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title" id="formaterror">Error</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                    (click)="cerrarModalFormat()"></button>
-            </div>
-            <div class="modal-body">
-                Formato no admitido, solo se admiten jpeg, jpg, png, csv, txt y pdf.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                    (click)="cerrarModalFormat()">Aceptar</button>
-            </div>
+<form  [formGroup]="newLessonForm" class="max-w-sm mx-auto"> 
+    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre de la tarea</label>
+    <input formControlName="name" type="email" id="name" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nombre de la tarea">
+    
+    <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descripcion</label>
+    <textarea formControlName="description" id="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Descripcion de la tarea"></textarea>
+
+    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file">Subir imagen</label>
+    <input (change)="setFile($event)" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="file" type="file">
+    <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">Introduzca una imagen del curso</div>
+
+    <button type="button" class="my-5 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Anadir tarea</button>
+</form>
         </div>
     </div>
 </div>

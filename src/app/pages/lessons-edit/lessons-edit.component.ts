@@ -8,8 +8,7 @@ import { Lesson } from '../../interfaces/Lesson';
   selector: 'app-lessons-edit',
   standalone: true,
   imports: [ReactiveFormsModule],
-  templateUrl: './lessons-edit.component.html',
-  styleUrl: './lessons-edit.component.css'
+  templateUrl: './lessons-edit.component.html'
 })
 export class LessonsEditComponent {
 
