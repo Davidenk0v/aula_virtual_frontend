@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User, UserEdit } from '../../../interfaces/User';
 import { ProfileService } from '../../../services/profile.service';
 import { JwtService } from '../../../services/jwt/jwt.service';
@@ -17,20 +17,26 @@ export class MyDataComponent {
 
   @Input()teacherInfo?:User;
   email!:string;
-
-
-  profile = this.formBuilder.group({
-    username: [this.teacherInfo?.username, [Validators.required]],
-    lastName: [this.teacherInfo?.lastName,[Validators.required]],
-    firstName: [this.email, [Validators.required]],
-    urlImg: ['']
-  });
+  profile!: FormGroup;
+  emailForm!: FormGroup;
+  
 
   ngOnInit(): void {
     console.info(this.teacherInfo)
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.email = this.jwtService.getEmailFromToken()
+    
+    this.profile = this.formBuilder.group({
+    username: [this.teacherInfo?.username, [Validators.required]],
+    lastName: [this.teacherInfo?.lastName,[Validators.required]],
+    firstName: [this.teacherInfo?.firstName, [Validators.required]],
+    urlImg: ['']
+  });
+  this.emailForm = this.formBuilder.group({
+    email: [this.email, [Validators.required]]
+  });
+  console.info(this.profile.value)
   }
 
   update(){

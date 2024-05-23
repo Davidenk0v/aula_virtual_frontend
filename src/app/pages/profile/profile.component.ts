@@ -35,12 +35,13 @@ ngOnInit(): void {
   //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
   //Add 'implements OnInit' to the class.
   this.getPerfilTeacher(this.idUser!)
+  console.log(this.jwtService.getRoleFromToken())
 }
 
 
 getRole(){
   if(this.jwtService.getRoleFromToken()[2] == 'teacher_class_room') this.roleUser = 'Profesor'
-  if(this.jwtService.getRoleFromToken()[2] == 'student_class_room') this.roleUser = 'Alumno'
+  if(this.jwtService.getRoleFromToken()[0] == 'student-class-room') this.roleUser = 'Alumno'
 }
 
 changeView(data:boolean){
