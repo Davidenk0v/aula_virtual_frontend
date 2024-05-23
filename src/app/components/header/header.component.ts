@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth/auth.service';
 import { JwtService } from '../../services/jwt/jwt.service';
 import { ProfileService } from '../../services/profile.service';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-header',
@@ -48,6 +48,10 @@ export class HeaderComponent {
     this.downloadImage(this.id);
   }
 
+  alertWithSuccess(){
+    Swal.fire('Adios!', 'Ha cerrado sesion correctamente!', 'success')
+  }
+
   private loggedIn() {
     this.authService.loggedIn$.subscribe((loggedIn) => {
       if (loggedIn) {
@@ -87,6 +91,7 @@ export class HeaderComponent {
       },
       complete:()=> {
         this.name = '';
+        this.alertWithSuccess();
       }
     });
 
