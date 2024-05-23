@@ -35,7 +35,7 @@ export const routes: Routes = [
     {path:"teacher-profile",component:TeacherProfileComponent},
     {path:"verify/:email",component:VerifyComponent},
     {path: "create-lessons/:courseId/:idSubject", component: CreateLessonComponent },
-    {path: "edit-lessons/:idLesson", component: EditLessonComponent },
+    {path: "edit-lessons/:idCourse/:idLesson", component: EditLessonComponent },
     {path: "lesson/:idCourse/:idLesson", component: LessonComponent},
 
 ];

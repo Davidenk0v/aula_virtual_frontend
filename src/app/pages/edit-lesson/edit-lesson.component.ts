@@ -3,7 +3,7 @@ import { ErrorMessageComponent } from '../../components/error-message/error-mess
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LessonPostService } from '../../services/lessons/lesson-post.service';
 import { Lesson } from '../../interfaces/Lessons';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-lesson',
@@ -16,15 +16,22 @@ export class EditLessonComponent implements OnInit {
 
   errorMessage?: string;
 
+  idCourse!:number;
   idSubject!: number;
   idLesson!: number;
-  router: any;
-  constructor(private formBuilder: FormBuilder, private lessonsPostComponent: LessonPostService, private activateRoute: ActivatedRoute) { }
+  constructor(
+    private formBuilder: FormBuilder, 
+    private lessonsPostComponent: LessonPostService, 
+    private activateRoute: ActivatedRoute,
+    private router: Router
+  ) { }
 
   payload: any;
 
   ngOnInit(): void {
     this.idLesson = Number(this.activateRoute.snapshot.paramMap.get('idLesson'));
+    this.idCourse = Number(this.activateRoute.snapshot.paramMap.get('idCourse'));
+
     console.log("idSubject", this.idLesson);
 
   }
@@ -35,6 +42,10 @@ export class EditLessonComponent implements OnInit {
     description: ['', [Validators.required]]
   });
 
+ /**
+   * Actualiza una lección y si se completa se redirigira a la tarea editada.
+   * @param event 
+   */
   updateLesson() {
     if (this.editLessonForm.valid && this.idLesson)
       this.lessonsPostComponent.putLessons(this.idLesson, this.editLessonForm.value as Lesson)
@@ -51,8 +62,9 @@ export class EditLessonComponent implements OnInit {
             this.editLessonForm.reset();
             if (this.payload) {
               this.uploadFile();
+              this.router.navigate([`/lesson/${this.idCourse}/${this.idLesson}`]);
             } else {
-              this.router.navigateByUrl('/subject/' + this.idSubject);
+              this.router.navigate([`/lesson/${this.idCourse}/${this.idLesson}`]);
             }
           },
         })
@@ -109,7 +121,9 @@ export class EditLessonComponent implements OnInit {
       }
     });
   }
-
+  /**
+   * Abre el modal de error en pantalla.
+   */
   abrirModalFormat() {
     const modal = document.getElementById('formaterror');
     if (modal) {
@@ -117,7 +131,9 @@ export class EditLessonComponent implements OnInit {
       modal.style.display = 'block';
     }
   }
-
+  /**
+   * Cierra el modal de error en pantalla.
+   */
   cerrarModalFormat() {
     const modal = document.getElementById('formaterror');
     if (modal) {

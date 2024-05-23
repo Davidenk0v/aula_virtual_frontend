@@ -58,6 +58,7 @@ export class CreateLessonComponent implements OnInit {
           complete: () => {
             this.newLessonForm.reset();
             this.getLastId(this.idSubject);
+            this.volverACurso()
           },
         })
   }

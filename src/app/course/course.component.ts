@@ -308,7 +308,7 @@ export class CourseComponent {
   }
 
   showEditarLesson(idLesson:number){
-    this.router.navigateByUrl('/edit-lessons/' + idLesson); 
+    this.router.navigate([`/edit-lessons/${this.courseId}/${idLesson}`]); 
   }
 
   deleteLesson(){
