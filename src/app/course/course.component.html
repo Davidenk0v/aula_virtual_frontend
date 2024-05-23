@@ -24,7 +24,7 @@
         id="info_temario"
         style="display: flex; align-items: center"
       >
-        <div class="col-9">
+        <div class="col-9" >
           <h2>Temas</h2>
         </div>
         <div class="col-3 d-flex justify-content-end">
@@ -33,33 +33,34 @@
             data-bs-toggle="modal"
             data-bs-target="#modalAgregarTema"
           >
-            +
+            Crear Tema
           </button>
         </div>
         <ul id="listTask" class="list-unstyled">
           @for(subject of subjects; track subject){
           <li class="list-item">
             <ul class="w-100">
-              <li class="d-flex justify-content-between align-items-center" (click)="toggleSubmenu(subject)">
-                <div>{{ subject.name }}</div>
-                <div class="contTema">
-                  <button type="button" class="btn btn-success mx-2" (click)="showCreateTarea(subject.idSubject)">Crear tarea</button>
-                  <button type="button" class="btn btn-warning" (click)="showEditarSubject(subject.idSubject)">Editar tema</button>
-                  <button type="button" class="btn btn-danger ms-2" (click)="deleteSubject(subject.idSubject)">Borrar tema</button>
-                </div>
+              <li class="d-flex justify-content-between align-items-center cont" (click)="toggleSubmenu(subject)"> 
+                  <div ><h3>{{ subject.name }}</h3></div>
+                  <div class="contTema">
+                    <button type="button" class="btn btn-success mx-2" (click)="showCreateTarea(subject.idSubject)">Crear tarea</button>
+                    <button type="button" class="btn btn-warning" (click)="showEditarSubject(subject.idSubject)">Editar tema</button>
+                    <button type="button" class="btn btn-danger ms-2" (click)="showModalDelete(subject.idSubject)">Borrar tema</button>
+                  </div>  
               </li>
-              <div>{{ subject.description }}</div>
+              <div (click)="toggleSubmenu(subject)">
+                <p class="descTema">{{ subject.description }}</p>
+              </div>
               <li>
                 @if (openedSubmenus[subject.idSubject]) {
                   <ul class="list-unstyled w-100">
                     @for(lesson of subject.lessons; track lesson){
-                    <li class="d-flex justify-content-between align-items-center conntli">
-                      <div>{{ lesson.name }}</div>
-                      <div>{{ lesson.description }}</div>
-                      <a class="link" (click)="downloadFile(lesson)">Descargar</a>
-                      <div >
+                    <li class="d-flex justify-content-between align-items-center conntli" >
+                      <div (click)="showLesson(lesson.idLesson)"><h5>{{ lesson.name }}</h5></div> 
+                      <div><a class="link" (click)="downloadFile(lesson)">Descargar</a></div>
+                      <div>
                         <button type="button" class="btn btn-warning" (click)="showEditarLesson(lesson.idLesson)">Editar tarea</button>
-                        <button type="button" class="btn btn-danger ms-2" (click)="deleteLesson(lesson.idLesson)">Borrar tarea</button> 
+                        <button type="button" class="btn ms-2 btn-danger" (click)="showDeleteLesson(lesson.idLesson)">Borrar tarea</button> 
                       </div>
                     </li>
                     }
@@ -178,5 +179,59 @@
         </div>
     </div>
   </div>
-</div>
+
+  <div class="modal fade" id="modalDeleteSubject" tabindex="-1" aria-labelledby="deleteSubject" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cerrarModalFormatDeleteSubject()"></button> 
+        </div>  
+        <div class="modal-footer">
+          <h1 class="modal-title" id="eliminarSubject">¿Seguro que quieres eliminar el tema?</h1> 
+
+          <button 
+          type="button" 
+            class="btn btn-danger" 
+            data-bs-dismiss="modal"
+            (click)="deleteSubject()"
+            >Aceptar</button>
+          
+            <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            (click)="cerrarModalFormatDeleteSubject()"
+          >Cancelar</button>
+            
+      </div>  
+      </div>
+    </div> 
+  </div>
+
+  <div class="modal fade" id="modalDeleteLesson" tabindex="-1" aria-labelledby="modalDeleteLesson" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cerrarModalFormatDeleteLesson()"></button> 
+        </div>  
+        <div class="modal-footer">
+          <h1 class="modal-title" id="editarLesson">¿Seguro que quieres eliminar la tarea?</h1> 
+
+          <button 
+            type="button" 
+            class="btn btn-danger" 
+            data-bs-dismiss="modal"
+            (click)="deleteLesson()"
+            >Aceptar</button>
+
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            (click)="cerrarModalFormatDeleteLesson()"
+          >Cancelar</button>
+      </div>  
+      </div>
+    </div> 
+  </div>
 

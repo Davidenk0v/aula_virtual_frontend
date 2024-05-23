@@ -30,8 +30,12 @@ export class EditCourseComponent implements OnInit {
     price: [this.courseInfo?.price, [Validators.required]]
   });
 
-  constructor(private formBuilder: FormBuilder, private courseService: CourseService, private router: Router, private activateRoute: ActivatedRoute) {
-  }
+  constructor(
+    private formBuilder: FormBuilder, 
+    private courseService: CourseService, 
+    private router: Router, 
+    private activateRoute: ActivatedRoute
+  ) {}
 
 
   ngOnInit(): void {

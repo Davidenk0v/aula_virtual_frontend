@@ -22,6 +22,7 @@ import { ZoomComponent } from './pages/zoom/zoom/zoom.component';
 import { ZoomComponentVista } from './zoom/zoom/zoom.component';
 import { CourseViewComponent } from './pages/course-view/course-view.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { LessonComponent } from './pages/lesson/lesson.component';
 
 export const routes: Routes = [
     {path:"", redirectTo:"/home", pathMatch:"full"},
@@ -36,8 +37,10 @@ export const routes: Routes = [
     {path:"student-profile",component:UserProfileComponent},
     {path:"teacher-profile",component:TeacherProfileComponent},
     {path:"verify/:email",component:VerifyComponent},
-    { path: "create-lessons/:idSubject", component: CreateLessonComponent },
-    { path: "edit-lessons/:idLesson", component: EditLessonComponent },
+    {path: "create-lessons/:courseId/:idSubject", component: CreateLessonComponent },
+    {path: "edit-lessons/:idCourse/:idLesson", component: EditLessonComponent },
+    {path: "lesson/:idCourse/:idLesson", component: LessonComponent},
+,
     { path: 'zoomVista/:meetingNumber/:password/:name/:role', component: ZoomComponentVista },
     { path: 'profile', component: ProfileComponent },
 

@@ -1,32 +1,39 @@
 import { Component, OnInit } from '@angular/core';
 import { ErrorMessageComponent } from '../../components/error-message/error-message.component';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {  FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LessonPostService } from '../../services/lessons/lesson-post.service';
 import { Lesson } from '../../interfaces/Lesson';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-lesson',
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule, ErrorMessageComponent],
   templateUrl: './create-lesson.component.html',
-  styleUrl: './create-lesson.component.css'
+  styleUrl: './create-lesson.component.css',
+  providers: [FormBuilder] // Provide FormBuilder explicitly
 })
 export class CreateLessonComponent implements OnInit {
 
   errorMessage?: string;
-
+  idCourse!:number;
   idSubject!: number;
   idLesson!: number;
   router: any;
-  constructor(private formBuilder: FormBuilder, private lessonsPostComponent: LessonPostService, private activateRoute: ActivatedRoute) { }
+  constructor(
+    private formBuilder: FormBuilder, 
+    private lessonsPostComponent: LessonPostService, 
+    private activateRoute: ActivatedRoute,
+    private routerr: Router
+  ) { }
 
   payload: any;
 
   ngOnInit(): void {
     this.idSubject = Number(this.activateRoute.snapshot.paramMap.get('idSubject'));
+    this.idCourse = Number(this.activateRoute.snapshot.paramMap.get('courseId'));
+ 
     console.log("idSubject", this.idSubject);
-
   }
 
   // Este objeto es el que luego se mandrá a la base de datos
@@ -50,11 +57,8 @@ export class CreateLessonComponent implements OnInit {
           },
           complete: () => {
             this.newLessonForm.reset();
-            if (this.payload) {
-              this.getLastId(this.idSubject)
-            } else {
-              this.router.navigateByUrl('/subject/' + this.idSubject);
-            }
+            this.getLastId(this.idSubject);
+            this.volverACurso()
           },
         })
   }
@@ -72,8 +76,12 @@ export class CreateLessonComponent implements OnInit {
         console.log(error)
       },
       complete: () => {
-        console.info("completada peticion ID")
-        this.uploadFile();
+        console.info("completada peticion ID") 
+        if (this.payload) {
+          this.uploadFile();
+        } else {
+          this.router.navigate([`/lesson/${this.idCourse}/${this.idLesson}`]);
+        }
       }
     });
   }
@@ -125,7 +133,7 @@ export class CreateLessonComponent implements OnInit {
       },
       complete: () => {
         console.info("Completa subida imagen perfil")
-        this.router.navigateByUrl('/subject/' + this.idSubject);
+        this.router.navigateByUrl('/lesson/' + this.idLesson);
       }
     });
   }
@@ -146,4 +154,7 @@ export class CreateLessonComponent implements OnInit {
     }
   }
 
+  volverACurso(){ 
+    this.routerr.navigate(['/course/' +  this.idCourse]); 
+  }
 }

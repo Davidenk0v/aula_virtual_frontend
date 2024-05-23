@@ -4,6 +4,7 @@
 
 .link {
     color: rgb(151, 173, 196);
+    cursor: grabbing;
 }
 
 .link:hover {
@@ -114,7 +115,30 @@ li{
     border: 1px solid white;
     padding: 10px;
     border-radius: 5px; 
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-around;
 }
 .contTema{
     margin-right: 9px;
+}
+
+.btnBorrar{
+    color: white;
+    border: 1px solid white;
+}
+
+.alerta-tema{
+    display: block;
+    height: 100px;
+    width: 300px;
+}
+
+.alerta-tema > svg{
+    height: 50px;
+    width: 50px;
+} 
+.descTema>p{
+    position: relative;
+    left: 25px;
 }
