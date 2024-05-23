@@ -12,6 +12,7 @@ export interface User {
 
 export interface UserEdit {
   username: string;
+  password: string;
   lastname: string
   firstname: string
   urlImg: string
