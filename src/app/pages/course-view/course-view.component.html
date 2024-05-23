@@ -1,4 +1,4 @@
-<section class="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased max-h-screen h-screen">
+<section class="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
     <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
       <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
         <div class="shrink-0 max-w-md lg:max-w-lg mx-auto">
@@ -121,7 +121,8 @@
       </div>
     </div>
   </section>
-  <app-create-lesson></app-create-lesson>
+
+  <app-subject-accordion [courseId]="courseId"></app-subject-accordion>
 
   <div id="crud-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-md max-h-full">

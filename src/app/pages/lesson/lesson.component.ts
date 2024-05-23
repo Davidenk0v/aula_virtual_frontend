@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { LessonPostService } from '../../services/lessons/lesson-post.service';
-import { Lesson } from '../../interfaces/Lessons';
 import { ActivatedRoute,Router } from '@angular/router';
 import FileSaver from 'file-saver';
+import { Lesson } from '../../interfaces/Lesson';
 
 @Component({
   selector: 'app-lesson',

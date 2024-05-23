@@ -40,7 +40,6 @@ export const routes: Routes = [
     {path: "create-lessons/:courseId/:idSubject", component: CreateLessonComponent },
     {path: "edit-lessons/:idCourse/:idLesson", component: EditLessonComponent },
     {path: "lesson/:idCourse/:idLesson", component: LessonComponent},
-,
     { path: 'zoomVista/:meetingNumber/:password/:name/:role', component: ZoomComponentVista },
     { path: 'profile', component: ProfileComponent },
 
