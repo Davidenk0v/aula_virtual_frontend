@@ -41,20 +41,22 @@
           <li class="list-item">
             <ul class="w-100">
               <li class="d-flex justify-content-between align-items-center cont" (click)="toggleSubmenu(subject)"> 
-                  <div >{{ subject.name }}</div>
+                  <div ><h3>{{ subject.name }}</h3></div>
                   <div class="contTema">
                     <button type="button" class="btn btn-success mx-2" (click)="showCreateTarea(subject.idSubject)">Crear tarea</button>
                     <button type="button" class="btn btn-warning" (click)="showEditarSubject(subject.idSubject)">Editar tema</button>
                     <button type="button" class="btn btn-danger ms-2" (click)="showModalDelete(subject.idSubject)">Borrar tema</button>
                   </div>  
               </li>
-              <div (click)="toggleSubmenu(subject)" >{{ subject.description }}</div>
+              <div (click)="toggleSubmenu(subject)">
+                <p class="descTema">{{ subject.description }}</p>
+              </div>
               <li>
                 @if (openedSubmenus[subject.idSubject]) {
                   <ul class="list-unstyled w-100">
                     @for(lesson of subject.lessons; track lesson){
                     <li class="d-flex justify-content-between align-items-center conntli" >
-                      <div (click)="showLesson(lesson.idLesson)">{{ lesson.name }}</div> 
+                      <div (click)="showLesson(lesson.idLesson)"><h5>{{ lesson.name }}</h5></div> 
                       <div><a class="link" (click)="downloadFile(lesson)">Descargar</a></div>
                       <div>
                         <button type="button" class="btn btn-warning" (click)="showEditarLesson(lesson.idLesson)">Editar tarea</button>

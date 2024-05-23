@@ -133,7 +133,12 @@ li{
     height: 100px;
     width: 300px;
 }
+
 .alerta-tema > svg{
     height: 50px;
     width: 50px;
 } 
+.descTema>p{
+    position: relative;
+    left: 25px;
+}
