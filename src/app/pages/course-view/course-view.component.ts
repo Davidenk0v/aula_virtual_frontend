@@ -15,11 +15,12 @@ import { Category } from '../../interfaces/Category';
 import { SuccessMessageComponent } from '../../components/success-message/success-message.component';
 import { CreateLessonComponent } from '../create-lesson/create-lesson.component';
 import { LessonsAccordionComponent } from '../../components/courses/subject-accordion/subject-accordion.component';
+import { CommentComponent } from '../../course/comments/comment.component';
 
 @Component({
   selector: 'app-course-view',
   standalone: true,
-  imports: [RouterModule, ErrorMessageComponent, ReactiveFormsModule, SuccessMessageComponent, CreateLessonComponent, LessonsAccordionComponent],
+  imports: [RouterModule, ErrorMessageComponent, ReactiveFormsModule, SuccessMessageComponent, CreateLessonComponent, LessonsAccordionComponent, CommentComponent],
   templateUrl: './course-view.component.html',
   styleUrl: './course-view.component.css'
 })

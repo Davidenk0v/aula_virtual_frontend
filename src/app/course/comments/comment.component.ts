@@ -8,6 +8,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { CommentService } from '../../services/comments/comments.service';
 import { JwtService } from '../../services/jwt/jwt.service';
 import { ProfileService } from '../../services/profile.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-comment',
@@ -72,6 +73,7 @@ export class CommentComponent {
   }
 
   addNewComent(idCourse?: number) {
+    console.log(this.newComment);
     let comment: CommentI = {
       text: this.newComment,
       date: this.currentDate,
@@ -91,6 +93,33 @@ export class CommentComponent {
         },
       });
     }
+    }
+
+    confirmBox(){
+      Swal.fire({
+        title: '¿Estás seguro de que quieres eliminar este comentario?',
+        text: 'El comentario se eliminará permanentemente.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Eliminar',
+        confirmButtonColor: '#d33',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.value) {
+          Swal.fire(
+            'Eliminado',
+            'El comentario se ha eliminado correctamente.',
+            'success'
+          )
+          //borrar comentario
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire(
+            'Cancelado',
+            'Has cancelado la eliminación del comentario.',
+            'error'
+          )
+        }
+      })
     }
 
   toggleEdit(id: number) {
