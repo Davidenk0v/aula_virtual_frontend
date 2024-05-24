@@ -75,7 +75,7 @@
           </div>
           <div id="menu" class="flex flex-col space-y-2">
             <a
-            (click)="changeView(true)"
+            (click)="changeView('perfil')"
               class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out"
             >
               <svg
@@ -91,7 +91,7 @@
               <span class="">Mis datos</span>
             </a>
             <a
-              (click)="changeView(false)"
+              (click)="changeView('cursos')"
               class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
             >
               <svg
@@ -107,7 +107,7 @@
               <span class="">Mis Cursos</span>
             </a>
             <a
-              href=""
+              (click)="changeView('mettings')"
               class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
             >
               <svg
@@ -130,15 +130,18 @@
         </div>
       </div>
       
-      <div class="flex items-center justify-center mx-auto">
-        @if(data == true){
+      <div class=" mx-auto w-full md:w-3/4 lg:w-2/3">
+        @if(data == "perfil"){
           <app-my-data [teacherInfo]="teacher"></app-my-data>
-        }@else {
+        }
+        @if (data == "cursos")  {
           <app-my-courses></app-my-courses>
+        }
+        @if (data == "mettings")  {
+          <app-zoom class="w-full" [role]="'PROFESOR'"></app-zoom>
         }
       </div>
      
     </div>
-    
   </body>
 
