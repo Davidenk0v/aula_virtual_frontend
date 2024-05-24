@@ -50,18 +50,20 @@ export class CourseViewComponent {
 
   ngOnInit(): void {
     this.courseId = Number(this.activateRoute.snapshot.paramMap.get('id'));
-    this.role = this.jwtService.getRoleFromToken();
+    this.getRole();
     this.loginAction();
     this.getCategories();
     this.pago();
     this.isLogged();
     this.getCourseInfo(this.courseId)
+    console.info(this.role)
   }
 
-  isTeacher():boolean{
-    if(!this.role) return false;
-    return this.role!.includes('teacher_class_room')
+  getRole(){
+    if(this.jwtService.getRoleFromToken()[2] == 'teacher_class_room') this.role = 'Profesor'
+    if(this.jwtService.getRoleFromToken()[0] == 'student-class-room') this.role = 'Alumno'
   }
+  
 
   editCourseForm = this.formBuilder.group({
     name: [this.courseInfo?.name, [Validators.required]],
