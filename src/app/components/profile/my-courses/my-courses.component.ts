@@ -136,7 +136,7 @@ export class MyCoursesComponent {
     });
   }
 
-}
+
   pago(){
     this.payPalConfig = {
     currency: "EUR",
@@ -197,5 +197,6 @@ export class MyCoursesComponent {
     }
   };
   }
-  }
+  
 
+}
