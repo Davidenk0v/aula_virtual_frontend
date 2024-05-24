@@ -1,11 +1,8 @@
-<input type="text" [(ngModel)]="role">
 
-<button (click)="boton()">boton</button>
-
-@if (role == "t") {
+@if (role == "PROFESOR") {
  <app-teacher></app-teacher>   
 }
-@if (role == "s") {
+@if (role == "ALUMNO") {
     <app-student></app-student>
 }
 

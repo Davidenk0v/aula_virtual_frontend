@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MyDataComponent } from './my-data.component';
-
 describe('MyDataComponent', () => {
   let component: MyDataComponent;
   let fixture: ComponentFixture<MyDataComponent>;
@@ -21,3 +20,5 @@ describe('MyDataComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TeacherComponent } from "../teacher/teacher.component";
 import { StudentComponent } from "../student/student.component";
 import { FormsModule } from '@angular/forms';
@@ -12,7 +12,7 @@ import { ZoomService } from '../../../services/zoom/zoom.service';
 })
 export class ZoomComponent {
 
-    role:string |  undefined
+  @Input() role:string |  undefined
     constructor(private service : ZoomService){}
 
     boton(){
