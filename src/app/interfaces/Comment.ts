@@ -1,8 +1,9 @@
+import { User } from "./User";
+
 export interface CommentI {
+  idComment?:number;
   text: string;
   date: string;
-  user: {
-      firstname: string;
-      username: string;
-  }
+  userId: string;
+  username?:string;
 }

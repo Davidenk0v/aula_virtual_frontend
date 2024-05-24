@@ -58,10 +58,7 @@ export class CourseViewComponent {
     this.getCourseInfo(this.courseId)
   }
 
-  isTeacher():boolean{
-    if(!this.role) return false;
-    return this.role!.includes('teacher_class_room')
-  }
+
 
   editCourseForm = this.formBuilder.group({
     name: [this.courseInfo?.name, [Validators.required]],
@@ -72,6 +69,12 @@ export class CourseViewComponent {
     price: [this.courseInfo?.price, [Validators.required]],
     urlImg: ['']
   });
+
+  isTeacher():boolean{
+    if(!this.role) return false;
+    return this.role!.includes('teacher_class_room')
+  }
+
 
   editCourse() {
     if (this.editCourseForm.valid && this.courseId) {
@@ -169,6 +172,7 @@ export class CourseViewComponent {
       }
     })
   }
+
 
   alertWithSuccess(){
     Swal.fire('Thank you...', 'You submitted succesfully!', 'success')

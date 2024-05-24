@@ -59,6 +59,7 @@ export class CommentComponent {
   getComents(courseId: number) {
     this.commentService.getAllComments(courseId).subscribe({
       next: (comments: any) => {
+        console.log(comments)
         this.coments = comments;
         this.coments.sort((a: any, b: any) => a.idComment - b.idComment);
         console.log('Comments:', this.coments);
@@ -78,25 +79,30 @@ export class CommentComponent {
     let comment: CommentI = {
       text: this.newComment,
       date: this.currentDate,
-      user: {
-        firstname: this.nameUser,
-        username: this.jwtService.getEmailFromToken(),
-      },
+      userId: this.jwtService.getIdFromToken(),
+      username: this.jwtService.getUsernameFromToken()
     };
+    console.log(comment);
+    
     if(comment.text != '' && comment.text != null){
       this.commentService.postComment(idCourse!, this.idUser, comment).subscribe({
-        next: (cita: any) => {},
+        next: (cita: any) => {
+          console.log(cita)
+        },
         error: (userData: any) => {
           console.log(userData);
         },
         complete: () => {
+          console.log(comment)
           this.coments.unshift(comment);
         },
       });
     }
     }
 
-    confirmBox(){
+
+    confirmBox(id:number){
+      console.log(id)
       Swal.fire({
         title: '¿Estás seguro de que quieres eliminar este comentario?',
         text: 'El comentario se eliminará permanentemente.',
@@ -112,7 +118,7 @@ export class CommentComponent {
             'El comentario se ha eliminado correctamente.',
             'success'
           )
-          //borrar comentario
+          this.deleteComment(id)
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           Swal.fire(
             'Cancelado',
@@ -121,6 +127,33 @@ export class CommentComponent {
           )
         }
       })
+    }
+
+    isOwner(idCommentOwner:string){
+      return idCommentOwner == this.jwtService.getIdFromToken();
+    }
+
+    editarComentario(comentarioActual: string, idComment:number) {
+      Swal.fire({
+        title: 'Editar Comentario',
+        input: 'textarea',
+        inputLabel: 'Tu comentario',
+        inputValue: comentarioActual,
+        showCancelButton: true,
+        inputValidator: (value) => {
+          if (!value) {
+            return 'El comentario no puede estar vacío!';
+          }
+          return null;
+        }
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const comentarioEditado = result.value;
+          this.confirmCommentChange(idComment, result.value)
+          console.log('Comentario editado:', comentarioEditado);
+        }
+        return null
+      });
     }
 
   toggleEdit(id: number, indexInComment: number) {
@@ -152,7 +185,7 @@ export class CommentComponent {
     this.toggleEdit(this.coments[id].idComment, id);
   }
 
-  deleteComment(id: number, indexInComment: number) {
+  deleteComment(id: number) {
     this.commentService.deleteComment(id).subscribe({
       next: (data: any) => {
         
@@ -184,4 +217,6 @@ export class CommentComponent {
       },
     });
   }
+
+  
 }
