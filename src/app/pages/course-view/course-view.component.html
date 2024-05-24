@@ -13,11 +13,19 @@
             {{courseInfo?.name}}
           </h1>
           <div class="mt-4 sm:items-center sm:gap-4 sm:flex">
-            <p
+            @if (role == "Alumno") {
+              <p
               class="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white"
             >
+            @if (courseInfo?.price == 0) {
+              Gratis
+            }@else {
               {{courseInfo?.price}} €
+            }
+
             </p>
+            }
+            
 
             <div class="flex items-center gap-2 mt-2 sm:mt-0">
               <div class="flex items-center gap-1">
@@ -90,7 +98,7 @@
               <p
                 class="text-sm font-medium leading-none text-gray-500 dark:text-gray-400"
               >
-                (5.0)
+                (3.0)
               </p>
               <a
                 href="#"
@@ -100,7 +108,7 @@
               </a>
             </div>
           </div>
-          @if(isTeacher()){
+          @if(role == "Profesor"){
             <div class="mt-6 sm:gap-4 sm:items-center sm:flex sm:mt-8">
               <button (click)="confirmBox()" class="block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
                 Eliminar
@@ -108,6 +116,24 @@
   
                 <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
                   Actualizar
+                </button>
+            </div>
+          }@else {
+            <div class="mt-6 sm:gap-4 sm:items-center sm:flex sm:mt-8">
+              @if (courseInfo?.price == 0) {
+                <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                  Unirme
+                 </button>
+              }@else {
+                <button  class="block text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button" (click)="pago()"
+              onclick="document.getElementById('iniciarModal').classList.remove('hidden')">
+                Comprar
+                </button>
+                
+                
+              }
+              <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                 Puntuar
                 </button>
             </div>
           }
@@ -191,6 +217,18 @@
     </div>
 </div> 
 
+<!-- Modal Iniciar -->
+<div class="fixed inset-0 flex items-center justify-center bg-gray-600 bg-opacity-50 hidden" id="iniciarModal">
+  <div class="bg-white rounded-lg shadow-lg max-w-md w-full">
+    <div class="p-4 border-b flex justify-between items-center">
+      <h5 class="text-xl font-semibold">Comprar curso</h5>
+      <button class="text-gray-500 hover:text-gray-700" onclick="document.getElementById('iniciarModal').classList.add('hidden')">&times;</button>
+    </div>
+      <div class="p-4">
+        <ngx-paypal [config]="payPalConfig">
+        </ngx-paypal>
+  </div>
+</div>
 
 
 

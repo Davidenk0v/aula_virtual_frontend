@@ -115,8 +115,17 @@ export class HeaderComponent {
      * @param user La id del usuario.
      */
   downloadImage(user: string) {
-    this.userService.getProfileImage(user).subscribe((res: Blob | MediaSource) => {
-      this.imageUrl = URL.createObjectURL(res);
+    console.log("Usuario ID", user);
+    
+    this.userService.getProfileImage(user).subscribe({
+      next: (data: any) => {
+        this.imageUrl = URL.createObjectURL(data);
+      }, error: (data: any) => {
+        console.info(data, "Error")
+      },
+      complete: () => {
+        console.info("Completo")
+      }
     });
   }
 

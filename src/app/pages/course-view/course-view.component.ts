@@ -4,7 +4,7 @@ import { Course } from '../../interfaces/Course';
 import { AuthService } from '../../services/auth/auth.service';
 import { CourseService } from '../../services/courses/course.service';
 import { PayPalService } from '../../services/paypal/pay-pal.service';
-import { ICreateOrderRequest } from 'ngx-paypal';
+import { ICreateOrderRequest, NgxPayPalModule } from 'ngx-paypal';
 import { routes } from '../../app.routes';
 import { ErrorMessageComponent } from '../../components/error-message/error-message.component';
 import Swal from 'sweetalert2';
@@ -22,7 +22,7 @@ import { JwtService } from '../../services/jwt/jwt.service';
 @Component({
   selector: 'app-course-view',
   standalone: true,
-  imports: [RouterModule, ErrorMessageComponent, ReactiveFormsModule, SuccessMessageComponent, CreateLessonComponent, LessonsAccordionComponent, CommentComponent],
+  imports: [NgxPayPalModule,RouterModule, ErrorMessageComponent, ReactiveFormsModule, SuccessMessageComponent, CreateLessonComponent, LessonsAccordionComponent, CommentComponent],
   templateUrl: './course-view.component.html',
   styleUrl: './course-view.component.css'
 })
@@ -50,15 +50,20 @@ export class CourseViewComponent {
 
   ngOnInit(): void {
     this.courseId = Number(this.activateRoute.snapshot.paramMap.get('id'));
-    this.role = this.jwtService.getRoleFromToken();
+    this.getRole();
     this.loginAction();
     this.getCategories();
     this.pago();
     this.isLogged();
     this.getCourseInfo(this.courseId)
+    console.info(this.role)
   }
 
-
+  getRole(){
+    if(this.jwtService.getRoleFromToken()[2] == 'teacher_class_room') this.role = 'Profesor'
+    if(this.jwtService.getRoleFromToken()[0] == 'student-class-room') this.role = 'Alumno'
+  }
+  
 
   editCourseForm = this.formBuilder.group({
     name: [this.courseInfo?.name, [Validators.required]],
