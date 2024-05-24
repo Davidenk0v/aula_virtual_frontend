@@ -1,6 +1,6 @@
 <app-carousel-component></app-carousel-component>
 
-<h1 class="m-2 text-center text-3xl font-extrabold dark:text-white">Recien llegados<span class="bg-blue-100 text-blue-800 text-2xl font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">NEW</span></h1>
+<h1 class="m-7 text-center text-3xl font-extrabold dark:text-white">Recien llegados<span class="bg-blue-100 text-blue-800 text-2xl font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">NEW</span></h1>
 @if(courses | async; as courseList){
     <div class="flex flex-row justify-center">
         @for(course of courseList; track course.idCourse){
@@ -8,7 +8,7 @@
         }
     </div>
 }
-<h1 class="m-2 text-center text-3xl font-extrabold dark:text-white">Mejor valorados<span class="bg-blue-100 text-blue-800 text-2xl font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">TOP</span></h1>
+<h1 class="m-7 text-center text-3xl font-extrabold dark:text-white">Mejor valorados<span class="bg-blue-100 text-blue-800 text-2xl font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">TOP</span></h1>
 @if(courses | async; as courseList){
 <div class="flex flex-row justify-center">
     @for(course of courseList; track course.idCourse){
@@ -16,4 +16,4 @@
     }
 </div>
 }
-<app-more-courses></app-more-courses>
+<app-more-courses class="m-7"></app-more-courses>
