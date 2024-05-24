@@ -32,13 +32,13 @@
                         <textarea type="text" style="width: 100%;" [(ngModel)]="editedComment"></textarea>
                       </p>
                       <button class="btn btn-success mx-1" (click)="confirmCommentChange(coment.idComment, editedComment)">Confirmar</button>
-                      <button class="btn btn-danger mx-2 px-3" (click)="toggleEdit(coment.idComment)">Cancelar</button>
+                      <!-- <button class="btn btn-danger mx-2 px-3" (click)="toggleEdit(coment.idComment)">Cancelar</button> -->
                     } @else {
                       <p>
                         {{ coment.text }}
                       </p>
                       @if (getUsername() == coment.user.username) {
-                          <button class="btn btn-warning" (click)="toggleEdit(coment.idComment)">editar</button>
+                          <!-- <button class="btn btn-warning" (click)="toggleEdit(coment.idComment)">editar</button> -->
                         }
                     }
                   </div>
