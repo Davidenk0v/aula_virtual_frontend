@@ -35,7 +35,7 @@ export class TeacherComponent {
   });
   token?: string;
   ngOnInit(): void {
-    this.tokenObtener();
+    //this.tokenObtener();
 
   }
   navegarAZoom() {
