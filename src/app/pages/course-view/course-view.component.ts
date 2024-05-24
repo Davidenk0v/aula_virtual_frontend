@@ -60,8 +60,8 @@ export class CourseViewComponent {
   }
 
   getRole(){
-    if(this.jwtService.getRoleFromToken()[2] == 'teacher_class_room') this.role = 'Profesor'
-    if(this.jwtService.getRoleFromToken()[0] == 'student-class-room') this.role = 'Alumno'
+    if(this.jwtService.getRoleFromToken().includes('teacher_class_room'))  this.role = 'Profesor'
+    if(this.jwtService.getRoleFromToken().includes('student-class-room')) this.role = 'Alumno'
   }
   
 
