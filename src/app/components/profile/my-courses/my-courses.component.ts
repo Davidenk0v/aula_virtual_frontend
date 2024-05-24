@@ -26,6 +26,8 @@ export class MyCoursesComponent {
   courseId?: number;
   courseInfo?: Course;
   errorMessage?: string;
+  imageUrl: any;
+
   public payPalConfig: any;
   public showPaypalButtons: boolean = false;
   constructor(private courseService:CourseService,
@@ -40,6 +42,7 @@ export class MyCoursesComponent {
     this.idUser = this.jwtService.getIdFromToken();
     this.getCategories();
     this.getCoursesTeacher(this.idUser!)
+    
   }
 
   // Este objeto es el que luego se mandrá a la base de datos
@@ -97,6 +100,10 @@ export class MyCoursesComponent {
     this.courseService.getAllCoursesByUser(idUser).subscribe({
       next: (cita) => {
         this.courseList = cita
+        this.courseList.forEach((courseItem:any) => {
+          console.log("Curso", courseItem);
+          this.downloadImage(courseItem.idCourse, courseItem);
+        })
         console.log(cita)
       },
       error:(userData) => {
@@ -110,6 +117,26 @@ export class MyCoursesComponent {
     })
   }
 
+  /**
+   * Descarga el archivo desde la API.
+   * @param user La id del usuario.
+   */
+  downloadImage(user: number, course: any) {
+    this.courseService.getProfileImage(user).subscribe({
+      next: (data: any) => {
+        console.info("Imagen perfil", data);
+        course.urlImg = URL.createObjectURL(data);
+      }, error: (data: any) => {
+        console.info(data, "Error")
+      },
+      complete: () => {
+        console.info("Completa descarga imagen perfil")
+        localStorage.removeItem("fileType");
+      }
+    });
+  }
+
+}
   pago(){
     this.payPalConfig = {
     currency: "EUR",
