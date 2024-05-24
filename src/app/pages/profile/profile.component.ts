@@ -7,13 +7,14 @@ import { JwtService } from '../../services/jwt/jwt.service';
 import { MyDataComponent } from '../../components/profile/my-data/my-data.component';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MyCoursesComponent } from '../../components/profile/my-courses/my-courses.component';
+import { ZoomComponent } from "../zoom/zoom/zoom.component";
 
 @Component({
-  selector: 'app-profile',
-  standalone: true,
-  imports: [MyDataComponent, ReactiveFormsModule, FormsModule, MyCoursesComponent],
-  templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
+    selector: 'app-profile',
+    standalone: true,
+    templateUrl: './profile.component.html',
+    styleUrl: './profile.component.css',
+    imports: [MyDataComponent, ReactiveFormsModule, FormsModule, MyCoursesComponent, ZoomComponent]
 })
 export class ProfileComponent {
 
@@ -22,9 +23,8 @@ export class ProfileComponent {
   teacher?:User;
   idUser?:string;
   roleUser?:string;
-  data:boolean = false;
+  data:string = "cursos";
   imageUrl: any;
-
 
   constructor(private courseService:CourseService, private userService:ProfileService, private jwtService:JwtService, private formBuild:FormBuilder){}
 
@@ -46,7 +46,7 @@ getRole(){
   if(this.jwtService.getRoleFromToken()[0] == 'student-class-room') this.roleUser = 'Alumno'
 }
 
-changeView(data:boolean){
+changeView(data:string){
   this.data = data
 }
 

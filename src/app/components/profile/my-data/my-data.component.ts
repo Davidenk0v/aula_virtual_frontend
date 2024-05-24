@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { User, UserEdit } from '../../../interfaces/User';
 import { ProfileService } from '../../../services/profile.service';
 import { JwtService } from '../../../services/jwt/jwt.service';
-
 @Component({
   selector: 'app-my-data',
   standalone: true,
