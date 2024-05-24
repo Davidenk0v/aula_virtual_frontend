@@ -23,6 +23,7 @@ export class ProfileComponent {
   idUser?:string;
   roleUser?:string;
   data:boolean = false;
+  imageUrl: any;
 
 
   constructor(private courseService:CourseService, private userService:ProfileService, private jwtService:JwtService, private formBuild:FormBuilder){}
@@ -35,6 +36,7 @@ ngOnInit(): void {
   //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
   //Add 'implements OnInit' to the class.
   this.getPerfilTeacher(this.idUser!)
+  this.downloadImage(this.idUser!)
   console.log(this.jwtService.getRoleFromToken())
 }
 
@@ -64,5 +66,24 @@ changeView(data:boolean){
     })
   }
 
+  /**
+     * Descarga el archivo desde la API.
+     * @param user La id del usuario.
+     */
+  downloadImage(user: string) {
+    console.log("Usuario ID", user);
+    
+    this.userService.getProfileImage(user).subscribe({
+      next: (data: any) => {
+        console.info("data URL", data);
+        this.imageUrl = URL.createObjectURL(data);
+      }, error: (data: any) => {
+        console.info(data, "Error")
+      },
+      complete: () => {
+        console.info("Completo")
+      }
+    });
+  }
   
 }

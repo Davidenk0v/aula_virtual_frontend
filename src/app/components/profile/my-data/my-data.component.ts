@@ -19,6 +19,8 @@ export class MyDataComponent {
   email!:string;
   profile!: FormGroup;
   emailForm!: FormGroup;
+  idUser!:string;
+  imageUrl!: string;
   
 
   ngOnInit(): void {
@@ -26,12 +28,13 @@ export class MyDataComponent {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.email = this.jwtService.getEmailFromToken()
-    
+    this.idUser = this.jwtService.getIdFromToken();
+    this.downloadImage(this.idUser)
     this.profile = this.formBuilder.group({
     username: [this.teacherInfo?.username, [Validators.required]],
     lastName: [this.teacherInfo?.lastName,[Validators.required]],
     firstName: [this.teacherInfo?.firstName, [Validators.required]],
-    urlImg: ['']
+    urlImg: [this.imageUrl]
   });
   this.emailForm = this.formBuilder.group({
     email: [this.email, [Validators.required]]
@@ -52,6 +55,26 @@ export class MyDataComponent {
       complete:()=> {
         console.info("Completo")  
         sessionStorage.setItem('edit', 'Se ha editado el perfil correctamente')
+      }
+    });
+  }
+
+  /**
+     * Descarga el archivo desde la API.
+     * @param user La id del usuario.
+     */
+  downloadImage(user: string) {
+    console.log("Usuario ID", user);
+    
+    this.userService.getProfileImage(user).subscribe({
+      next: (data: any) => {
+        console.info("data URL", data);
+        this.imageUrl = URL.createObjectURL(data);
+      }, error: (data: any) => {
+        console.info(data, "Error")
+      },
+      complete: () => {
+        console.info("Completo")
       }
     });
   }
